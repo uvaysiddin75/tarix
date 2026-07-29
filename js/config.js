@@ -2,11 +2,12 @@
   "use strict";
 
   window.API_BASE = "";
+  const RENDER_URL = "https://tarix.onrender.com";
 
-  async function probeApi(base) {
+  async function probeApi(base, timeoutMs) {
     try {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 6000);
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
       const res = await fetch(base + "/api/auth/status", { signal: controller.signal });
       clearTimeout(timer);
       return res.ok;
@@ -15,11 +16,16 @@
     }
   }
 
-  async function tryApiBase(base) {
+  async function tryApiBase(base, { retries = 0, timeoutMs = 8000, delayMs = 4000 } = {}) {
     if (!base) return false;
-    if (await probeApi(base)) {
-      window.API_BASE = base;
-      return true;
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      if (await probeApi(base, timeoutMs)) {
+        window.API_BASE = base;
+        return true;
+      }
+      if (attempt < retries) {
+        await new Promise((resolve) => setTimeout(resolve, delayMs));
+      }
     }
     return false;
   }
@@ -37,15 +43,24 @@
       return;
     }
 
-    if (await tryApiBase("https://tarix.onrender.com")) return;
+    // Render — doimiy server (birinchi marta uyg'onish 30–60 soniya)
+    if (
+      await tryApiBase(RENDER_URL, {
+        retries: 2,
+        timeoutMs: 60000,
+        delayMs: 5000,
+      })
+    ) {
+      return;
+    }
 
+    // ZAPUSK-INTERNET.bat ishlayotganda — vaqtinchalik tunnel
     try {
       const res = await fetch("live-url.json?t=" + Date.now());
       const data = await res.json();
       if (data.url && data.status === "online" && (await tryApiBase(data.url))) return;
-      if (data.permanentUrl) await tryApiBase(data.permanentUrl);
     } catch {
-      window.API_BASE = "";
+      /* tunnel yo'q */
     }
   };
 })();

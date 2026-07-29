@@ -303,6 +303,10 @@ app.post("/api/ai/import-questions", auth.authMiddleware, auth.adminMiddleware, 
   }
 });
 
+app.get("/api/health", (_req, res) => {
+  res.json({ ok: true, ts: new Date().toISOString() });
+});
+
 app.listen(PORT, () => {
   console.log(`Server: http://localhost:${PORT}`);
   console.log(`AI rejim: ${ai.getAiMode()}`);

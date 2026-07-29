@@ -207,6 +207,16 @@
 
 
   async function initApp() {
+    const authHint = document.getElementById("authHint");
+    const onGitHub =
+      location.hostname.endsWith("github.io") ||
+      location.hostname.endsWith("github.dev");
+
+    if (onGitHub && authHint) {
+      authHint.textContent =
+        "Server ulanmoqda... Birinchi marta 1 daqiqagacha kutish mumkin.";
+    }
+
     if (window.initApiBase) await window.initApiBase();
 
     const user = await Auth.checkAuth();
