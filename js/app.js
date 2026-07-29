@@ -320,9 +320,9 @@
 
       const user = await Auth.login(
 
-        document.getElementById("loginEmail").value,
+        document.getElementById("loginEmail").value.trim(),
 
-        document.getElementById("loginPassword").value
+        document.getElementById("loginPassword").value.trim()
 
       );
 
@@ -352,11 +352,11 @@
 
       const user = await Auth.register(
 
-        document.getElementById("regName").value,
+        document.getElementById("regName").value.trim(),
 
-        document.getElementById("regEmail").value,
+        document.getElementById("regEmail").value.trim(),
 
-        document.getElementById("regPassword").value
+        document.getElementById("regPassword").value.trim()
 
       );
 

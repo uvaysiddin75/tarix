@@ -1,6 +1,7 @@
 (function () {
   "use strict";
 
+  const RENDER_URL = "https://tarix-do6q.onrender.com";
   window.API_BASE = "";
 
   window.initApiBase = async function initApiBase() {
@@ -16,29 +17,12 @@
       return;
     }
 
-    const render = "https://tarix-do6q.onrender.com";
-    try {
-      const check = await fetch(render + "/api/auth/status");
-      if (check.ok) {
-        window.API_BASE = render;
-        return;
-      }
-    } catch {
-      /* Render hali uyg'onmoqda */
+    // GitHub Pages — doim Render serveriga ulanadi
+    if (host.endsWith("github.io") || host.endsWith("github.dev")) {
+      window.API_BASE = RENDER_URL;
+      return;
     }
 
-    try {
-      const res = await fetch("live-url.json?t=" + Date.now());
-      const data = await res.json();
-      if (data.url && data.status === "online") {
-        window.API_BASE = data.url;
-        return;
-      }
-      if (data.permanentUrl) {
-        window.API_BASE = data.permanentUrl;
-      }
-    } catch {
-      window.API_BASE = "";
-    }
+    window.API_BASE = RENDER_URL;
   };
 })();

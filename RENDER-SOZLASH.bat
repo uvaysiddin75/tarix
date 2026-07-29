@@ -3,24 +3,25 @@ chcp 65001 >nul
 cd /d "%~dp0"
 
 echo ========================================
-echo   ПОСТОЯННЫЙ СЕРВЕР (Render)
+echo   RENDER — sozlash (1 marta)
 echo ========================================
 echo.
-echo Сайт НЕ работает без этого шага!
+echo Render Dashboard ochiladi.
+echo Environment bo'limiga quyidagilarni qo'shing:
 echo.
-echo ЧТО ДЕЛАТЬ:
-echo   1. Нажмите любую клавишу — откроется Render
-echo   2. Войдите через GitHub (Sign in with GitHub)
-echo   3. Нажмите синюю кнопку Deploy
-echo   4. Подождите 3-5 минут (статус Live)
-echo   5. Откройте Settings - Environment
-echo   6. Добавьте: ADMIN_PASSWORD = ваш пароль
+echo   ADMIN_EMAIL          = uvaysiddin75@gmail.com
+echo   ADMIN_PASSWORD       = sizning parolingiz
+echo   ADMIN_NAME           = Uvaysiddin
+echo   REGISTRATION_ENABLED = true
+echo   GEMINI_API_KEY       = (ixtiyoriy, AI uchun)
 echo.
-echo После этого работает ВСЕГДА:
+echo Save Changes tugmasini bosing.
+echo 2-3 daqiqa kuting, keyin sayt ishlaydi:
 echo   https://uvaysiddin75.github.io/tarix/
 echo   https://tarix-do6q.onrender.com
 echo.
-echo Компьютер можно выключать!
+echo Admin kirish: uvaysiddin75@gmail.com + ADMIN_PASSWORD
+echo Agar ADMIN_PASSWORD yo'q bo'lsa: admin123
 echo.
 pause
-start "" "https://dashboard.render.com/select-repo?type=blueprint&repo=https://github.com/uvaysiddin75/tarix"
+start "" "https://dashboard.render.com/web/srv-d9l5qg3m8hqs739ajhj0/env"
