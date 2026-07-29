@@ -82,10 +82,30 @@ if (-not (Test-Path $git)) {
 }
 
 if (Test-Path $git) {
-  & $git add live-url.json public/live-url.json index.html css js .nojekyll
-  & $git -c user.name="Uvaysiddin" -c user.email="uvaysiddin75@gmail.com" commit -m "Update live app URL" 2>$null
-  & $git push origin main 2>$null
-  Write-Host "GitHub yangilandi - github.io/tarix endi ishlaydi" -ForegroundColor Green
+  try {
+    & $git fetch origin main 2>$null
+    & $git pull --rebase origin main 2>$null
+
+    & $git add live-url.json public/live-url.json index.html css js public/js .nojekyll
+    $dirty = & $git status --porcelain 2>$null
+    if ($dirty) {
+      & $git -c user.name="Uvaysiddin" -c user.email="uvaysiddin75@gmail.com" commit -m "Update live app URL" 2>$null
+      if ($LASTEXITCODE -ne 0) {
+        & $git pull --rebase origin main 2>$null
+        & $git -c user.name="Uvaysiddin" -c user.email="uvaysiddin75@gmail.com" commit -m "Update live app URL" 2>$null
+      }
+      & $git push origin main 2>$null
+      if ($LASTEXITCODE -eq 0) {
+        Write-Host "GitHub yangilandi - github.io/tarix endi ishlaydi" -ForegroundColor Green
+      } else {
+        Write-Host "GitHub push muvaffaqiyatsiz — tunnel havolasi baribir ishlaydi" -ForegroundColor Yellow
+      }
+    } else {
+      Write-Host "GitHub allaqachon yangilangan" -ForegroundColor Green
+    }
+  } catch {
+    Write-Host "GitHub yangilashda xato — tunnel havolasi baribir ishlaydi" -ForegroundColor Yellow
+  }
 }
 
 Start-Process $publicUrl
