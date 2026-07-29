@@ -28,13 +28,21 @@ Start-Sleep 2
 
 # Start tunnel and capture URL
 Remove-Item $logFile -ErrorAction SilentlyContinue
-$tunnel = Start-Process -FilePath $cf -ArgumentList "tunnel --url http://localhost:3000 --no-autoupdate" -RedirectStandardOutput $logFile -RedirectStandardError $logFile -WindowStyle Hidden -PassThru
+Remove-Item ($logFile + ".err") -ErrorAction SilentlyContinue
+$tunnel = Start-Process -FilePath $cf -ArgumentList "tunnel --url http://localhost:3000 --no-autoupdate" -RedirectStandardOutput $logFile -RedirectStandardError ($logFile + ".err") -WindowStyle Hidden -PassThru
 
 $publicUrl = $null
 for ($i = 0; $i -lt 30; $i++) {
   Start-Sleep 1
   if (Test-Path $logFile) {
     $content = Get-Content $logFile -Raw -ErrorAction SilentlyContinue
+    if ($content -match "(https://[a-z0-9-]+\.trycloudflare\.com)") {
+      $publicUrl = $Matches[1]
+      break
+    }
+  }
+  if (Test-Path ($logFile + ".err")) {
+    $content = Get-Content ($logFile + ".err") -Raw -ErrorAction SilentlyContinue
     if ($content -match "(https://[a-z0-9-]+\.trycloudflare\.com)") {
       $publicUrl = $Matches[1]
       break
