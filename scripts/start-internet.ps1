@@ -9,7 +9,7 @@ $cf = Join-Path $env:TEMP "cloudflared.exe"
 $git = Join-Path $env:TEMP "MinGit\cmd\git.exe"
 $logFile = Join-Path $env:TEMP "nazorat-tunnel.log"
 
-if (-not (Test-Path $node)) { throw "Node.js topilmadi. https://nodejs.org dan o'rnating." }
+if (-not (Test-Path $node)) { throw "Node.js topilmadi. https://nodejs.org dan ornating." }
 if (-not (Test-Path $cf)) {
   Write-Host "cloudflared yuklanmoqda..."
   Invoke-WebRequest -Uri "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe" -OutFile $cf -UseBasicParsing
@@ -18,15 +18,12 @@ if (-not (Test-Path $cf)) {
 if (-not (Test-Path "node_modules")) { & $npm install }
 if (-not (Test-Path ".env") -and (Test-Path ".env.example")) { Copy-Item ".env.example" ".env" }
 
-# Stop old processes on port 3000
 $conn = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1
 if ($conn) { Stop-Process -Id $conn.OwningProcess -Force -ErrorAction SilentlyContinue; Start-Sleep 1 }
 
-# Start server
 $server = Start-Process -FilePath $node -ArgumentList "server.js" -WorkingDirectory $projectDir -WindowStyle Minimized -PassThru
 Start-Sleep 2
 
-# Start tunnel and capture URL
 Remove-Item $logFile -ErrorAction SilentlyContinue
 Remove-Item ($logFile + ".err") -ErrorAction SilentlyContinue
 $tunnel = Start-Process -FilePath $cf -ArgumentList "tunnel --url http://localhost:3000 --no-autoupdate" -RedirectStandardOutput $logFile -RedirectStandardError ($logFile + ".err") -WindowStyle Hidden -PassThru
@@ -50,7 +47,7 @@ for ($i = 0; $i -lt 30; $i++) {
   }
 }
 
-if (-not $publicUrl) { throw "Tunnel havolasi olinmadi. Qayta urinib ko'ring." }
+if (-not $publicUrl) { throw "Tunnel havolasi olinmadi. Qayta urinib koring." }
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Yellow
@@ -64,7 +61,6 @@ Write-Host "GitHub orqali:" -ForegroundColor Cyan
 Write-Host "https://uvaysiddin75.github.io/tarix/" -ForegroundColor White
 Write-Host ""
 
-# Update live-url.json
 $liveUrlObj = @{
   permanentUrl = "https://tarix.onrender.com"
   url = $publicUrl
@@ -76,7 +72,6 @@ Set-Content -Path "public/live-url.json" -Value $liveUrl -Encoding UTF8
 Set-Content -Path "live-url.json" -Value $liveUrl -Encoding UTF8
 & $node (Join-Path $projectDir "scripts/sync-pages.js") 2>$null
 
-# Push to GitHub
 if (-not (Test-Path $git)) {
   $minGitZip = Join-Path $env:TEMP "MinGit.zip"
   $minGitDir = Join-Path $env:TEMP "MinGit"
@@ -90,12 +85,12 @@ if (Test-Path $git) {
   & $git add live-url.json public/live-url.json index.html css js .nojekyll
   & $git -c user.name="Uvaysiddin" -c user.email="uvaysiddin75@gmail.com" commit -m "Update live app URL" 2>$null
   & $git push origin main 2>$null
-  Write-Host "GitHub yangilandi — github.io/tarix endi ishlaydi" -ForegroundColor Green
+  Write-Host "GitHub yangilandi - github.io/tarix endi ishlaydi" -ForegroundColor Green
 }
 
 Start-Process $publicUrl
 Write-Host ""
 Write-Host "Server va tunnel ishlayapti. Oynalarni YOPMANG." -ForegroundColor Yellow
-Write-Host "To'xtatish: server va tunnel jarayonlarini yoping." -ForegroundColor Gray
+Write-Host "Toxtatish: server va tunnel jarayonlarini yoping." -ForegroundColor Gray
 Write-Host ""
 Read-Host "Chiqish uchun Enter bosing (server ishlayveradi)"
