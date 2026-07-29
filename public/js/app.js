@@ -207,6 +207,7 @@
 
 
   async function initApp() {
+    if (window.initApiBase) await window.initApiBase();
 
     const user = await Auth.checkAuth();
     setupAuthUI();

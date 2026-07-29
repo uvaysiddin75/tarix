@@ -1,6 +1,5 @@
-# GitHub Pages
-# https://uvaysiddin75.github.io/tarix/ ochiladi
-# live-url.json orqali joriy ilova havolasi yangilanadi
+# GitHub Pages — ilova to'g'ridan-to'g'ri ochiladi
+# https://uvaysiddin75.github.io/tarix/
 
 name: Deploy GitHub Pages
 
@@ -29,6 +28,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: public
       - id: deployment
         uses: actions/deploy-pages@v4

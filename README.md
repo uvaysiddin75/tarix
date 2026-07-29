@@ -82,7 +82,16 @@ Server: http://localhost:3000
 
 ---
 
-## Структура проекта
+## Запуск через .bat файлы
+
+| Файл | Для чего |
+|------|----------|
+| `ZAPUSK.bat` | Запуск только на вашем компьютере → http://localhost:3000 |
+| `ZAPUSK-INTERNET.bat` | Запуск в интернет + обновление GitHub Pages → https://uvaysiddin75.github.io/tarix/ |
+
+> `ZAPUSK-INTERNET.bat` — не закрывайте окна, пока сайт нужен. Для работы 24/7 без вашего ПК используйте [Render](https://render.com/deploy?repo=https://github.com/uvaysiddin75/tarix).
+
+---
 
 ```
 история/

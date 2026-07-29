@@ -25,11 +25,15 @@
     return headers;
   }
 
+  function apiUrl(path) {
+    return (window.API_BASE || "") + path;
+  }
+
   async function apiFetch(url, options = {}) {
-    const res = await fetch(url, {
+    const res = await fetch(apiUrl(url), {
       ...options,
       headers: { ...authHeaders(), ...options.headers },
-      credentials: "include",
+      credentials: window.API_BASE ? "omit" : "include",
     });
 
     if (res.status === 401 && !url.includes("/auth/")) {

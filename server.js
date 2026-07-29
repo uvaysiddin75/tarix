@@ -48,6 +48,24 @@ function prepareQuestion(raw) {
 
 app.use(express.json({ limit: "2mb" }));
 app.use(cookieParser());
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (
+    origin &&
+    (origin.includes("github.io") ||
+      origin.includes("trycloudflare.com") ||
+      origin.includes("onrender.com"))
+  ) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header("Access-Control-Allow-Credentials", "true");
+  }
+  res.header("Access-Control-Allow-Methods", "GET,POST,PATCH,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
+
 app.use(express.static(path.join(__dirname, "public")));
 
 // ——— Auth ———

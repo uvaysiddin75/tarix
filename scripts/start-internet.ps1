@@ -65,12 +65,15 @@ Write-Host "https://uvaysiddin75.github.io/tarix/" -ForegroundColor White
 Write-Host ""
 
 # Update live-url.json
-$liveUrl = @{
+$liveUrlObj = @{
+  permanentUrl = "https://tarix.onrender.com"
   url = $publicUrl
   updated = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
   status = "online"
-} | ConvertTo-Json
+}
+$liveUrl = $liveUrlObj | ConvertTo-Json
 Set-Content -Path "live-url.json" -Value $liveUrl -Encoding UTF8
+Set-Content -Path "public/live-url.json" -Value $liveUrl -Encoding UTF8
 
 # Push to GitHub
 if (-not (Test-Path $git)) {
@@ -83,7 +86,7 @@ if (-not (Test-Path $git)) {
 }
 
 if (Test-Path $git) {
-  & $git add live-url.json
+  & $git add live-url.json public/live-url.json
   & $git -c user.name="Uvaysiddin" -c user.email="uvaysiddin75@gmail.com" commit -m "Update live app URL" 2>$null
   & $git push origin main 2>$null
   Write-Host "GitHub yangilandi — github.io/tarix endi ishlaydi" -ForegroundColor Green
