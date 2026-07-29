@@ -62,7 +62,7 @@ Write-Host "https://uvaysiddin75.github.io/tarix/" -ForegroundColor White
 Write-Host ""
 
 $liveUrlObj = @{
-  permanentUrl = "https://tarix.onrender.com"
+  permanentUrl = "https://tarix-do6q.onrender.com"
   url = $publicUrl
   updated = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
   status = "online"

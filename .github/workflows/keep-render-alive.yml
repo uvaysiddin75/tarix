@@ -12,5 +12,5 @@ jobs:
     steps:
       - name: Wake Render service
         run: |
-          curl -sf --max-time 120 https://tarix.onrender.com/api/health || true
-          curl -sf --max-time 120 https://tarix.onrender.com/api/auth/status || true
+          curl -sf --max-time 120 https://tarix-do6q.onrender.com/api/health || true
+          curl -sf --max-time 120 https://tarix-do6q.onrender.com/api/auth/status || true
