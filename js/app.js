@@ -1443,11 +1443,13 @@
 
 
   initApp().catch(() => {
-
+    const authHint = document.getElementById("authHint");
+    if (authHint) {
+      authHint.textContent =
+        "Server ishlamayapti. ZAPUSK.bat yoki ZAPUSK-INTERNET.bat ni ishga tushiring.";
+    }
     categoryGrid.innerHTML =
-
-      '<p class="loading">Yuklanmadi. Serverni ishga tushiring: npm start</p>';
-
+      '<p class="loading">Yuklanmadi. Serverni ishga tushiring: ZAPUSK.bat</p>';
   });
 
 })();
