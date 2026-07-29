@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "sync-pages": "node scripts/sync-pages.js"
   },
   "engines": {
     "node": ">=18"
