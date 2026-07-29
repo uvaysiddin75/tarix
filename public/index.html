@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html lang="uz">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Nazorat ishi — Tarix testlari</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+
+</head>
+
+<body>
+
+  <div class="app">
+
+    <header class="header" id="mainHeader" hidden>
+
+      <div class="header-glow"></div>
+
+      <div class="header-inner">
+
+        <div class="logo">
+
+          <div class="logo-mark">📜</div>
+
+          <div>
+
+            <h1>Nazorat ishi</h1>
+
+            <p class="subtitle">O'rganing — test topshiring</p>
+
+          </div>
+
+        </div>
+
+        <div class="header-actions">
+
+          <nav class="main-nav" id="mainNav" hidden>
+            <button type="button" class="nav-tab active" data-nav="menu">Testlar</button>
+            <button type="button" class="nav-tab" data-nav="settings">Sozlamalar</button>
+          </nav>
+
+          <div class="stats-bar" id="statsBar" hidden>
+
+            <span class="stat-pill" id="statScore">Ball: 0</span>
+
+            <span class="stat-pill" id="statProgress">Savol 1 / 25</span>
+
+          </div>
+
+          <div class="user-menu" id="userMenu">
+
+            <button class="user-btn" id="userMenuBtn" type="button">
+
+              <span class="user-avatar" id="userAvatar">U</span>
+
+              <span class="user-name" id="userName">User</span>
+
+            </button>
+
+            <div class="user-dropdown" id="userDropdown" hidden>
+
+              <p class="dropdown-email" id="userEmail"></p>
+
+              <button type="button" id="btnSettings" class="dropdown-item">Sozlamalar</button>
+
+              <button type="button" id="btnAdminPanel" class="dropdown-item" hidden>AI — savol qo'shish</button>
+
+              <button type="button" id="btnLogout" class="dropdown-item danger">Chiqish</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+
+    <main class="main">
+
+      <!-- Auth: Login -->
+
+      <section class="screen active" id="screenAuth">
+
+        <div class="auth-card">
+
+          <div class="auth-brand">
+
+            <div class="logo-mark auth-logo">📜</div>
+
+            <h2>Nazorat ishi</h2>
+
+            <p>Tarix nazorat ishlariga tayyorgarlik platformasi</p>
+
+          </div>
+
+          <div class="auth-tabs">
+
+            <button type="button" class="auth-tab active" data-tab="login">Kirish</button>
+
+            <button type="button" class="auth-tab" data-tab="register">Ro'yxatdan o'tish</button>
+
+          </div>
+
+
+
+          <form class="auth-form" id="formLogin">
+
+            <div class="form-group">
+
+              <label for="loginEmail">Email</label>
+
+              <input type="email" id="loginEmail" placeholder="siz@email.com" required autocomplete="email">
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="loginPassword">Parol</label>
+
+              <div class="password-field">
+
+                <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+
+                <button type="button" class="password-toggle" data-target="loginPassword" aria-label="Parolni ko'rsatish">
+
+                  <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+
+                  <svg class="icon-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+
+                </button>
+
+              </div>
+
+            </div>
+
+            <p class="form-error" id="loginError" hidden></p>
+
+            <button type="submit" class="btn-primary btn-full">Kirish</button>
+
+          </form>
+
+
+
+          <form class="auth-form" id="formRegister" hidden>
+
+            <div class="form-group">
+
+              <label for="regName">Ism</label>
+
+              <input type="text" id="regName" placeholder="Ismingiz" required autocomplete="name">
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="regEmail">Email</label>
+
+              <input type="email" id="regEmail" placeholder="siz@email.com" required autocomplete="email">
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="regPassword">Parol</label>
+
+              <div class="password-field">
+
+                <input type="password" id="regPassword" placeholder="Kamida 6 belgi" required minlength="6" autocomplete="new-password">
+
+                <button type="button" class="password-toggle" data-target="regPassword" aria-label="Parolni ko'rsatish">
+
+                  <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+
+                  <svg class="icon-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+
+                </button>
+
+              </div>
+
+            </div>
+
+            <p class="form-error" id="registerError" hidden></p>
+
+            <button type="submit" class="btn-primary btn-full">Ro'yxatdan o'tish</button>
+
+          </form>
+
+
+
+          <p class="auth-hint" id="authHint">Faqat administrator kirishi mumkin</p>
+
+        </div>
+
+      </section>
+
+
+
+      <section class="screen" id="screenMenu">
+
+        <div class="hero">
+
+          <span class="hero-tag">Tarix nazorat ishlari</span>
+
+          <h2>Nazorat ishlarini tanlang</h2>
+
+          <p>Avval o'quv materialini o'qing, keyin test topshiring. AI yordamchi savollaringizga javob beradi.</p>
+
+        </div>
+
+        <div class="category-grid" id="categoryGrid"></div>
+
+      </section>
+
+
+
+      <section class="screen" id="screenDifficulty">
+
+        <button class="btn-back" id="btnBackToMenu">← Bosh sahifa</button>
+
+        <div class="section-header">
+
+          <h2 id="difficultyTitle">Darajani tanlang</h2>
+
+          <p id="difficultySubtitle">Avval o'rganing, keyin test topshiring</p>
+
+        </div>
+
+        <div class="difficulty-grid">
+
+          <button class="difficulty-card easy" data-difficulty="easy">
+
+            <span class="diff-badge">Oson</span>
+
+            <h3>Boshlang'ich</h3>
+
+            <p>Asosiy faktlar, sanalar</p>
+
+          </button>
+
+          <button class="difficulty-card medium" data-difficulty="medium">
+
+            <span class="diff-badge">O'rta</span>
+
+            <h3>Rivojlangan</h3>
+
+            <p>Xronologiya, bog'liqliklar</p>
+
+          </button>
+
+          <button class="difficulty-card hard" data-difficulty="hard">
+
+            <span class="diff-badge">Qiyin</span>
+
+            <h3>Ekspert</h3>
+
+            <p>Batafsil faktlar</p>
+
+          </button>
+
+        </div>
+
+      </section>
+
+
+
+      <section class="screen" id="screenLearn">
+
+        <button class="btn-back" id="btnBackToDifficulty">← Orqaga</button>
+
+        <div class="learn-header">
+
+          <span class="learn-badge" id="learnBadge">Mavzu</span>
+
+          <h2 id="learnTitle">O'quv materiali</h2>
+
+          <p class="learn-intro" id="learnIntro"></p>
+
+        </div>
+
+        <div class="learn-content" id="learnContent"></div>
+
+        <div class="learn-footer">
+
+          <p>Tayyormisiz? Savollar aralashtirilgan holda chiqadi.</p>
+
+          <button class="btn-primary btn-large" id="btnStartQuiz">Testni boshlash →</button>
+
+        </div>
+
+      </section>
+
+
+
+      <section class="screen" id="screenQuiz">
+
+        <div class="quiz-header">
+
+          <span class="quiz-badge" id="quizBadge">Test</span>
+
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+        </div>
+
+        <div class="quiz-card">
+
+          <p class="question-number" id="questionNumber">Savol 1 / 25</p>
+
+          <h2 class="question-text" id="questionText"></h2>
+
+          <div class="answers" id="answersContainer"></div>
+
+        </div>
+
+        <div class="quiz-feedback" id="quizFeedback" hidden>
+
+          <p class="feedback-text" id="feedbackText"></p>
+
+          <p class="feedback-explanation" id="feedbackExplanation"></p>
+
+          <button type="button" class="btn-ai-explain" id="btnAiExplain" hidden>🤖 AI tushuntirish</button>
+
+          <button class="btn-primary" id="btnNextQuestion">Keyingi savol →</button>
+
+        </div>
+
+      </section>
+
+
+
+      <section class="screen" id="screenResults">
+
+        <div class="results-card">
+
+          <div class="results-icon" id="resultsIcon">🎉</div>
+
+          <h2 id="resultsTitle">Test tugadi!</h2>
+
+          <p class="results-score" id="resultsScore">0 / 25</p>
+
+          <p class="results-percent" id="resultsPercent">0%</p>
+
+          <p class="results-message" id="resultsMessage"></p>
+
+          <div class="results-actions">
+
+            <button class="btn-primary" id="btnRetry">Yana topshirish</button>
+
+            <button class="btn-secondary" id="btnBackLearn">O'quv materialiga</button>
+
+            <button class="btn-secondary" id="btnMainMenu">Bosh sahifa</button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Settings -->
+
+      <section class="screen" id="screenSettings">
+
+        <div class="settings-page">
+
+          <div class="section-header settings-header">
+
+            <h2>⚙️ Sozlamalar</h2>
+
+            <p>Profil, rasm va natijalar</p>
+
+          </div>
+
+
+
+          <div class="settings-grid">
+
+            <div class="settings-card profile-card">
+
+              <h3>Profil</h3>
+
+              <div class="profile-row">
+
+                <div class="avatar-upload-wrap">
+
+                  <div class="avatar-preview" id="settingsAvatarPreview">
+
+                    <span id="settingsAvatarLetter">U</span>
+
+                    <img id="settingsAvatarImg" alt="" hidden>
+
+                  </div>
+
+                  <input type="file" id="avatarInput" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+
+                  <div class="avatar-actions">
+
+                    <button type="button" class="btn-secondary btn-sm" id="btnPickAvatar">Rasm tanlash</button>
+
+                    <button type="button" class="btn-secondary btn-sm danger-text" id="btnRemoveAvatar" hidden>Rasmni o'chirish</button>
+
+                  </div>
+
+                </div>
+
+                <form class="profile-form" id="formProfile">
+
+                  <div class="form-group">
+
+                    <label for="profileName">Ism</label>
+
+                    <input type="text" id="profileName" required maxlength="80">
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input type="email" id="profileEmail" disabled>
+
+                  </div>
+
+                  <div class="form-group">
+
+                    <label>Rol</label>
+
+                    <input type="text" id="profileRole" disabled>
+
+                  </div>
+
+                  <p class="form-error" id="profileError" hidden></p>
+
+                  <p class="form-success" id="profileSuccess" hidden></p>
+
+                  <button type="submit" class="btn-primary">Saqlash</button>
+
+                </form>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="settings-card">
+
+              <h3>Mening natijalarim</h3>
+
+              <p class="settings-desc">Har bir nazorat ishi bo'yicha eng yaxshi natija</p>
+
+              <div class="progress-list" id="myProgressList">
+
+                <p class="empty-hint">Hali test topshirilmagan</p>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="settings-card settings-card-wide" id="allUsersSection" hidden>
+
+              <h3>Barcha foydalanuvchilar — progress</h3>
+
+              <p class="settings-desc">Har bir kishi bo'yicha natijalar (admin)</p>
+
+              <div class="users-progress-wrap">
+
+                <table class="users-progress-table" id="usersProgressTable">
+
+                  <thead id="usersProgressHead"></thead>
+
+                  <tbody id="usersProgressBody"></tbody>
+
+                </table>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- Admin: AI import questions -->
+
+      <section class="screen" id="screenAdmin">
+
+        <button class="btn-back" id="btnBackFromAdmin">← Bosh sahifa</button>
+
+        <div class="admin-card">
+
+          <h2>🤖 AI — savollar qo'shish</h2>
+
+          <p class="admin-desc">Savollar matnini yuboring — tizim avtomatik test formatiga aylantiradi. AI kalit bo'lmasa ham ishlaydi (oddiy matn formatida).</p>
+
+          <div class="form-group">
+
+            <label for="adminCategory">Kategoriya</label>
+
+            <select id="adminCategory"></select>
+
+          </div>
+
+          <div class="form-group">
+
+            <label for="adminText">Savollar matni</label>
+
+            <textarea id="adminText" rows="12" placeholder="1. Savol matni?&#10;A) variant 1&#10;B) variant 2&#10;C) variant 3&#10;D) variant 4&#10;Javob: B&#10;&#10;2. Keyingi savol..."></textarea>
+
+          </div>
+
+          <p class="form-error" id="adminError" hidden></p>
+
+          <p class="form-success" id="adminSuccess" hidden></p>
+
+          <button type="button" class="btn-primary btn-full" id="btnImportQuestions">AI bilan qo'shish</button>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+
+    <footer class="footer" id="mainFooter" hidden>
+
+      <p>Savollar har safar yangi tartibda · AI yordamchi mavjud</p>
+
+    </footer>
+
+  </div>
+
+
+
+  <!-- AI Tutor -->
+
+  <button type="button" class="ai-fab" id="aiFab" hidden title="AI yordamchi">🤖</button>
+
+  <div class="ai-panel" id="aiPanel" hidden aria-hidden="true">
+
+    <div class="ai-panel-header">
+
+      <div>
+
+        <strong>AI o'qituvchi</strong>
+
+        <span class="ai-status" id="aiStatus">...</span>
+
+      </div>
+
+      <button type="button" class="ai-close" id="aiClose">×</button>
+
+    </div>
+
+    <div class="ai-messages" id="aiMessages"></div>
+
+    <div class="ai-input-row">
+
+      <textarea id="aiInput" rows="2" placeholder="Tarix bo'yicha savolingiz..."></textarea>
+
+      <button type="button" class="btn-primary" id="aiSend">Yuborish</button>
+
+    </div>
+
+  </div>
+
+
+
+  <script src="/js/auth.js"></script>
+
+  <script src="/js/ai-tutor.js"></script>
+
+  <script src="/js/app.js"></script>
+
+</body>
+
+</html>
+
+
