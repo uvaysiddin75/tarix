@@ -7,6 +7,11 @@ echo   Nazorat ishi — Tarix testlari
 echo ========================================
 echo.
 
+set "NODE_DIR=C:\Program Files\nodejs"
+if exist "%NODE_DIR%\node.exe" (
+  set "PATH=%NODE_DIR%;%PATH%"
+)
+
 where node >nul 2>&1
 if errorlevel 1 (
   echo Node.js topilmadi!

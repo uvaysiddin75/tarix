@@ -60,6 +60,10 @@ copy .env.example .env
 
 ### 4. Запустите сервер
 
+**Локально (только на вашем ПК):** дважды нажмите `ZAPUSK.bat`
+
+**В интернет + GitHub (отправить ссылку друзьям):** дважды нажмите `ZAPUSK-INTERNET.bat`
+
 ```powershell
 npm start
 ```
