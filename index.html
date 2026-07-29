@@ -38,30 +38,22 @@
       <p class="url-box" id="urlText"></p>
     </div>
     <div id="offline" hidden>
-      <p class="error">Doimiy server hali o'rnatilmagan.</p>
-      <p>Bir marta Render orqali joylashtiring — keyin internetda doim ishlaydi, kompyuter o'chiq bo'lsa ham.</p>
-      <a class="btn" href="https://render.com/deploy?repo=https://github.com/uvaysiddin75/tarix">Render orqali joylashtirish (1 marta)</a>
-      <p class="note">Deploy tugmasini bosing → GitHub bilan kiring → <strong>ADMIN_PASSWORD</strong> kiriting → Deploy.<br>
-      Keyin sayt: <a class="link" href="https://tarix.onrender.com">tarix.onrender.com</a></p>
+      <p class="error">Sayt hozir ishlamayapti.</p>
+      <p>Kompyuteringizda <strong>ZAPUSK-INTERNET.bat</strong> ni ishga tushiring — GitHub avtomatik yangilanadi.</p>
+      <a class="btn" href="https://render.com/deploy?repo=https://github.com/uvaysiddin75/tarix">Doimiy ish uchun Render (1 marta)</a>
+      <p class="note">Render orqali joylashtirsangiz, kompyuter o'chiq bo'lsa ham ishlaydi:<br>
+      <a class="link" href="https://tarix.onrender.com">tarix.onrender.com</a></p>
     </div>
   </div>
   <script>
     (async function () {
-      const PERMANENT = "https://tarix.onrender.com";
       const loading = document.getElementById("loading");
       const ready = document.getElementById("ready");
       const offline = document.getElementById("offline");
       const openBtn = document.getElementById("openBtn");
       const urlText = document.getElementById("urlText");
 
-      async function isOnline(url) {
-        try {
-          const check = await fetch(url + "/api/auth/status", { mode: "cors" });
-          return check.ok;
-        } catch { return false; }
-      }
-
-      function go(url) {
+      async function redirectTo(url) {
         openBtn.href = url;
         urlText.textContent = url;
         loading.hidden = true;
@@ -69,13 +61,17 @@
         window.location.replace(url);
       }
 
-      if (await isOnline(PERMANENT)) return go(PERMANENT);
-
       try {
         const res = await fetch("live-url.json?t=" + Date.now());
         const data = await res.json();
-        if (data.permanentUrl && await isOnline(data.permanentUrl)) return go(data.permanentUrl);
-        if (data.url && data.status === "online" && await isOnline(data.url)) return go(data.url);
+
+        if (data.url && data.status === "online") {
+          return redirectTo(data.url);
+        }
+
+        if (data.permanentUrl) {
+          return redirectTo(data.permanentUrl);
+        }
       } catch { /* ignore */ }
 
       loading.hidden = true;
