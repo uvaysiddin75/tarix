@@ -29,20 +29,12 @@
     return (window.API_BASE || "") + path;
   }
 
-  const NETWORK_ERROR =
-    "Server bilan bog'lanish muvaffaqiyatsiz. ZAPUSK.bat yoki ZAPUSK-INTERNET.bat ni ishga tushiring.";
-
   async function apiFetch(url, options = {}) {
-    let res;
-    try {
-      res = await fetch(apiUrl(url), {
-        ...options,
-        headers: { ...authHeaders(), ...options.headers },
-        credentials: window.API_BASE ? "omit" : "include",
-      });
-    } catch {
-      throw new Error(NETWORK_ERROR);
-    }
+    const res = await fetch(apiUrl(url), {
+      ...options,
+      headers: { ...authHeaders(), ...options.headers },
+      credentials: window.API_BASE ? "omit" : "include",
+    });
 
     if (res.status === 401 && !url.includes("/auth/")) {
       setToken(null);
@@ -52,7 +44,6 @@
 
     return res;
   }
-
 
   async function checkAuth() {
     const res = await apiFetch("/api/auth/status");

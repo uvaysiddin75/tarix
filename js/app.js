@@ -207,16 +207,6 @@
 
 
   async function initApp() {
-    const authHint = document.getElementById("authHint");
-    const onGitHub =
-      location.hostname.endsWith("github.io") ||
-      location.hostname.endsWith("github.dev");
-
-    if (onGitHub && authHint) {
-      authHint.textContent =
-        "Server ulanmoqda... Birinchi marta 1 daqiqagacha kutish mumkin.";
-    }
-
     if (window.initApiBase) await window.initApiBase();
 
     const user = await Auth.checkAuth();
@@ -1453,13 +1443,11 @@
 
 
   initApp().catch(() => {
-    const authHint = document.getElementById("authHint");
-    if (authHint) {
-      authHint.textContent =
-        "Server ishlamayapti. ZAPUSK.bat yoki ZAPUSK-INTERNET.bat ni ishga tushiring.";
-    }
+
     categoryGrid.innerHTML =
-      '<p class="loading">Yuklanmadi. Serverni ishga tushiring: ZAPUSK.bat</p>';
+
+      '<p class="loading">Yuklanmadi. Serverni ishga tushiring: npm start</p>';
+
   });
 
 })();
