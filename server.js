@@ -11,8 +11,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_PATH = path.join(__dirname, "data", "questions.json");
 
-auth.ensureDefaultAdmin();
-
 function loadData() {
   const raw = fs.readFileSync(DATA_PATH, "utf8");
   return JSON.parse(raw);
@@ -154,27 +152,36 @@ app.get("/api/auth/me", auth.authMiddleware, (req, res) => {
   res.json({ user: req.user });
 });
 
-app.post("/api/progress", auth.authMiddleware, (req, res) => {
+app.post("/api/progress", auth.authMiddleware, async (req, res) => {
   const { category, score, total } = req.body;
   if (!category || score == null || !total) {
     return res.status(400).json({ error: "category, score, total talab qilinadi" });
   }
-  const progress = auth.saveProgress(req.user.id, { category, score, total });
-  res.json({ progress });
+  try {
+    const progress = await auth.saveProgress(req.user.id, { category, score, total });
+    res.json({ progress });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.patch("/api/profile", auth.authMiddleware, (req, res) => {
+app.patch("/api/profile", auth.authMiddleware, async (req, res) => {
   try {
     const { name, avatar } = req.body;
-    const user = auth.updateProfile(req.user.id, { name, avatar });
+    const user = await auth.updateProfile(req.user.id, { name, avatar });
     res.json({ user });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 });
 
-app.get("/api/users/progress", auth.authMiddleware, auth.adminMiddleware, (_req, res) => {
-  res.json({ users: auth.getAllUsersProgress() });
+app.get("/api/users/progress", auth.authMiddleware, auth.adminMiddleware, async (_req, res) => {
+  try {
+    const users = await auth.getAllUsersProgress();
+    res.json({ users });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // ——— Protected quiz API ———
@@ -307,13 +314,21 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true, ts: new Date().toISOString() });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server: http://localhost:${PORT}`);
-  console.log(`AI rejim: ${ai.getAiMode()}`);
-  if (auth.REGISTRATION_ENABLED) {
-    console.log("Ro'yxatdan o'tish: ochiq");
-  } else {
-    console.log(`Administrator: ${auth.ADMIN_EMAIL}`);
-    console.log("Ro'yxatdan o'tish: o'chirilgan (faqat admin kiradi)");
-  }
+async function start() {
+  await auth.init();
+  app.listen(PORT, () => {
+    console.log(`Server: http://localhost:${PORT}`);
+    console.log(`AI rejim: ${ai.getAiMode()}`);
+    if (auth.REGISTRATION_ENABLED) {
+      console.log("Ro'yxatdan o'tish: ochiq");
+    } else {
+      console.log(`Administrator: ${auth.ADMIN_EMAIL}`);
+      console.log("Ro'yxatdan o'tish: o'chirilgan (faqat admin kiradi)");
+    }
+  });
+}
+
+start().catch((err) => {
+  console.error("Server ishga tushmadi:", err);
+  process.exit(1);
 });

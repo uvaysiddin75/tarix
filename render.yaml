@@ -52,3 +52,11 @@ services:
 
         sync: false
 
+      - key: GITHUB_TOKEN
+
+        sync: false
+
+      - key: GITHUB_REPO
+
+        value: uvaysiddin75/tarix
+

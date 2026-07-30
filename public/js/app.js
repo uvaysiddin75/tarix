@@ -1190,6 +1190,12 @@
 
 
 
+  document.getElementById("btnRefreshUsers")?.addEventListener("click", () => {
+    renderAllUsersProgress();
+  });
+
+
+
   document.getElementById("btnPickAvatar").addEventListener("click", () => {
 
     document.getElementById("avatarInput").click();

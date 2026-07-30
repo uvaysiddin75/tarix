@@ -53,6 +53,11 @@
   }
 
   async function checkAuth() {
+    const token = getToken();
+    if (token?.startsWith("static.") && !window.STATIC_MODE) {
+      setToken(null);
+    }
+
     const res = await apiFetch("/api/auth/status");
     const data = await res.json();
     aiEnabled = data.aiEnabled !== false;

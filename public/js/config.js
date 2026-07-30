@@ -20,15 +20,14 @@
       return;
     }
 
-    // GitHub Pages — to'liq statik rejim (Render kerak emas)
+    // GitHub Pages — umumiy baza Render serverida (barcha foydalanuvchilar ko'rinadi)
     if (host.endsWith("github.io") || host.endsWith("github.dev")) {
-      window.API_BASE = "";
-      window.STATIC_MODE = true;
-      if (window.StaticApi) window.StaticApi.enabled = true;
+      window.API_BASE = RENDER_URL;
+      window.STATIC_MODE = false;
+      if (window.StaticApi) window.StaticApi.enabled = false;
       return;
     }
 
-    // Boshqa hostlar — Render server
     window.API_BASE = RENDER_URL;
     window.STATIC_MODE = false;
     if (window.StaticApi) window.StaticApi.enabled = false;
