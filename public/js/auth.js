@@ -6,7 +6,7 @@
   let currentUser = null;
   let aiEnabled = true;
   let aiMode = "smart";
-  let registrationEnabled = false;
+  let registrationEnabled = true;
   let adminEmail = null;
 
   function getToken() {

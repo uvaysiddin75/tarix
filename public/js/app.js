@@ -238,7 +238,6 @@
 
 
   async function initApp() {
-    setupAuthUI();
     showScreen("auth");
     mainHeader.hidden = true;
     mainFooter.hidden = true;
@@ -256,6 +255,8 @@
     } catch {
       user = null;
     }
+
+    setupAuthUI();
 
     if (Auth.isStaticMode?.()) {
       setAuthStatus("Brauzer rejimi: ma'lumotlar shu qurilmada saqlanadi", "warn");
@@ -292,8 +293,11 @@
       if (email && loginEmail && !loginEmail.value) {
         loginEmail.value = email;
       }
-    } else if (authHint) {
-      authHint.textContent = "Ro'yxatdan o'ting yoki mavjud hisobingiz bilan kiring";
+    } else {
+      if (registerTab) registerTab.hidden = false;
+      if (authHint) {
+        authHint.textContent = "Ro'yxatdan o'ting yoki mavjud hisobingiz bilan kiring";
+      }
     }
   }
 
