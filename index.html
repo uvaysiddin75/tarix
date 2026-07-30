@@ -475,6 +475,39 @@
 
 
 
+            <div class="settings-card" id="dataSyncSection" hidden>
+
+              <h3>Ma'lumotlarni saqlash (GitHub)</h3>
+
+              <p class="settings-desc">GitHub Pages rejimida ma'lumotlar brauzerda saqlanadi. Admin barcha o'quvchilardan JSON fayl olishi va shu yerga yuklashi mumkin.</p>
+
+              <div class="data-sync-actions">
+                <button type="button" class="btn-secondary" id="btnExportUsers">Barcha foydalanuvchilarni yuklab olish</button>
+                <label class="btn-secondary file-label">
+                  JSON fayl yuklash
+                  <input type="file" id="importUsersFile" accept="application/json,.json" hidden>
+                </label>
+              </div>
+
+              <p class="form-success" id="importSuccess" hidden></p>
+              <p class="form-error" id="importError" hidden></p>
+
+            </div>
+
+
+
+            <div class="settings-card" id="studentExportSection" hidden>
+
+              <h3>Natijani yuborish</h3>
+
+              <p class="settings-desc">O'qituvchiga yuborish uchun progress faylini yuklab oling</p>
+
+              <button type="button" class="btn-secondary" id="btnExportMyProgress">Mening natijam (JSON)</button>
+
+            </div>
+
+
+
             <div class="settings-card settings-card-wide" id="allUsersSection" hidden>
 
               <h3>Barcha foydalanuvchilar — progress</h3>
@@ -590,6 +623,12 @@
 
 
   <script src="js/config.js"></script>
+
+  <script src="js/static-config.js"></script>
+
+  <script src="js/static-store.js"></script>
+
+  <script src="js/static-api.js"></script>
 
   <script src="js/auth.js"></script>
 

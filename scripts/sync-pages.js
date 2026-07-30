@@ -18,6 +18,13 @@ fs.copyFileSync(path.join(publicDir, "index.html"), path.join(root, "index.html"
 fs.copyFileSync(path.join(publicDir, "live-url.json"), path.join(root, "live-url.json"));
 copyDir(path.join(publicDir, "css"), path.join(root, "css"));
 copyDir(path.join(publicDir, "js"), path.join(root, "js"));
+
+const dataDir = path.join(publicDir, "data");
+const srcQuestions = path.join(root, "data", "questions.json");
+if (fs.existsSync(srcQuestions)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+  fs.copyFileSync(srcQuestions, path.join(dataDir, "questions.json"));
+}
 fs.writeFileSync(path.join(root, ".nojekyll"), "");
 
 console.log("GitHub Pages files synced from public/");

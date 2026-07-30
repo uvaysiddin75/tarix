@@ -30,6 +30,13 @@
   }
 
   async function apiFetch(url, options = {}) {
+    if (window.StaticApi?.enabled) {
+      return window.StaticApi.handle(url, {
+        ...options,
+        headers: { ...authHeaders(), ...options.headers },
+      });
+    }
+
     const res = await fetch(apiUrl(url), {
       ...options,
       headers: { ...authHeaders(), ...options.headers },
@@ -124,8 +131,12 @@
     return currentUser?.role === "admin";
   }
 
+  function isStaticMode() {
+    return Boolean(window.STATIC_MODE);
+  }
+
   function isAiEnabled() {
-    return aiEnabled;
+    return aiEnabled && !isStaticMode();
   }
 
   function getAiMode() {
@@ -140,6 +151,16 @@
     return adminEmail;
   }
 
+  function exportUsersDb() {
+    if (!window.StaticStore) throw new Error("Statik rejim faqat GitHub Pages da");
+    return StaticStore.exportDb();
+  }
+
+  function importUsersDb(data) {
+    if (!window.StaticStore) throw new Error("Statik rejim faqat GitHub Pages da");
+    return StaticStore.importDb(data);
+  }
+
   window.Auth = {
     apiFetch,
     checkAuth,
@@ -152,8 +173,11 @@
     getUser,
     isAdmin,
     isAiEnabled,
+    isStaticMode,
     getAiMode,
     isRegistrationEnabled,
     getAdminEmail,
+    exportUsersDb,
+    importUsersDb,
   };
 })();

@@ -1,0 +1,1029 @@
+{
+  "questionsPerQuiz": 25,
+  "difficulties": {
+    "test": "Nazorat"
+  },
+  "categories": {
+    "nazorat1": {
+      "title": "Nazorat ishi - 1",
+      "icon": "📝",
+      "singleMode": true,
+      "defaultDifficulty": "test",
+      "questionsPerQuiz": 25,
+      "learn": {
+        "test": {
+          "title": "Nazorat ishi - 1: O'rta Osiyo qadimiy tarixi",
+          "intro": "Ushbu material nazorat ishiga tayyorgarlik uchun. Manbalar, tosh davri, qadimgi odamlar va O'rta Osiyo yodgorliklari haqida o'rganing.",
+          "sections": [
+            {
+              "heading": "Tarixiy manbalar",
+              "text": "«Avesto» — O'rta Osiyo tarixi bo'yicha eng qadimgi manba. Strabonning «Geografiya» asarida ko'plab xalqlar haqida ma'lumot bor. Gerodotning «Tarix» asarida yurtimizning qadimgi tarixi haqida muhim ma'lumotlar berilgan. Behistun qoyasidagi yozuvlar ham muhim manba hisoblanadi."
+            },
+            {
+              "heading": "Fanlar",
+              "text": "Arxeolog — qadimiy yodgorliklarni o'rganadi. Etnograf — hozir yashayotgan qabila va elatlarning urf-odatlarini o'rganadi. Antropolog — odam va jamiyatni o'rganadi. Strabon miloddan avvalgi I asrda yashagan yunon olimi."
+            },
+            {
+              "heading": "Qadimgi odamlar va tosh davri",
+              "text": "Eng qadimgi suyak qoldiqlari Sharqiy Afrikadan topilgan. «Ishbilarmon odam» yoshi ~2 mln yil. «Tik yuruvchi odam» olovdan foydalanishni bilgan. O'rta tosh davri — mezolit. Neolit — sopol idishlar davri."
+            },
+            {
+              "heading": "O'rta Osiyo yodgorliklari",
+              "text": "Seleng'ur, Ko'lbuloq — tosh qurollar. Teshiktosh — o'rta poleolit, neandertal bola suyagi. Obishir, Qo'shilish, Machay — mezolit. Zamonbobo, Jarqo'ton — bronza davri. Samarqand, Toshkent, Farg'ona — so'ngi poleolit yodgorliklari."
+            },
+            {
+              "heading": "Jahon yodgorliklari",
+              "text": "Lasko g'ori Fransiyada. Altamira g'oridagi suratlar arxeolog qizining kashfiyoti. So'ngi poleolitda kromanyon odam yashagan, urug' jamoalariga birlashgan. Kulolchilik o'choqlari neolitga xos."
+            }
+          ]
+        }
+      },
+      "questions": {
+        "test": [
+          {
+            "id": "nazorat1-1",
+            "q": "O'rta Osiyo tarixi bo'yicha eng qadimgi manba bu?",
+            "options": [
+              "\"Avesto\"",
+              "Behistun qoyasidagi yozuvlar",
+              "\"Geografiya\"",
+              "\"Tarix\" asari"
+            ],
+            "correct": 0,
+            "explanation": "O'rta Osiyo tarixi bo'yicha eng qadimgi manba — «Avesto» asari."
+          },
+          {
+            "id": "nazorat1-2",
+            "q": "Yurtimizga oid qaysi asarda ko'plab mamlakatlar xalqlari haqida ma'lumotlar berilgan?",
+            "options": [
+              "\"Avesto\"",
+              "Behistun qoyasidagi yozuvlar",
+              "\"Geografiya\"",
+              "\"Tarix\" asari"
+            ],
+            "correct": 2,
+            "explanation": "Strabonning «Geografiya» asarida ko'plab xalqlar haqida ma'lumotlar berilgan."
+          },
+          {
+            "id": "nazorat1-3",
+            "q": "Yurtimizning qadimgi tarixi haqida muhim ma'lumotlar qaysi asorda berilgan?",
+            "options": [
+              "\"Avesto\"",
+              "Behistun qoyasidagi yozuvlar",
+              "\"Geografiya\"",
+              "\"Tarix\" asari"
+            ],
+            "correct": 3,
+            "explanation": "Qadimgi tarix haqida muhim ma'lumotlar «Tarix» asarida (Gerodot) berilgan."
+          },
+          {
+            "id": "nazorat1-4",
+            "q": "Qadimgi odamlarning urf-odatlari, xo'jalik va madaniy an'analarini saqlab qolgan qabila va elatlarni o'rganadigan olimlar bu?",
+            "options": [
+              "Antropolog",
+              "Arxeolog",
+              "Etnograf",
+              "Lingivist"
+            ],
+            "correct": 2,
+            "explanation": "Etnograf — hozir yashayotgan qabilalar va elatlarni o'rganadi."
+          },
+          {
+            "id": "nazorat1-5",
+            "q": "Miloddan avvalgi I asrda yashagan yunon olimi?",
+            "options": [
+              "Gerodot",
+              "Strabon",
+              "Doro I",
+              "Arrian"
+            ],
+            "correct": 1,
+            "explanation": "Strabon miloddan avvalgi I asrda yashagan yunon olimi."
+          },
+          {
+            "id": "nazorat1-6",
+            "q": "Jahondagi barcha xalqlarning tarixi qaysi tuzumdan boshlanadi?",
+            "options": [
+              "Urug'",
+              "Qabila",
+              "Ibtidoiy jamoa",
+              "Matriarxat"
+            ],
+            "correct": 2,
+            "explanation": "Barcha xalqlarning tarixi ibtidoiy jamoa tuzumidan boshlanadi."
+          },
+          {
+            "id": "nazorat1-7",
+            "q": "O'rta tosh davri yunonchada qanday nomlanadi?",
+            "options": [
+              "Poleolit",
+              "Mezolit",
+              "Neolit",
+              "Eneolit"
+            ],
+            "correct": 1,
+            "explanation": "O'rta tosh davri yunon tilida mezolit deb ataladi."
+          },
+          {
+            "id": "nazorat1-8",
+            "q": "Eng qadimgi odam suyak qoldiqlari qayerdan topilgan?",
+            "options": [
+              "Shimoliy Afrikadan",
+              "Yevropadan",
+              "Sharqiy Afrikadan",
+              "Amerikadan"
+            ],
+            "correct": 2,
+            "explanation": "Eng qadimgi odam suyak qoldiqlari Sharqiy Afrikadan topilgan."
+          },
+          {
+            "id": "nazorat1-9",
+            "q": "Qaysi odamning yoshi 2 mln yoshda?",
+            "options": [
+              "\"Ishbilarmon odam\"",
+              "Neandertal",
+              "Kromanyon",
+              "\"Tik yuruvchi odam\""
+            ],
+            "correct": 0,
+            "explanation": "«Ishbilarmon odam» (Homo habilis) yoshi taxminan 2 mln yil."
+          },
+          {
+            "id": "nazorat1-10",
+            "q": "Qaysi odam chaqmoq zarbidan chiqgan tabiiy olovdan foydalanishni, turli tosh qurollarni yasashni bilgan?",
+            "options": [
+              "\"Ishbilarmon odam\"",
+              "Neandertal",
+              "Kromanyon",
+              "\"Tik yuruvchi odam\""
+            ],
+            "correct": 3,
+            "explanation": "«Tik yuruvchi odam» (Homo erectus) olovdan foydalanishni bilgan."
+          },
+          {
+            "id": "nazorat1-11",
+            "q": "O'rta Osiyodan toshdan yasalgan mehnat qurollari qayerdan topilgan?",
+            "options": [
+              "Seleng'ur, Ko'lbuloq",
+              "Samarqand, Farg'ona",
+              "Toshkent, Suxondaryo",
+              "Buxoro, Samarqand"
+            ],
+            "correct": 0,
+            "explanation": "Tosh mehnat qurollari Seleng'ur va Ko'lbuloqdan topilgan."
+          },
+          {
+            "id": "nazorat1-12",
+            "q": "Teshiktosh g'ori qaysi tosh davriga oid yodgorlik?",
+            "options": [
+              "Mezolit",
+              "O'rta poleolit",
+              "Neolit",
+              "So'ngi poleolit"
+            ],
+            "correct": 1,
+            "explanation": "Teshiktosh g'ori o'rta poleolit davriga oid."
+          },
+          {
+            "id": "nazorat1-13",
+            "q": "Teshiktosh g'oridan qanday bola suyak qoldiqlari topilgan?",
+            "options": [
+              "Neandertal",
+              "Kromanyon",
+              "Sinantrop",
+              "Pitekantrop"
+            ],
+            "correct": 0,
+            "explanation": "Teshiktosh g'oridan neandertal bola suyak qoldiqlari topilgan."
+          },
+          {
+            "id": "nazorat1-14",
+            "q": "Lasko g'ori qaysi davlatda joylashgan?",
+            "options": [
+              "Italiya",
+              "Boshqirdiston",
+              "Fransiya",
+              "Ispaniya"
+            ],
+            "correct": 2,
+            "explanation": "Lasko g'ori Fransiyada joylashgan."
+          },
+          {
+            "id": "nazorat1-15",
+            "q": "Qaysi g'ordagi suratlar arxeologning qizi tomonidan topilgan?",
+            "options": [
+              "Lasko",
+              "Teshiktosh",
+              "Altamira",
+              "Kapovaya"
+            ],
+            "correct": 2,
+            "explanation": "Altamira g'oridagi suratlar arxeologning qizi tomonidan topilgan."
+          },
+          {
+            "id": "nazorat1-16",
+            "q": "Samarqand, Toshkent, Farg'onadan qaysi davrga oid yodgorliklar topilgan?",
+            "options": [
+              "Mezolit",
+              "O'rta poleolit",
+              "Neolit",
+              "So'ngi poleolit"
+            ],
+            "correct": 3,
+            "explanation": "Bu hududlardan so'ngi poleolit davriga oid yodgorliklar topilgan."
+          },
+          {
+            "id": "nazorat1-17",
+            "q": "So'ngi poleolit davriga oid bo'lmagan ma'lumotni toping?",
+            "options": [
+              "Urug' jamoalariga birlashdilar",
+              "Kromanyon odam yashagan",
+              "Turar joylar qurishni o'rgandilar",
+              "Kulolchilik o'choqlaridan foydalanishni boshladilar"
+            ],
+            "correct": 3,
+            "explanation": "Kulolchilik o'choqlari neolit davriga xos, so'ngi poleolitga emas."
+          },
+          {
+            "id": "nazorat1-18",
+            "q": "Obishir, Qo'shilish, Machay qaysi davrga oid yodgorliklar?",
+            "options": [
+              "Mezolit",
+              "O'rta poleolit",
+              "Neolit",
+              "So'ngi poleolit"
+            ],
+            "correct": 0,
+            "explanation": "Obishir, Qo'shilish, Machay mezolit davriga oid yodgorliklar."
+          },
+          {
+            "id": "nazorat1-19",
+            "q": "Odamlar ibtidoiy ziroatchilik va chorvachilik bilan qaysi davrdan boshlab shug'ullana boshladilar? Sharqning turli hududlarida ziroatchilik va chorvachilikka qaysi davrdan o'tilgan?",
+            "options": [
+              "Mezolit, neolit",
+              "O'rta poleolit, mezolit",
+              "Neolit, bronza",
+              "Neolit, eneolit"
+            ],
+            "correct": 0,
+            "explanation": "Ziroatchilik mezolitdan boshlangan, Sharq hududlarida neolitda rivojlangan."
+          },
+          {
+            "id": "nazorat1-20",
+            "q": "Qaysi davrning boshlanishi sopol idishlar yasashning kashf etilishi bilan belgilanadi?",
+            "options": [
+              "Mezolit",
+              "Neolit",
+              "Bronza",
+              "Eneolit"
+            ],
+            "correct": 1,
+            "explanation": "Neolit davri sopol idishlar yasash bilan boshlanadi."
+          },
+          {
+            "id": "nazorat1-21",
+            "q": "Mikrolitlar qaysi davrda yasash boshlangan?",
+            "options": [
+              "Mezolit, neolit",
+              "O'rta poleolit, mezolit",
+              "Neolit, bronza",
+              "Neolit, eneolit"
+            ],
+            "correct": 0,
+            "explanation": "Mikrolitlar mezolit va neolit davrlarida yasalgan."
+          },
+          {
+            "id": "nazorat1-22",
+            "q": "Neolit davrining muhim kashfiyoti?",
+            "options": [
+              "Kulolchilik charxi va g'ildirak",
+              "Misdan foydalanish",
+              "Ko'p xonali uylar qurilishi",
+              "Kulolchilik va to'quvchilik"
+            ],
+            "correct": 3,
+            "explanation": "Neolitning muhim kashfiyoti — kulolchilik va to'quvchilik."
+          },
+          {
+            "id": "nazorat1-23",
+            "q": "Qachondan boshlab sopol idishlar hayvon va qushlarning tasvirlari bilan bezatila boshladi?",
+            "options": [
+              "Mezolit",
+              "Neolit",
+              "Bronza",
+              "Eneolit"
+            ],
+            "correct": 3,
+            "explanation": "Sopol idishlarni hayvon va qush tasvirlari bilan bezash eneolit davrida boshlangan."
+          },
+          {
+            "id": "nazorat1-24",
+            "q": "Neolit davrining eng buyuk kashfiyotlaridan biri bu?",
+            "options": [
+              "Kulolchilik charxi va g'ildirak",
+              "Misdan foydalanish",
+              "Ko'p xonali uylar qurilishi",
+              "Kulolchilik va to'quvchilik"
+            ],
+            "correct": 3,
+            "explanation": "Neolitning eng buyuk kashfiyotlaridan biri — kulolchilik va to'quvchilik."
+          },
+          {
+            "id": "nazorat1-25",
+            "q": "Bronza davriga oid yodgorliklar?",
+            "options": [
+              "Ko'lbuloq, Teshiktosh",
+              "Zamonbobo, Jarqo'ton",
+              "Obishir, Qo'shilish, Machay",
+              "Altamira, Lasko"
+            ],
+            "correct": 1,
+            "explanation": "Zamonbobo va Jarqo'ton bronza davriga oid yodgorliklar."
+          },
+          {
+            "id": "nazorat1-local-1785338012643-0",
+            "q": "Kir II qaysi davlatni birinchi bo'lib yirik istilo qilgan?",
+            "options": [
+              "Midiya",
+              "Lidiya",
+              "Bobil",
+              "Misr"
+            ],
+            "correct": 0,
+            "explanation": ""
+          }
+        ]
+      }
+    },
+    "nazorat2": {
+      "title": "Nazorat ishi - 2",
+      "icon": "🏛️",
+      "singleMode": true,
+      "defaultDifficulty": "test",
+      "questionsPerQuiz": 25,
+      "learn": {
+        "test": {
+          "title": "Nazorat ishi - 2: Misr va Mesopotamiya",
+          "intro": "Qadimgi Misr va Mesopotamiya tarixi bo'yicha nazorat ishiga tayyorgarlik materiali.",
+          "sections": [
+            {
+              "heading": "Qadimgi Misr",
+              "text": "Nil daryosi Afrikaning shimoli-sharqida joylashgan. Vodiylar mil avv 4-mingyillik boshlarida o'zlashtirilgan. «Nom»lar mil avv 4-mingyillik oxirida paydo bo'lgan. Misr janubida Nubiya, g'arbida Liviya bilan chegaradosh. Piramidalar ilk va qadimgi podsholikda qurilgan. Xapi — hayotning manbai. Shampolyon 1822-yilda iyeroglif sirini ochgan."
+            },
+            {
+              "heading": "Misr podsholiklari",
+              "text": "Qadimgi podsholik — Sinay, Nubiya va Liviyaga yurishlar. Giksoslar mil avv XVIII asrda Quyi Misrni bosib olgan, Fiva fir'avni atrofida birlashgan. Tutmos III Old Osiyoda hukmronlik o'rnatgan. Tutmos II Falastin, Finikiya va Suriyani egallagan. Tutanxamon yangi podsholik davriga oid."
+            },
+            {
+              "heading": "Qadimgi Mesopotamiya",
+              "text": "Mil avv 4-mingyillikda shumerlar manzilgohlari paydo bo'lgan. Uruk, Umma, Lagash, Ur — shahar-davlatlar. Mixxat yozuvini shumerlar ixtiro qilgan. Ibodatxonalar — zikkurat. Dastlabki rasadxonalar zikkuratlar tepasida qurilgan. Sargon I Akkad podshosi, «to'rt iqlim mamlakati podshosi»."
+            },
+            {
+              "heading": "Savdo va ma'budlar",
+              "text": "Mesopotamiyaliklar Eon va Kavkazorti bilan savdo qilgan. Ea (Mesopotamiya) va Xapi (Misr) o'xshash xudolar — suv va hayot bilan bog'liq. Misrda tabiblar maktablarida tayyorlangan."
+            }
+          ]
+        }
+      },
+      "questions": {
+        "test": [
+          {
+            "id": "nazorat2-1",
+            "q": "Nil daryosi Afrikaning qaysi qismida sivilizatsiya vujudga kelishi uchun zamin yaratgan?",
+            "options": [
+              "Afrikaning shimoli-sharqida",
+              "Afrika janubida",
+              "Afrika shimoli-g'arbida",
+              "Afrika janubi-sharqida"
+            ],
+            "correct": 0,
+            "explanation": "Nil daryosi Afrikaning shimoli-sharqida joylashgan va qadimgi Misr sivilizatsiyasining paydo bo'lishiga zamin yaratgan."
+          },
+          {
+            "id": "nazorat2-2",
+            "q": "Nil daryosi qirg'oqlarini vodiyliklar qachondan boshlab o'zlashtira boshlaganlar?",
+            "options": [
+              "Mil avv 4-mingyillik oxirida",
+              "Mil avv 4-mingyillik boshlarida",
+              "Mil avv 3-mingyillik boshlarida",
+              "Mil avv 4-mingyillik o'rtalarida"
+            ],
+            "correct": 1,
+            "explanation": "Nil daryosi qirg'oqlaridagi vodiyliklar mil avv 4-mingyillik boshlarida o'zlashtirila boshlangan."
+          },
+          {
+            "id": "nazorat2-3",
+            "q": "Misrda qachondan boshlab «nom»lar vujudga kela boshlagan?",
+            "options": [
+              "Mil avv 4-mingyillik boshlarida",
+              "Mil avv 4-mingyillik o'rtalarida",
+              "Mil avv 4-mingyillikda",
+              "Mil avv 4-mingyillik oxirida"
+            ],
+            "correct": 3,
+            "explanation": "Misrda «nom»lar (ma'muriy birliklar) mil avv 4-mingyillik oxirida vujudga kela boshlagan."
+          },
+          {
+            "id": "nazorat2-4",
+            "q": "Misrni mil avv 3000-yillikda birlashtirgan Quyi Misr hukmdori kim edi?",
+            "options": [
+              "Menes",
+              "Tutanxamon",
+              "Ramzes II",
+              "To'g'ri javob yo'q"
+            ],
+            "correct": 3,
+            "explanation": "Mil avv 3000-yillikda Misrni birlashtirgan hukmdor haqida aniq ma'lumot yo'q — to'g'ri javob yo'q."
+          },
+          {
+            "id": "nazorat2-5",
+            "q": "Misr Nubiya bilan qaysi tomondan chegaradosh?",
+            "options": [
+              "Janub",
+              "G'arb",
+              "Shimol",
+              "Sharq"
+            ],
+            "correct": 0,
+            "explanation": "Misr janubida Nubiya joylashgan."
+          },
+          {
+            "id": "nazorat2-6",
+            "q": "Giksoslar Quyi Misrni qachon bosib oladi?",
+            "options": [
+              "Mil avv XVI asr",
+              "Mil avv XV asr",
+              "Mil avv XVII asr",
+              "Mil avv XVIII asr"
+            ],
+            "correct": 3,
+            "explanation": "Giksoslar mil avv XVIII asrda Quyi Misrni bosib olgan."
+          },
+          {
+            "id": "nazorat2-7",
+            "q": "Liviya Misrning qaysi qismida joylashgan?",
+            "options": [
+              "Janubiy Misr",
+              "Sharqiy Misr",
+              "Shimoliy Misr",
+              "G'arbiy Misr"
+            ],
+            "correct": 0,
+            "explanation": "Liviya Misrning g'arbiy qismida joylashgan."
+          },
+          {
+            "id": "nazorat2-8",
+            "q": "Giksoslarga qarshi kurashda qaysi shahar fir'avni atrofida birlashadilar?",
+            "options": [
+              "Fiva",
+              "Memfis",
+              "Giza",
+              "Baolbek"
+            ],
+            "correct": 3,
+            "explanation": "Giksoslarga qarshi kurashda Fiva shahri fir'avni atrofida birlashgan."
+          },
+          {
+            "id": "nazorat2-9",
+            "q": "Qaysi podsholik davrida Sinay yarim oroli bosib olinadi, Nubiya va Liviyaga yurish qilinadi?",
+            "options": [
+              "Ilk podsholik davrida",
+              "So'ngi podsholik",
+              "Yangi podsholik",
+              "Qadimgi podsholik"
+            ],
+            "correct": 0,
+            "explanation": "Qadimgi podsholik davrida Sinay yarim oroli, Nubiya va Liviya bosib olinadi."
+          },
+          {
+            "id": "nazorat2-10",
+            "q": "Kir II ning o'g'li Kambiz II qachon Misrni bosib oladi?",
+            "options": [
+              "Mil avv 525-yilda",
+              "Mil avv 522-yilda",
+              "Mil avv 605-yilda",
+              "Mil avv 605-yilda"
+            ],
+            "correct": 3,
+            "explanation": "Kambiz II mil avv 525-yilda Misrni bosib olgan."
+          },
+          {
+            "id": "nazorat2-11",
+            "q": "Old Osiyoda misrliklar hukmronligi kimning davrida o'rnatilgan?",
+            "options": [
+              "Menes",
+              "Tutmos I",
+              "Tutmos II",
+              "Tutmos III"
+            ],
+            "correct": 0,
+            "explanation": "Old Osiyoda misrliklar hukmronligi Tutmos III davrida o'rnatilgan."
+          },
+          {
+            "id": "nazorat2-12",
+            "q": "Tutmos II davrida qayerlar egallangan?",
+            "options": [
+              "Falastin, Finikiya, Suriya",
+              "Old Osiyo",
+              "Nubiya va Liviya",
+              "Falastin, Suriya"
+            ],
+            "correct": 2,
+            "explanation": "Tutmos II davrida Falastin, Finikiya va Suriya egallangan."
+          },
+          {
+            "id": "nazorat2-13",
+            "q": "Misrdagi hayotning birlamchi manbai va posboni bu?",
+            "options": [
+              "Ptax",
+              "Amon-Ra",
+              "Xapi",
+              "Osiris"
+            ],
+            "correct": 1,
+            "explanation": "Xapi — Nil daryosi va hayotning birlamchi manbai, posbon deb hisoblangan."
+          },
+          {
+            "id": "nazorat2-14",
+            "q": "Piramidalar qaysi podsholiklarda qurilgan?",
+            "options": [
+              "Ilk va qadimgi podsholik",
+              "Qadimgi va o'rta podsholik",
+              "Qadimgi va yangi podsholik",
+              "Yangi va so'ngi podsholik"
+            ],
+            "correct": 0,
+            "explanation": "Piramidalar ilk va qadimgi podsholik davrlarida qurilgan."
+          },
+          {
+            "id": "nazorat2-15",
+            "q": "Tutanxamon maqbarasi qaysi davrga oid?",
+            "options": [
+              "Qadimgi podsholik",
+              "O'rta podsholik",
+              "So'ngi podsholik",
+              "Yangi podsholik"
+            ],
+            "correct": 3,
+            "explanation": "Tutanxamon maqbarasi yangi podsholik davriga oid."
+          },
+          {
+            "id": "nazorat2-16",
+            "q": "Misr iyerogliflarini sirini kim kashf etgan?",
+            "options": [
+              "Dyupperon 1825-yilda",
+              "Shampolyon 1822-yilda",
+              "Rixtgofen 1877-yilda",
+              "Genrix Shliman 1822-yilda"
+            ],
+            "correct": 1,
+            "explanation": "Misr iyerogliflarining siri Shampolyon tomonidan 1822-yilda kashf etilgan."
+          },
+          {
+            "id": "nazorat2-17",
+            "q": "Tabiblarni tayyorlovchi maxsus maktablar qayerda bo'lgan?",
+            "options": [
+              "Mesopotamiyada",
+              "Bobilda",
+              "Hindistonda",
+              "Misrda"
+            ],
+            "correct": 2,
+            "explanation": "Tabiblarni tayyorlovchi maxsus maktablar Misrda bo'lgan."
+          },
+          {
+            "id": "nazorat2-18",
+            "q": "Mil avv 4-mingyillikda Mesopotamiyada kimlarning manzilgohlari vujudga kela boshlagan?",
+            "options": [
+              "Shumer",
+              "Akkad",
+              "Elamiylar",
+              "Kassiylar"
+            ],
+            "correct": 1,
+            "explanation": "Mil avv 4-mingyillikda Mesopotamiyada shumerlarning manzilgohlari paydo bo'la boshlagan."
+          },
+          {
+            "id": "nazorat2-19",
+            "q": "Mesopotamiyaliklar kimlar bilan savdo-sotiq qilganlar?",
+            "options": [
+              "Misr, Suriya",
+              "Xetlar va Mitanni bilan",
+              "Eon, Kavkazorti",
+              "Suriya va Falastin"
+            ],
+            "correct": 0,
+            "explanation": "Mesopotamiyaliklar Eon va Kavkazorti bilan savdo-sotiq qilganlar."
+          },
+          {
+            "id": "nazorat2-20",
+            "q": "Mixxat yozuvini kimlar ixtiro qilgan?",
+            "options": [
+              "Misrliklar",
+              "Shumerlar",
+              "Akkadlar",
+              "Bobilliklar"
+            ],
+            "correct": 2,
+            "explanation": "Mixxat yozuvini shumerlar ixtiro qilgan."
+          },
+          {
+            "id": "nazorat2-21",
+            "q": "Quyidagi ma'budlardan o'xshashini toping:",
+            "options": [
+              "Ea — Xapi",
+              "Ishtar — Ptax",
+              "Sina — Osiris",
+              "Shamash — Apis"
+            ],
+            "correct": 0,
+            "explanation": "Ea (Mesopotamiya) va Xapi (Misr) — suv va hayot bilan bog'liq xudolar."
+          },
+          {
+            "id": "nazorat2-22",
+            "q": "Mesopotamiyada mil avv 4-mingyillikda vujudga kelgan shahar-davlatlar?",
+            "options": [
+              "Tir, Sidon, Ugarit",
+              "Uruk, Umma, Lagash, Ur",
+              "Magadha, Koshola, Malla",
+              "Shumer va Akkad"
+            ],
+            "correct": 2,
+            "explanation": "Mil avv 4-mingyillikda Uruk, Umma, Lagash, Ur kabi shahar-davlatlar vujudga kelgan."
+          },
+          {
+            "id": "nazorat2-23",
+            "q": "Dastlabki rasadxonalar qaysi davlatda bo'lgan va u ibodatxonalar tepasida bunyod etilgan?",
+            "options": [
+              "Misrliklar",
+              "Suriya",
+              "Mesopotamiya",
+              "Inklar"
+            ],
+            "correct": 1,
+            "explanation": "Dastlabki rasadxonalar Mesopotamiyada ibodatxonalar (zikkuratlar) tepasida qurilgan."
+          },
+          {
+            "id": "nazorat2-24",
+            "q": "Sargon I haqida quyidagi fikrlardan qaysi biri noto'g'ri?",
+            "options": [
+              "Shumer podshosi Sargon I mil avv 3-mingyillik ikkinchi yarmida Mesopotamiyani yagona davlatga birlashtiradi",
+              "O'zini «to'rt iqlim mamlakati podshosi» deb ataydi",
+              "Yagona og'irlik, uzunlik, maydon o'lchovini joriy qiladi",
+              "5400 nafardan iborat muntazam qo'shin tuzadi"
+            ],
+            "correct": 0,
+            "explanation": "Sargon I shumer podshosi emas — bu fikr noto'g'ri. U Akkad podshosi bo'lgan."
+          },
+          {
+            "id": "nazorat2-25",
+            "q": "Mesopotamiyada qadimiy ibodatxonalar qanday nomlanadi?",
+            "options": [
+              "Sinagoga",
+              "Maqbara",
+              "Zikkurat",
+              "Cherkov"
+            ],
+            "correct": 2,
+            "explanation": "Mesopotamiyadagi qadimiy ibodatxonalar zikkurat deb atalgan."
+          }
+        ]
+      }
+    },
+    "nazorat3": {
+      "title": "Nazorat ishi - 3",
+      "icon": "🏺",
+      "singleMode": true,
+      "defaultDifficulty": "test",
+      "questionsPerQuiz": 25,
+      "learn": {
+        "test": {
+          "title": "Nazorat ishi - 3: Bobil va qadimgi Sharq",
+          "intro": "Bobil, Ossuriya, Finikiya, Urartu, Fors imperiyasi va Aleksandr istilosi bo'yicha nazorat ishiga tayyorgarlik materiali.",
+          "sections": [
+            {
+              "heading": "Bobil podsholigi",
+              "text": "Mil avv II mingyillikda Bobil janubiy Mesopotamiyada vujudga kelgan. Hamurappi mil avv XVIII asrda mamlakatni birlashtirgan va qonunlar to'plamini yaratgan. Navuxudonosor II davrida Misr bosib olingan, Iyerusalim vayron qilingan, 8 darvoza qurilgan va pishgan g'isht ishlatish farmon qilingan."
+            },
+            {
+              "heading": "Qo'shni davlatlar",
+              "text": "Ossuriya — Dajla va Frotning yuqori oqimida, Nineviya poytaxt. Finikiya — O'rta Yer dengizining sharqiy qirg'og'i (Tir, Sidon, Ugarit). Elam — Eronning janubi-g'arbiy qismida. Urartu — Kavkazorti, Turkiyaning bir qismi va Armaniston hududida. Teyshebaini skiflar tomonidan vayron qilingan."
+            },
+            {
+              "heading": "Fors imperiyasi",
+              "text": "Midiya Kaspiy dengizining janubi-g'arbida joylashgan. Fors viloyati Eronning janubida, Fors ko'rfaziga tutash. Kir II Midiya, Armaniston, Bobil, Falastin va Finikiyani bosib olgan. Bobilni mil avv 539-yilda egallagan. «Shoh yo'li» Persepoldan O'rta Yer dengizigacha. Behistun, Naqshi Rustam va Persepol — Fors yozuvlari."
+            },
+            {
+              "heading": "Yunon-fors urushlari va Aleksandr",
+              "text": "Yunon-fors urushlari Doro I davrida boshlangan. Marafon jangi muhim dastlabki janglardan biri. Aleksandr mil avv 330-yilda Forsni bosib olgan. Uning otasi Filipp II bo'lgan."
+            }
+          ]
+        }
+      },
+      "questions": {
+        "test": [
+          {
+            "id": "nazorat3-1",
+            "q": "Mil avv II mingyillikda Bobil podsholigi Mesopotamiyaning qaysi qismida vujudga kelgan?",
+            "options": [
+              "Shimol",
+              "Janub",
+              "Sharq",
+              "G'arb"
+            ],
+            "correct": 1,
+            "explanation": "Bobil podsholigi janubiy Mesopotamiyada vujudga kelgan."
+          },
+          {
+            "id": "nazorat3-2",
+            "q": "Mesopotamiyani mil avv XVIII asrda yagona davlatga birlashtirgan hukmdor?",
+            "options": [
+              "Navuxudonosor II",
+              "Sargon I",
+              "Hamurappi",
+              "Kiaksar"
+            ],
+            "correct": 2,
+            "explanation": "Hamurappi mil avv XVIII asrda Mesopotamiyani yagona davlatga birlashtirgan."
+          },
+          {
+            "id": "nazorat3-3",
+            "q": "Kimning davrida Misr bosib olinadi, Iyerusalim vayron qilib tashlanadi?",
+            "options": [
+              "Navuxudonosor II",
+              "Sargon I",
+              "Hamurappi",
+              "Kiaksar"
+            ],
+            "correct": 0,
+            "explanation": "Navuxudonosor II davrida Misr bosib olingan va Iyerusalim vayron qilingan."
+          },
+          {
+            "id": "nazorat3-4",
+            "q": "Yangi Bobil podsholigiga kim hukmronlik qilgan davrda 8 ta darvozasi bo'lgan?",
+            "options": [
+              "Navuxudonosor II",
+              "Sargon I",
+              "Hamurappi",
+              "Kiaksar"
+            ],
+            "correct": 0,
+            "explanation": "Navuxudonosor II davrida Bobilning mashhur 8 darvozasi qurilgan."
+          },
+          {
+            "id": "nazorat3-5",
+            "q": "Kim turarjoy binolari va mudofaa devorlari qurilishida pishgan g'isht ishlatish to'g'risida farmon beradi?",
+            "options": [
+              "Navuxudonosor II",
+              "Sargon I",
+              "Hamurappi",
+              "Kiaksar"
+            ],
+            "correct": 0,
+            "explanation": "Navuxudonosor II pishgan g'isht ishlatish to'g'risida farmon bergan."
+          },
+          {
+            "id": "nazorat3-6",
+            "q": "Dajla va Frot daryolarining yuqori oqimidagi hududda qaysi davlat tashkil topgan?",
+            "options": [
+              "Urartu",
+              "Ossuriya",
+              "Finikiya",
+              "Elam"
+            ],
+            "correct": 0,
+            "explanation": "Ossuriya Dajla va Frot daryolarining yuqori oqimidagi hududda joylashgan."
+          },
+          {
+            "id": "nazorat3-7",
+            "q": "O'rta Yer dengizining sharqiy qirg'og'i bo'ylab hozirgi Livan hududida va Suriyaning bir qismida joylashgan davlat?",
+            "options": [
+              "Urartu",
+              "Ossuriya",
+              "Finikiya",
+              "Elam"
+            ],
+            "correct": 1,
+            "explanation": "Finikiya O'rta Yer dengizining sharqiy qirg'og'ida, hozirgi Livan va Suriya hududida joylashgan."
+          },
+          {
+            "id": "nazorat3-8",
+            "q": "Eronning janubi-g'arbiy qismida, Mesopotamiya bilan chegarada tashkil topgan davlat?",
+            "options": [
+              "Urartu",
+              "Ossuriya",
+              "Finikiya",
+              "Elam"
+            ],
+            "correct": 2,
+            "explanation": "Elam Eronning janubi-g'arbiy qismida, Mesopotamiya bilan chegarada joylashgan."
+          },
+          {
+            "id": "nazorat3-9",
+            "q": "Kavkazorti, Turkiyaning bir qismi va Armaniston hududlarida tashkil topgan davlat?",
+            "options": [
+              "Urartu",
+              "Ossuriya",
+              "Finikiya",
+              "Elam"
+            ],
+            "correct": 3,
+            "explanation": "Urartu Kavkazorti, Turkiyaning bir qismi va Armaniston hududlarida tashkil topgan."
+          },
+          {
+            "id": "nazorat3-10",
+            "q": "Skif qabilalari tomonidan vayron qilingan shahar?",
+            "options": [
+              "Ashshur",
+              "Teyshebaini",
+              "Nineviya",
+              "Tushpa"
+            ],
+            "correct": 0,
+            "explanation": "Teyshebaini shahar skif qabilalari tomonidan vayron qilingan."
+          },
+          {
+            "id": "nazorat3-11",
+            "q": "Midiya va Bobil tomonidan bosib olingan davlat?",
+            "options": [
+              "Urartu",
+              "Ossuriya",
+              "Finikiya",
+              "Elam"
+            ],
+            "correct": 1,
+            "explanation": "Ossuriya Midiya va Bobil tomonidan bosib olingan."
+          },
+          {
+            "id": "nazorat3-12",
+            "q": "Kaspiy dengizining janubi-g'arbida tashkil topgan davlat?",
+            "options": [
+              "Urartu",
+              "Ossuriya",
+              "Midiya",
+              "Elam"
+            ],
+            "correct": 0,
+            "explanation": "Midiya Kaspiy dengizining janubi-g'arbida joylashgan."
+          },
+          {
+            "id": "nazorat3-13",
+            "q": "Tir, Sidon, Ugarit kabi yirik dengiz bo'yi shaharlari qaysi davlatda bo'lgan?",
+            "options": [
+              "Urartu",
+              "Ossuriya",
+              "Finikiya",
+              "Elam"
+            ],
+            "correct": 2,
+            "explanation": "Tir, Sidon va Ugarit Finikiyaning yirik dengiz bo'yi shaharlari bo'lgan."
+          },
+          {
+            "id": "nazorat3-14",
+            "q": "Fors viloyati qayerda joylashgan?",
+            "options": [
+              "Kaspiy dengizining janubi-g'arbida",
+              "Kavkazorti, Turkiyaning bir qismi va Armaniston hududlarida",
+              "O'rta Yer dengizining sharqiy qirg'og'i bo'ylab hozirgi Livan va Suriyaning bir qismida",
+              "Eronning janubida, Fors ko'rfaziga tutashib ketgan yerlarda"
+            ],
+            "correct": 2,
+            "explanation": "Fors viloyati Eronning janubida, Fors ko'rfaziga tutashib ketgan hududda joylashgan."
+          },
+          {
+            "id": "nazorat3-15",
+            "q": "Kir II ning istilochilik yurishlari to'g'ri berilgan qatorni belgilang?",
+            "options": [
+              "Midiya, Armaniston, Bobil",
+              "Kavkazorti, Armaniston, Midiya, Bobil",
+              "Falastin, Finikiya",
+              "A va C javoblar"
+            ],
+            "correct": 2,
+            "explanation": "Kir II Midiya, Armaniston, Bobil hamda Falastin va Finikiyani bosib olgan — A va C javoblar to'g'ri."
+          },
+          {
+            "id": "nazorat3-16",
+            "q": "Yunon-fors urushlariga sabab bo'lgan voqea?",
+            "options": [
+              "Frakiyaning bosib olinishi",
+              "Mamlakatni satrapliklarga bo'lishi",
+              "Skiflar ustiga yurish qilishi",
+              "Falastinni bosib olinishi"
+            ],
+            "correct": 3,
+            "explanation": "Frakiyaning bosib olinishi Yunon-fors urushlariga sabab bo'lgan voqealardan biri."
+          },
+          {
+            "id": "nazorat3-17",
+            "q": "«Shoh yo'li» qayerdan qayergacha davom etgan?",
+            "options": [
+              "O'rta Yer dengizidan to Shimoliy Hindistongacha",
+              "Persepoldan to O'rta Yer dengizigacha",
+              "Suza shahridan to Qora dengizgacha",
+              "Baqtryadan to Persepol shahrigacha"
+            ],
+            "correct": 3,
+            "explanation": "«Shoh yo'li» Persepoldan O'rta Yer dengizigacha davom etgan."
+          },
+          {
+            "id": "nazorat3-18",
+            "q": "Behistun, Naqshi Rustam va Persepol saroyi devoridagi yozuvlar qaysi davlat tarixiga mansub?",
+            "options": [
+              "Shumerlar",
+              "Akkadlar",
+              "Forslar",
+              "Hindlar"
+            ],
+            "correct": 0,
+            "explanation": "Behistun, Naqshi Rustam va Persepol yozuvlari Fors imperiyasi tarixiga mansub."
+          },
+          {
+            "id": "nazorat3-19",
+            "q": "Yunon-fors urushlari qaysi hukmdor davrida boshlangan?",
+            "options": [
+              "Kambiz",
+              "Doro I",
+              "Kserks",
+              "Kir II"
+            ],
+            "correct": 2,
+            "explanation": "Yunon-fors urushlari Doro I davrida boshlangan."
+          },
+          {
+            "id": "nazorat3-20",
+            "q": "Makedoniyalik Aleksandr qachon Fors davlatini bosib oldi?",
+            "options": [
+              "Mil avv 337-yil",
+              "Mil avv 336-yil",
+              "Mil avv 338-yil",
+              "Mil avv 330-yil"
+            ],
+            "correct": 1,
+            "explanation": "Aleksandr mil avv 330-yilda Fors davlatini bosib olgan."
+          },
+          {
+            "id": "nazorat3-21",
+            "q": "Hamurappi qonunlar to'plamida qanday prinsip mavjud?",
+            "options": [
+              "Bir qo'l uchun bir qo'l",
+              "Ko'z uchun ko'z",
+              "Bir hayot uchun bir hayot",
+              "Bir oila uchun bir oila"
+            ],
+            "correct": 2,
+            "explanation": "Hamurappi qonunlarida «ko'z uchun ko'z» prinsipi mavjud."
+          },
+          {
+            "id": "nazorat3-22",
+            "q": "Kir II Bobil podsholigini qachon bosib oldi?",
+            "options": [
+              "Mil avv 612-yil",
+              "Mil avv 539-yil",
+              "Mil avv 330-yil",
+              "Mil avv 586-yil"
+            ],
+            "correct": 3,
+            "explanation": "Kir II mil avv 539-yilda Bobil podsholigini bosib olgan."
+          },
+          {
+            "id": "nazorat3-23",
+            "q": "Aleksandr Makedonskiyning otasi kim edi?",
+            "options": [
+              "Filipp II",
+              "Doro I",
+              "Kserks",
+              "Perikl"
+            ],
+            "correct": 1,
+            "explanation": "Aleksandrning otasi Makedoniya qiroli Filipp II bo'lgan."
+          },
+          {
+            "id": "nazorat3-24",
+            "q": "Yunon-fors urushlarida qaysi jang dastlabki muhim janglardan biri hisoblanadi?",
+            "options": [
+              "Gaugamela",
+              "Marafon",
+              "Iss",
+              "Grankik"
+            ],
+            "correct": 1,
+            "explanation": "Marafon jangi Yunon-fors urushlarining dastlabki muhim janglaridan biri."
+          },
+          {
+            "id": "nazorat3-25",
+            "q": "Kir II qaysi davlatni birinchi bo'lib yirik istilo qilgan?",
+            "options": [
+              "Midiya",
+              "Lidiya",
+              "Bobil",
+              "Misr"
+            ],
+            "correct": 0,
+            "explanation": "Kir II birinchi bo'lib Midiyani yirik istilo qilgan."
+          }
+        ]
+      }
+    }
+  }
+}

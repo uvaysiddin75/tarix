@@ -1214,6 +1214,18 @@ body {
   margin-bottom: 1.25rem;
 }
 
+.data-sync-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.file-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 .profile-row {
   display: flex;
   flex-wrap: wrap;

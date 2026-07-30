@@ -158,7 +158,7 @@
 
     statsBar.hidden = name !== "quiz";
 
-    aiFab.hidden = name === "auth";
+    aiFab.hidden = name === "auth" || !Auth.isAiEnabled?.();
 
     if (name === "menu" || name === "settings") {
 
@@ -187,6 +187,22 @@
     mainHeader.hidden = false;
 
     mainFooter.hidden = false;
+
+    const syncSection = document.getElementById("dataSyncSection");
+    if (syncSection) {
+      syncSection.hidden = !(Auth.isStaticMode?.() && user.role === "admin");
+    }
+
+    const studentExport = document.getElementById("studentExportSection");
+    if (studentExport) {
+      studentExport.hidden = !(Auth.isStaticMode?.() && user.role !== "admin");
+    }
+
+    if (Auth.isStaticMode?.()) {
+      aiFab.hidden = true;
+      const footer = mainFooter.querySelector("p");
+      if (footer) footer.textContent = "GitHub Pages rejimi · Ma'lumotlar brauzerda saqlanadi";
+    }
 
     AiTutor.updateStatus();
 
@@ -1270,6 +1286,64 @@
 
     }
 
+  });
+
+
+
+  document.getElementById("btnExportUsers")?.addEventListener("click", () => {
+    try {
+      const data = Auth.exportUsersDb();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `nazorat-users-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      const errEl = document.getElementById("importError");
+      errEl.textContent = err.message;
+      errEl.hidden = false;
+    }
+  });
+
+  document.getElementById("btnExportMyProgress")?.addEventListener("click", () => {
+    const user = Auth.getUser();
+    if (!user) return;
+    const data = { users: [user] };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `nazorat-${user.email.split("@")[0]}-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById("importUsersFile")?.addEventListener("change", async (e) => {
+    const errEl = document.getElementById("importError");
+    const okEl = document.getElementById("importSuccess");
+    errEl.hidden = true;
+    okEl.hidden = true;
+
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      const count = Auth.importUsersDb(data);
+      okEl.textContent = `${count} ta foydalanuvchi ma'lumoti birlashtirildi`;
+      okEl.hidden = false;
+      await renderAllUsersProgress();
+      const user = Auth.getUser();
+      if (user) renderMyProgress(user);
+    } catch (err) {
+      errEl.textContent = err.message;
+      errEl.hidden = false;
+    } finally {
+      e.target.value = "";
+    }
   });
 
 

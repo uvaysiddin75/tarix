@@ -106,6 +106,14 @@
 
   function updateStatus() {
     if (!statusEl) return;
+    if (!Auth.isAiEnabled?.()) {
+      statusEl.textContent = Auth.isStaticMode?.()
+        ? "GitHub rejimi — AI o'chirilgan"
+        : "AI o'chirilgan";
+      statusEl.classList.remove("ai-live");
+      if (fab) fab.hidden = true;
+      return;
+    }
     const modes = {
       openai: "AI faol (OpenAI)",
       groq: "AI faol (Groq)",
@@ -114,6 +122,7 @@
     };
     statusEl.textContent = modes[Auth.getAiMode?.()] || modes.smart;
     statusEl.classList.add("ai-live");
+    if (fab) fab.hidden = false;
   }
 
   fab?.addEventListener("click", togglePanel);

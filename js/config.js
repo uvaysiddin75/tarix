@@ -3,6 +3,7 @@
 
   const RENDER_URL = "https://tarix-do6q.onrender.com";
   window.API_BASE = "";
+  window.STATIC_MODE = false;
 
   window.initApiBase = async function initApiBase() {
     const host = location.hostname;
@@ -14,15 +15,22 @@
 
     if (isSameHost) {
       window.API_BASE = "";
+      window.STATIC_MODE = false;
+      if (window.StaticApi) window.StaticApi.enabled = false;
       return;
     }
 
-    // GitHub Pages — doim Render serveriga ulanadi
+    // GitHub Pages — to'liq statik rejim (Render kerak emas)
     if (host.endsWith("github.io") || host.endsWith("github.dev")) {
-      window.API_BASE = RENDER_URL;
+      window.API_BASE = "";
+      window.STATIC_MODE = true;
+      if (window.StaticApi) window.StaticApi.enabled = true;
       return;
     }
 
+    // Boshqa hostlar — Render server
     window.API_BASE = RENDER_URL;
+    window.STATIC_MODE = false;
+    if (window.StaticApi) window.StaticApi.enabled = false;
   };
 })();
