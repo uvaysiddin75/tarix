@@ -222,26 +222,51 @@
 
 
 
+  function setAuthStatus(text, type = "info") {
+    const el = document.getElementById("authStatus");
+    if (!el) return;
+    if (!text) {
+      el.hidden = true;
+      el.textContent = "";
+      return;
+    }
+    el.hidden = false;
+    el.textContent = text;
+    el.dataset.type = type;
+  }
+
+
+
   async function initApp() {
-    if (window.initApiBase) await window.initApiBase();
-
-    const user = await Auth.checkAuth();
     setupAuthUI();
+    showScreen("auth");
+    mainHeader.hidden = true;
+    mainFooter.hidden = true;
+    setAuthStatus("Serverga ulanmoqda... Birinchi marta 30-60 soniya kutishi mumkin");
 
-    if (user) {
-
-      await onAuthenticated(user);
-
-    } else {
-
-      showScreen("auth");
-
-      mainHeader.hidden = true;
-
-      mainFooter.hidden = true;
-
+    try {
+      if (window.initApiBase) await window.initApiBase();
+    } catch {
+      setAuthStatus("Server uyg'onmadi — brauzer rejimida davom etiladi", "warn");
     }
 
+    let user = null;
+    try {
+      user = await Auth.checkAuth();
+    } catch {
+      user = null;
+    }
+
+    if (Auth.isStaticMode?.()) {
+      setAuthStatus("Brauzer rejimi: ma'lumotlar shu qurilmada saqlanadi", "warn");
+    } else {
+      setAuthStatus("");
+    }
+
+    if (user) {
+      setAuthStatus("");
+      await onAuthenticated(user);
+    }
   }
 
 
@@ -1523,11 +1548,22 @@
 
 
   initApp().catch(() => {
+    setAuthStatus("Xatolik yuz berdi. Sahifani yangilang (Ctrl+F5)", "error");
+    showScreen("auth");
+    mainHeader.hidden = true;
+    mainFooter.hidden = true;
+  });
 
-    categoryGrid.innerHTML =
+  window.addEventListener("api:connecting", () => {
+    setAuthStatus("Server uyg'onmoqda... 30-60 soniya kuting");
+  });
 
-      '<p class="loading">Yuklanmadi. Serverni ishga tushiring: npm start</p>';
+  window.addEventListener("api:fallback-static", () => {
+    setAuthStatus("Server band — brauzer rejimida ishlaydi (admin barcha userlarni ko'ra olmaydi)", "warn");
+  });
 
+  window.addEventListener("api:connected", () => {
+    if (!Auth.getUser?.()) setAuthStatus("");
   });
 
 })();

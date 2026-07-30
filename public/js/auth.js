@@ -29,6 +29,10 @@
     return (window.API_BASE || "") + path;
   }
 
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   async function apiFetch(url, options = {}) {
     if (window.StaticApi?.enabled) {
       return window.StaticApi.handle(url, {
@@ -37,19 +41,31 @@
       });
     }
 
-    const res = await fetch(apiUrl(url), {
-      ...options,
-      headers: { ...authHeaders(), ...options.headers },
-      credentials: window.API_BASE ? "omit" : "include",
-    });
+    const attempts = window.API_BASE ? 3 : 1;
+    let lastError = null;
 
-    if (res.status === 401 && !url.includes("/auth/")) {
-      setToken(null);
-      currentUser = null;
-      window.dispatchEvent(new CustomEvent("auth:logout"));
+    for (let i = 0; i < attempts; i++) {
+      try {
+        const res = await fetch(apiUrl(url), {
+          ...options,
+          headers: { ...authHeaders(), ...options.headers },
+          credentials: window.API_BASE ? "omit" : "include",
+        });
+
+        if (res.status === 401 && !url.includes("/auth/")) {
+          setToken(null);
+          currentUser = null;
+          window.dispatchEvent(new CustomEvent("auth:logout"));
+        }
+
+        return res;
+      } catch (err) {
+        lastError = err;
+        if (i < attempts - 1) await sleep(4000);
+      }
     }
 
-    return res;
+    throw lastError || new Error("Server bilan bog'lanib bo'lmadi");
   }
 
   async function checkAuth() {
@@ -58,7 +74,20 @@
       setToken(null);
     }
 
-    const res = await apiFetch("/api/auth/status");
+    let res;
+    try {
+      res = await apiFetch("/api/auth/status");
+    } catch {
+      if (window.StaticApi && !window.StaticApi.enabled) {
+        window.StaticApi.enabled = true;
+        window.STATIC_MODE = true;
+        window.API_BASE = "";
+        res = await apiFetch("/api/auth/status");
+      } else {
+        throw new Error("Server bilan bog'lanib bo'lmadi");
+      }
+    }
+
     const data = await res.json();
     aiEnabled = data.aiEnabled !== false;
     aiMode = data.aiMode || "smart";

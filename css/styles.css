@@ -858,6 +858,28 @@ body {
   border-top: 1px solid var(--border);
 }
 
+.auth-status {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  text-align: center;
+  background: rgba(212, 168, 83, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(212, 168, 83, 0.25);
+}
+
+.auth-status[data-type="warn"] {
+  background: rgba(255, 180, 80, 0.12);
+  color: #e8a845;
+}
+
+.auth-status[data-type="error"] {
+  background: rgba(220, 80, 80, 0.12);
+  color: #f08080;
+  border-color: rgba(220, 80, 80, 0.25);
+}
+
 /* ——— Header user menu ——— */
 
 .header-actions {
