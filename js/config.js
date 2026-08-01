@@ -40,6 +40,9 @@
     window.STATIC_MODE = false;
     if (window.StaticApi) window.StaticApi.enabled = false;
     window.dispatchEvent(new CustomEvent("api:connected"));
+    if (window.StaticApi?.syncFullDbToServer) {
+      window.StaticApi.syncFullDbToServer();
+    }
   }
 
   window.initApiBase = async function initApiBase() {

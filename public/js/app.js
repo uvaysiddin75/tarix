@@ -235,6 +235,23 @@
     el.dataset.type = type;
   }
 
+  function showSaveToast(text, type = "ok") {
+    let toast = document.getElementById("saveToast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "saveToast";
+      toast.className = "save-toast";
+      document.body.appendChild(toast);
+    }
+    toast.textContent = text;
+    toast.dataset.type = type;
+    toast.hidden = false;
+    clearTimeout(showSaveToast._timer);
+    showSaveToast._timer = setTimeout(() => {
+      toast.hidden = true;
+    }, 3500);
+  }
+
 
 
   async function initApp() {
@@ -891,7 +908,13 @@
 
       if (user) updateUserUI(user);
 
-    } catch { /* ignore */ }
+      showSaveToast("Natija saqlandi ✓");
+
+    } catch {
+
+      showSaveToast("Natija saqlanmadi — internetni tekshiring", "warn");
+
+    }
 
 
 
@@ -1568,6 +1591,10 @@
 
   window.addEventListener("api:connected", () => {
     if (!Auth.getUser?.()) setAuthStatus("");
+  });
+
+  window.addEventListener("data:saved-server", () => {
+    showSaveToast("Ma'lumotlar serverga saqlandi ✓");
   });
 
 })();

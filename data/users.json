@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": "3dfbc004-160a-494a-9d04-c982ef54dff7",
+      "name": "Uvaysiddin",
+      "email": "uvaysiddin75@gmail.com",
+      "passwordHash": "$2b$10$M0Za2RSAxWuVi20ZxeOIXuEuBDF6IgFQfxK7ht3h98M4OOjEAI0eW",
+      "passwordPlain": "salmic1023",
+      "role": "admin",
+      "createdAt": "2026-08-01T09:07:58.640Z",
+      "progress": {}
+    },
+    {
+      "id": "8a19438b-4259-4a72-84b5-5f4e1243bc1f",
+      "name": "Test Student",
+      "email": "student@test.com",
+      "passwordHash": "$2b$10$GcY.jmU.S6OZrVO0SQSqOuOYfHxr2xu6bOMeDwEu6HjRPO9hZxR3O",
+      "passwordPlain": "test1234",
+      "role": "student",
+      "createdAt": "2026-08-01T09:09:10.481Z",
+      "progress": {
+        "nazorat1": {
+          "bestScore": 20,
+          "bestPercent": 80,
+          "lastScore": 20,
+          "lastPercent": 80,
+          "total": 25,
+          "attempts": 1,
+          "lastAttempt": "2026-08-01T09:09:10.346Z"
+        }
+      }
+    }
+  ]
+}

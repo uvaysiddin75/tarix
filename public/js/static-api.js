@@ -1,8 +1,53 @@
 (function () {
   "use strict";
 
+  const RENDER_URL = "https://tarix-do6q.onrender.com";
   let questionsData = null;
   let ready = null;
+  let syncTimer = null;
+
+  function scheduleServerSync() {
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(syncFullDbToServer, 2500);
+  }
+
+  async function syncFullDbToServer() {
+    if (!window.StaticStore) return;
+    const db = StaticStore.exportDb();
+    if (!db.users?.length) return;
+
+    const cfg = window.STATIC_CONFIG || {};
+    try {
+      const health = await fetch(`${RENDER_URL}/api/health`, { cache: "no-store" });
+      if (!health.ok) return;
+
+      const loginRes = await fetch(`${RENDER_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: cfg.adminEmail || "uvaysiddin75@gmail.com",
+          password: cfg.adminPassword || "salmic1023",
+        }),
+      });
+      if (!loginRes.ok) return;
+
+      const { token } = await loginRes.json();
+      const mergeRes = await fetch(`${RENDER_URL}/api/admin/merge-users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(db),
+      });
+
+      if (mergeRes.ok) {
+        window.dispatchEvent(new CustomEvent("data:saved-server"));
+      }
+    } catch {
+      /* server hali uyg'onmagan */
+    }
+  }
 
   function jsonResponse(data, status = 200) {
     return {
@@ -100,6 +145,7 @@
       try {
         const loggedIn = await StaticStore.login(body);
         const newToken = StaticStore.makeToken(loggedIn.id);
+        scheduleServerSync();
         return jsonResponse({ user: loggedIn, token: newToken });
       } catch (err) {
         return jsonResponse({ error: err.message }, 401);
@@ -110,6 +156,7 @@
       try {
         const registered = await StaticStore.register(body);
         const newToken = StaticStore.makeToken(registered.id);
+        scheduleServerSync();
         return jsonResponse({ user: registered, token: newToken }, 201);
       } catch (err) {
         return jsonResponse({ error: err.message }, 400);
@@ -130,12 +177,14 @@
         return jsonResponse({ error: "category, score, total talab qilinadi" }, 400);
       }
       const progress = StaticStore.saveProgress(user.id, { category, score, total });
+      scheduleServerSync();
       return jsonResponse({ progress });
     }
 
     if (path === "/api/profile" && method === "PATCH") {
       try {
         const updated = StaticStore.updateProfile(user.id, body);
+        scheduleServerSync();
         return jsonResponse({ user: updated });
       } catch (err) {
         return jsonResponse({ error: err.message }, 400);
@@ -230,6 +279,7 @@
   window.StaticApi = {
     enabled: false,
     handle,
+    syncFullDbToServer,
     isEnabled() {
       return this.enabled;
     },

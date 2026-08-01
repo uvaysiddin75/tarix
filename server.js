@@ -184,6 +184,15 @@ app.get("/api/users/progress", auth.authMiddleware, auth.adminMiddleware, async 
   }
 });
 
+app.post("/api/admin/merge-users", auth.authMiddleware, auth.adminMiddleware, async (req, res) => {
+  try {
+    const result = await auth.mergeUsersImport(req.body);
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 // ——— Protected quiz API ———
 
 app.get("/api/meta", auth.authMiddleware, (_req, res) => {

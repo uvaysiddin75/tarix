@@ -880,6 +880,25 @@ body {
   border-color: rgba(220, 80, 80, 0.25);
 }
 
+.save-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  background: rgba(80, 180, 120, 0.95);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.save-toast[data-type="warn"] {
+  background: rgba(220, 140, 60, 0.95);
+}
+
 /* ——— Header user menu ——— */
 
 .header-actions {
