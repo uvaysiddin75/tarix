@@ -193,6 +193,10 @@ app.post("/api/admin/merge-users", auth.authMiddleware, auth.adminMiddleware, as
   }
 });
 
+app.get("/api/admin/export-db", auth.authMiddleware, auth.adminMiddleware, (_req, res) => {
+  res.json(auth.exportFullDatabase());
+});
+
 // ——— Protected quiz API ———
 
 app.get("/api/meta", auth.authMiddleware, (_req, res) => {

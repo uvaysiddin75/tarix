@@ -4,61 +4,28 @@ chcp 65001 >nul
 
 cd /d "%~dp0"
 
-
-
 echo ========================================
-
-echo   GitHub + Render — umumiy baza
-
+echo   GitHub + Render — hammasi sozlandi
 echo ========================================
-
 echo.
-
-echo Sayt (GitHub Pages):
-
+echo Sayt:
 echo   https://uvaysiddin75.github.io/tarix/
-
 echo.
-
-echo Server (umumiy foydalanuvchilar bazasi):
-
+echo Server:
 echo   https://tarix-do6q.onrender.com
-
 echo.
-
-echo Admin kirish:
-
+echo Admin:
 echo   Email: uvaysiddin75@gmail.com
-
 echo   Parol: salmic1023
-
 echo.
-
-echo BARCHA foydalanuvchilar admin panelda ko'rinadi
-
-echo (telefon, kompyuter — bir xil baza).
-
+echo AV TOMATIK SAQLASH (siz hech narsa qo'shmaysiz):
+echo   - GitHub har 10 daqiqada bazani saqlaydi
+echo   - Render qayta ishga tushsa — baza GitHub dan yuklanadi
+echo   - Brauzer + server sinxronizatsiyasi yoqilgan
 echo.
-
-echo Ma'lumotlarni GitHub da saqlash uchun:
-
-echo   Render.com - tarix - Environment
-
-echo   GITHUB_TOKEN = GitHub Personal Access Token
-
-echo   (Contents: Read and write ruxsati)
-
-echo.
-
-echo GitHub ga yuklash:
-
+echo GitHub ga yangilash:
 echo   git add .
-
 echo   git commit -m "Yangilanish"
-
 echo   git push origin main
-
 echo.
-
 pause
-

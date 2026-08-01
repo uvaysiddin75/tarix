@@ -1,0 +1,49 @@
+# Avtomatik: Render bazasini GitHub ga saqlash (GITHUB_TOKEN Render da kerak emas)
+name: Backup Users to GitHub
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lib/**"
+      - "server.js"
+      - "scripts/backup-users-from-render.js"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backup-users
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Backup users from Render
+        env:
+          RENDER_URL: https://tarix-do6q.onrender.com
+          ADMIN_EMAIL: uvaysiddin75@gmail.com
+          ADMIN_PASSWORD: salmic1023
+        run: node scripts/backup-users-from-render.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/users.json
+          if git diff --staged --quiet; then
+            echo "O'zgarish yo'q"
+            exit 0
+          fi
+          git commit -m "Auto backup: foydalanuvchilar bazasi [skip ci]"
+          git push
