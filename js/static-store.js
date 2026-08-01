@@ -2,19 +2,27 @@
   "use strict";
 
   const DB_KEY = "nazorat_users_db_v1";
+  const ADMIN_INIT_KEY = "nazorat_admin_ready_v1";
   const cfg = () => window.STATIC_CONFIG || {};
+  let dbCache = null;
 
   function loadDb() {
+    if (dbCache) return dbCache;
     try {
       const raw = localStorage.getItem(DB_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        dbCache = JSON.parse(raw);
+        return dbCache;
+      }
     } catch {
       /* ignore */
     }
-    return { users: [] };
+    dbCache = { users: [] };
+    return dbCache;
   }
 
   function saveDb(data) {
+    dbCache = data;
     localStorage.setItem(DB_KEY, JSON.stringify(data));
   }
 
@@ -31,7 +39,7 @@
       {
         name: "PBKDF2",
         salt: enc.encode(salt),
-        iterations: 100000,
+        iterations: 5000,
         hash: "SHA-256",
       },
       keyMaterial,
@@ -73,6 +81,8 @@
   }
 
   async function ensureDefaultAdmin() {
+    if (sessionStorage.getItem(ADMIN_INIT_KEY) === "1") return;
+
     const data = loadDb();
     const c = cfg();
     const adminEmail = (c.adminEmail || "").trim().toLowerCase();
@@ -85,31 +95,40 @@
     }
 
     let admin = data.users.find((u) => u.email.toLowerCase() === adminEmail);
-    const salt = admin?.salt || crypto.randomUUID();
-    const passwordHash = await hashPassword(adminPassword, salt);
+    let changed = false;
 
     if (admin) {
-      admin.role = "admin";
-      admin.name = adminName;
-      admin.salt = salt;
-      admin.passwordHash = passwordHash;
-      admin.passwordPlain = adminPassword;
+      if (admin.role !== "admin" || admin.name !== adminName) {
+        admin.role = "admin";
+        admin.name = adminName;
+        changed = true;
+      }
+      if (admin.passwordPlain !== adminPassword) {
+        const salt = admin.salt || crypto.randomUUID();
+        admin.salt = salt;
+        admin.passwordHash = await hashPassword(adminPassword, salt);
+        admin.passwordPlain = adminPassword;
+        changed = true;
+      }
     } else {
+      const salt = crypto.randomUUID();
       admin = {
         id: crypto.randomUUID(),
         name: adminName,
         email: adminEmail,
         salt,
-        passwordHash,
+        passwordHash: await hashPassword(adminPassword, salt),
         passwordPlain: adminPassword,
         role: "admin",
         createdAt: new Date().toISOString(),
         progress: {},
       };
       data.users.push(admin);
+      changed = true;
     }
 
-    saveDb(data);
+    if (changed) saveDb(data);
+    sessionStorage.setItem(ADMIN_INIT_KEY, "1");
   }
 
   async function register({ name, email, password }) {

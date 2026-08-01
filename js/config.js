@@ -2,13 +2,17 @@
   "use strict";
 
   const RENDER_URL = "https://tarix-do6q.onrender.com";
-  window.API_BASE = "";
-  window.STATIC_MODE = false;
 
-  function useStaticFallback() {
+  function useStatic() {
     window.API_BASE = "";
     window.STATIC_MODE = true;
     if (window.StaticApi) window.StaticApi.enabled = true;
+  }
+
+  function useServer() {
+    window.API_BASE = RENDER_URL;
+    window.STATIC_MODE = false;
+    if (window.StaticApi) window.StaticApi.enabled = false;
   }
 
   window.initApiBase = async function initApiBase() {
@@ -26,14 +30,13 @@
       return;
     }
 
-    // GitHub Pages — tez statik rejim (Render ga o'tish yo'q, lag kam)
     if (host.endsWith("github.io") || host.endsWith("github.dev")) {
-      useStaticFallback();
+      useStatic();
       return;
     }
 
-    window.API_BASE = RENDER_URL;
-    window.STATIC_MODE = false;
-    if (window.StaticApi) window.StaticApi.enabled = false;
+    useServer();
   };
+
+  window.ApiMode = { useStatic, useServer, RENDER_URL };
 })();

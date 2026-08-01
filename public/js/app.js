@@ -203,10 +203,12 @@
     if (Auth.isStaticMode?.()) {
       aiFab.hidden = true;
       const footer = mainFooter.querySelector("p");
-      if (footer) footer.textContent = "GitHub Pages rejimi · Ma'lumotlar brauzerda saqlanadi";
+      if (footer) footer.textContent = "Tez rejim · Serverga kirganda barcha userlar ko'rinadi";
+    } else {
+      AiTutor.updateStatus();
+      const footer = mainFooter.querySelector("p");
+      if (footer) footer.textContent = "Umumiy baza · Barcha foydalanuvchilar saqlanadi";
     }
-
-    AiTutor.updateStatus();
 
   }
 
@@ -260,35 +262,20 @@
     showScreen("auth");
     mainHeader.hidden = true;
     mainFooter.hidden = true;
-
     setupAuthUI();
-    setAuthStatus("");
 
     if (window.initApiBase) {
       try {
         await window.initApiBase();
       } catch {
-        /* static rejimda davom etamiz */
+        /* ignore */
       }
     }
 
-    let user = null;
-    try {
-      user = await Auth.checkAuth();
-    } catch {
-      user = null;
-    }
-
+    const user = await Auth.checkAuth().catch(() => null);
     setupAuthUI();
 
-    if (Auth.isStaticMode?.()) {
-      setAuthStatus("");
-    } else {
-      setAuthStatus("");
-    }
-
     if (user) {
-      setAuthStatus("");
       await onAuthenticated(user);
     }
   }
@@ -386,6 +373,9 @@
 
     try {
 
+      const btn = e.target.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.textContent = "Kutilmoqda..."; }
+
       const user = await Auth.login(
 
         document.getElementById("loginEmail").value.trim(),
@@ -402,6 +392,9 @@
 
       errEl.hidden = false;
 
+    } finally {
+      const btn = document.querySelector("#formLogin button[type='submit']");
+      if (btn) { btn.disabled = false; btn.textContent = "Kirish"; }
     }
 
   });
@@ -1028,35 +1021,6 @@
 
 
 
-  function mergeUsersByEmail(a, b) {
-    const map = new Map();
-    for (const u of a || []) map.set(u.email.toLowerCase(), u);
-    for (const u of b || []) {
-      const key = u.email.toLowerCase();
-      const prev = map.get(key);
-      if (!prev) {
-        map.set(key, u);
-        continue;
-      }
-      const progress = { ...(prev.progress || {}) };
-      for (const [k, p] of Object.entries(u.progress || {})) {
-        const old = progress[k];
-        if (!old) {
-          progress[k] = p;
-        } else {
-          progress[k] = {
-            ...old,
-            bestScore: Math.max(old.bestScore || 0, p.bestScore || 0),
-            bestPercent: Math.max(old.bestPercent || 0, p.bestPercent || 0),
-            attempts: (old.attempts || 0) + (p.attempts || 0),
-          };
-        }
-      }
-      map.set(key, { ...prev, ...u, progress });
-    }
-    return Array.from(map.values());
-  }
-
   function renderUsersTable(users, cats, tbody) {
     tbody.innerHTML = users
       .map((u) => {
@@ -1092,67 +1056,36 @@
 
 
   async function renderAllUsersProgress() {
-
     const section = document.getElementById("allUsersSection");
-
     const thead = document.getElementById("usersProgressHead");
-
     const tbody = document.getElementById("usersProgressBody");
-
     const user = Auth.getUser();
 
     if (user?.role !== "admin") {
-
       section.hidden = true;
-
       return;
-
     }
 
     section.hidden = false;
-
-
-
     const cats = state.meta?.categories || [];
 
     thead.innerHTML = `
-
       <tr>
-
         <th>Foydalanuvchi</th>
-
         <th>Parol</th>
-
         ${cats.map((c) => `<th>${c.title.replace("Nazorat ishi - ", "N")}</th>`).join("")}
-
         <th>Urinishlar</th>
-
       </tr>
-
     `;
 
-
+    tbody.innerHTML = `<tr><td colspan="${cats.length + 3}" class="empty-hint">Yuklanmoqda...</td></tr>`;
 
     try {
-
-      let users = await Auth.fetchAllUsersProgress();
+      const users = await Auth.fetchAllUsersProgress();
       renderUsersTable(users, cats, tbody);
-
-      if (Auth.isStaticMode?.() && Auth.fetchServerUsersForAdmin) {
-        Auth.fetchServerUsersForAdmin().then((serverUsers) => {
-          if (serverUsers?.length) {
-            users = mergeUsersByEmail(users, serverUsers);
-            renderUsersTable(users, cats, tbody);
-          }
-        });
-      }
-
     } catch {
-
-      tbody.innerHTML = `<tr><td colspan="${cats.length + 3}" class="empty-hint">Progress yuklanmadi</td></tr>`;
-
+      tbody.innerHTML = `<tr><td colspan="${cats.length + 3}" class="empty-hint">Server uyg'onmoqda — Yangilash tugmasini bosing</td></tr>`;
     }
-
   }
 
 
@@ -1674,6 +1607,14 @@
     showScreen("auth");
     mainHeader.hidden = true;
     mainFooter.hidden = true;
+  });
+
+  window.addEventListener("auth:server-mode", () => {
+    const user = Auth.getUser();
+    if (user) updateUserUI(user);
+    if (Auth.isAdmin?.() && document.getElementById("screenSettings")?.classList.contains("active")) {
+      renderAllUsersProgress();
+    }
   });
 
 })();

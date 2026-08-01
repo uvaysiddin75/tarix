@@ -4,13 +4,13 @@
   const TOKEN_KEY = "nazorat_token";
   const REMEMBER_KEY = "nazorat_remember";
   const RENDER_URL = "https://tarix-do6q.onrender.com";
+  const SERVER_TIMEOUT = 8000;
 
   let currentUser = null;
   let aiEnabled = true;
   let aiMode = "smart";
   let registrationEnabled = true;
   let adminEmail = null;
-  let reloginPromise = null;
 
   function getToken() {
     return localStorage.getItem(TOKEN_KEY);
@@ -54,65 +54,57 @@
     return (window.API_BASE || "") + path;
   }
 
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+  function useServerMode() {
+    if (window.ApiMode) window.ApiMode.useServer();
+    else {
+      window.API_BASE = RENDER_URL;
+      window.STATIC_MODE = false;
+      if (window.StaticApi) window.StaticApi.enabled = false;
+    }
   }
 
-  async function serverLoginDirect(email, password) {
-    const res = await fetch(`${RENDER_URL}/api/auth/login`, {
+  function useStaticModeLocal() {
+    if (window.ApiMode) window.ApiMode.useStatic();
+    else {
+      window.API_BASE = "";
+      window.STATIC_MODE = true;
+      if (window.StaticApi) window.StaticApi.enabled = true;
+    }
+  }
+
+  async function fetchServer(path, options = {}) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), SERVER_TIMEOUT);
+    try {
+      const res = await fetch(`${RENDER_URL}${path}`, {
+        ...options,
+        signal: controller.signal,
+        headers: { "Content-Type": "application/json", ...options.headers },
+      });
+      clearTimeout(timer);
+      return res;
+    } catch {
+      clearTimeout(timer);
+      return null;
+    }
+  }
+
+  async function tryServerLogin(email, password) {
+    const res = await fetchServer("/api/auth/login", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Kirish muvaffaqiyatsiz");
-    return data;
+    if (!res?.ok) return null;
+    return res.json();
   }
 
-  async function silentReLogin() {
-    if (reloginPromise) return reloginPromise;
-
-    reloginPromise = (async () => {
-      const creds = getRemember();
-      if (!creds?.email || !creds?.password) return null;
-
-      try {
-        if (window.STATIC_MODE || !window.API_BASE) {
-          return await login(creds.email, creds.password);
-        }
-
-        const data = await serverLoginDirect(creds.email, creds.password);
-        setToken(data.token);
-        currentUser = data.user;
-        return data.user;
-      } catch {
-        return null;
-      } finally {
-        reloginPromise = null;
-      }
-    })();
-
-    return reloginPromise;
-  }
-
-  async function reconnectToServer() {
-    if (window.STATIC_MODE || !window.API_BASE) return null;
-
-    const creds = getRemember();
-    if (!creds?.email || !creds?.password) {
-      const user = currentUser || (getToken() ? await checkAuth().catch(() => null) : null);
-      return user;
-    }
-
-    try {
-      const data = await serverLoginDirect(creds.email, creds.password);
-      setToken(data.token);
-      currentUser = data.user;
-      window.dispatchEvent(new CustomEvent("auth:reconnected", { detail: { user: data.user } }));
-      return data.user;
-    } catch {
-      return currentUser;
-    }
+  async function tryServerRegister(name, email, password) {
+    const res = await fetchServer("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+    });
+    if (!res?.ok) return null;
+    return res.json();
   }
 
   async function apiFetch(url, options = {}) {
@@ -123,78 +115,59 @@
       });
     }
 
-    const attempts = window.API_BASE ? 1 : 1;
-    let lastError = null;
-
-    for (let i = 0; i < attempts; i++) {
-      try {
-        const res = await fetch(apiUrl(url), {
-          ...options,
-          headers: { ...authHeaders(), ...options.headers },
-          credentials: window.API_BASE ? "omit" : "include",
-        });
-
-        if (res.status === 401 && !url.includes("/auth/")) {
-          const user = await silentReLogin();
-          if (user) {
-            return fetch(apiUrl(url), {
-              ...options,
-              headers: { ...authHeaders(), ...options.headers },
-              credentials: window.API_BASE ? "omit" : "include",
-            });
-          }
-        }
-
-        return res;
-      } catch (err) {
-        lastError = err;
-        if (i < attempts - 1) await sleep(4000);
-      }
+    try {
+      return await fetch(apiUrl(url), {
+        ...options,
+        headers: { ...authHeaders(), ...options.headers },
+        credentials: "omit",
+      });
+    } catch (err) {
+      throw err || new Error("Server bilan bog'lanib bo'lmadi");
     }
-
-    throw lastError || new Error("Server bilan bog'lanib bo'lmadi");
   }
 
   async function checkAuth() {
     const token = getToken();
 
-    if (token?.startsWith("static.") && !window.STATIC_MODE && window.API_BASE) {
-      const reconnected = await reconnectToServer();
-      if (reconnected) return reconnected;
-    }
-
-    let res;
-    try {
-      res = await apiFetch("/api/auth/status");
-    } catch {
-      if (window.StaticApi && !window.StaticApi.enabled) {
-        window.StaticApi.enabled = true;
-        window.STATIC_MODE = true;
-        window.API_BASE = "";
-        res = await apiFetch("/api/auth/status");
-      } else {
-        const user = await silentReLogin();
-        if (user) return user;
-        throw new Error("Server bilan bog'lanib bo'lmadi");
+    if (token && !token.startsWith("static.")) {
+      useServerMode();
+      try {
+        const res = await apiFetch("/api/auth/status");
+        const data = await res.json();
+        applyAuthMeta(data);
+        if (data.authenticated && data.user) {
+          currentUser = data.user;
+          return data.user;
+        }
+      } catch {
+        useStaticModeLocal();
       }
     }
 
-    const data = await res.json();
+    if (window.StaticApi?.enabled || window.STATIC_MODE) {
+      useStaticModeLocal();
+      try {
+        const res = await apiFetch("/api/auth/status");
+        const data = await res.json();
+        applyAuthMeta(data);
+        if (data.authenticated && data.user) {
+          currentUser = data.user;
+          return data.user;
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+
+    currentUser = null;
+    return null;
+  }
+
+  function applyAuthMeta(data) {
     aiEnabled = data.aiEnabled !== false;
     aiMode = data.aiMode || "smart";
     registrationEnabled = Boolean(data.registrationEnabled);
     adminEmail = data.adminEmail || null;
-
-    if (data.authenticated && data.user) {
-      currentUser = data.user;
-      return data.user;
-    }
-
-    const user = await silentReLogin();
-    if (user) return user;
-
-    currentUser = null;
-    return null;
   }
 
   async function login(email, password) {
@@ -202,6 +175,16 @@
     password = password.trim();
     saveRemember(email, password);
 
+    const server = await tryServerLogin(email, password);
+    if (server?.token) {
+      useServerMode();
+      setToken(server.token);
+      currentUser = server.user;
+      window.dispatchEvent(new CustomEvent("auth:server-mode"));
+      return server.user;
+    }
+
+    useStaticModeLocal();
     const res = await apiFetch("/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -219,6 +202,16 @@
     password = password.trim();
     saveRemember(email, password, true);
 
+    const server = await tryServerRegister(name, email, password);
+    if (server?.token) {
+      useServerMode();
+      setToken(server.token);
+      currentUser = server.user;
+      window.dispatchEvent(new CustomEvent("auth:server-mode"));
+      return server.user;
+    }
+
+    useStaticModeLocal();
     const res = await apiFetch("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({ name, email, password }),
@@ -235,10 +228,23 @@
     setToken(null);
     localStorage.removeItem(REMEMBER_KEY);
     currentUser = null;
+    useStaticModeLocal();
     window.dispatchEvent(new CustomEvent("auth:logout"));
   }
 
   async function saveProgress(category, score, total) {
+    if (!window.STATIC_MODE) {
+      try {
+        await apiFetch("/api/progress", {
+          method: "POST",
+          body: JSON.stringify({ category, score, total }),
+        });
+        return;
+      } catch {
+        /* static zaxira */
+      }
+    }
+    useStaticModeLocal();
     await apiFetch("/api/progress", {
       method: "POST",
       body: JSON.stringify({ category, score, total }),
@@ -257,6 +263,24 @@
   }
 
   async function fetchAllUsersProgress() {
+    if (isAdmin() && getRemember()) {
+      const creds = getRemember();
+      const loginRes = await fetchServer("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email: creds.email, password: creds.password }),
+      });
+      if (loginRes?.ok) {
+        const { token } = await loginRes.json();
+        const res = await fetchServer("/api/users/progress", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res?.ok) {
+          const json = await res.json();
+          if (json.users?.length) return json.users;
+        }
+      }
+    }
+
     const res = await apiFetch("/api/users/progress");
     const json = await res.json();
     if (!res.ok) throw new Error(json.error || "Ma'lumot yuklanmadi");
@@ -291,36 +315,6 @@
     return adminEmail;
   }
 
-  async function fetchServerUsersForAdmin() {
-    if (!isAdmin()) return null;
-    const creds = getRemember();
-    if (!creds?.email || !creds?.password) return null;
-
-    try {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 12000);
-      const loginRes = await fetch(`${RENDER_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        signal: controller.signal,
-        body: JSON.stringify({ email: creds.email, password: creds.password }),
-      });
-      if (!loginRes.ok) return null;
-      const { token } = await loginRes.json();
-
-      const res = await fetch(`${RENDER_URL}/api/users/progress`, {
-        headers: { Authorization: `Bearer ${token}` },
-        signal: controller.signal,
-      });
-      clearTimeout(timer);
-      if (!res.ok) return null;
-      const json = await res.json();
-      return json.users || null;
-    } catch {
-      return null;
-    }
-  }
-
   function exportUsersDb() {
     if (!window.StaticStore) throw new Error("Statik rejim faqat GitHub Pages da");
     return StaticStore.exportDb();
@@ -340,9 +334,6 @@
     saveProgress,
     updateProfile,
     fetchAllUsersProgress,
-    fetchServerUsersForAdmin,
-    reconnectToServer,
-    silentReLogin,
     getUser,
     isAdmin,
     isAiEnabled,
