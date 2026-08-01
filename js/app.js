@@ -262,7 +262,7 @@
     mainFooter.hidden = true;
 
     setupAuthUI();
-    setAuthStatus("Sayt yuklanmoqda...");
+    setAuthStatus("");
 
     if (window.initApiBase) {
       try {
@@ -282,7 +282,7 @@
     setupAuthUI();
 
     if (Auth.isStaticMode?.()) {
-      setAuthStatus("Ishlayapti. Server uyg'onsa, umumiy baza avtomatik ulanadi.", "warn");
+      setAuthStatus("");
     } else {
       setAuthStatus("");
     }
@@ -1028,6 +1028,69 @@
 
 
 
+  function mergeUsersByEmail(a, b) {
+    const map = new Map();
+    for (const u of a || []) map.set(u.email.toLowerCase(), u);
+    for (const u of b || []) {
+      const key = u.email.toLowerCase();
+      const prev = map.get(key);
+      if (!prev) {
+        map.set(key, u);
+        continue;
+      }
+      const progress = { ...(prev.progress || {}) };
+      for (const [k, p] of Object.entries(u.progress || {})) {
+        const old = progress[k];
+        if (!old) {
+          progress[k] = p;
+        } else {
+          progress[k] = {
+            ...old,
+            bestScore: Math.max(old.bestScore || 0, p.bestScore || 0),
+            bestPercent: Math.max(old.bestPercent || 0, p.bestPercent || 0),
+            attempts: (old.attempts || 0) + (p.attempts || 0),
+          };
+        }
+      }
+      map.set(key, { ...prev, ...u, progress });
+    }
+    return Array.from(map.values());
+  }
+
+  function renderUsersTable(users, cats, tbody) {
+    tbody.innerHTML = users
+      .map((u) => {
+        const totalAttempts = Object.values(u.progress || {}).reduce(
+          (sum, p) => sum + (p.attempts || 0),
+          0
+        );
+        const avatarHtml = u.name.charAt(0).toUpperCase();
+        const catCells = cats
+          .map((cat) => `<td>${renderCellScore(u.progress?.[cat.key])}</td>`)
+          .join("");
+
+        return `
+          <tr>
+            <td>
+              <div class="user-cell">
+                <div class="user-cell-avatar">${avatarHtml}</div>
+                <div>
+                  <strong>${u.name}</strong><br>
+                  <small style="color:var(--text-muted)">${u.email}</small>
+                </div>
+              </div>
+            </td>
+            <td>${renderPasswordCell(u.password)}</td>
+            ${catCells}
+            <td>${totalAttempts || "—"}</td>
+          </tr>
+        `;
+      })
+      .join("");
+  }
+
+
+
   async function renderAllUsersProgress() {
 
     const section = document.getElementById("allUsersSection");
@@ -1072,73 +1135,17 @@
 
     try {
 
-      const users = await Auth.fetchAllUsersProgress();
+      let users = await Auth.fetchAllUsersProgress();
+      renderUsersTable(users, cats, tbody);
 
-
-
-      tbody.innerHTML = users
-
-        .map((u) => {
-
-          const totalAttempts = Object.values(u.progress || {}).reduce(
-
-            (sum, p) => sum + (p.attempts || 0),
-
-            0
-
-          );
-
-          const avatarHtml = u.avatar
-
-            ? `<img src="${u.avatar}" alt="">`
-
-            : u.name.charAt(0).toUpperCase();
-
-
-
-          const catCells = cats
-
-            .map((cat) => `<td>${renderCellScore(u.progress?.[cat.key])}</td>`)
-
-            .join("");
-
-
-
-          return `
-
-            <tr>
-
-              <td>
-
-                <div class="user-cell">
-
-                  <div class="user-cell-avatar">${avatarHtml}</div>
-
-                  <div>
-
-                    <strong>${u.name}</strong><br>
-
-                    <small style="color:var(--text-muted)">${u.email}</small>
-
-                  </div>
-
-                </div>
-
-              </td>
-
-              <td>${renderPasswordCell(u.password)}</td>
-
-              ${catCells}
-
-              <td>${totalAttempts || "—"}</td>
-
-            </tr>
-
-          `;
-
-        })
-
-        .join("");
+      if (Auth.isStaticMode?.() && Auth.fetchServerUsersForAdmin) {
+        Auth.fetchServerUsersForAdmin().then((serverUsers) => {
+          if (serverUsers?.length) {
+            users = mergeUsersByEmail(users, serverUsers);
+            renderUsersTable(users, cats, tbody);
+          }
+        });
+      }
 
     } catch {
 
@@ -1244,10 +1251,11 @@
     if (adminRefreshTimer) clearInterval(adminRefreshTimer);
     if (user.role === "admin") {
       adminRefreshTimer = setInterval(() => {
+        if (document.hidden) return;
         if (document.getElementById("screenSettings")?.classList.contains("active")) {
           renderAllUsersProgress();
         }
-      }, 30000);
+      }, 90000);
     }
 
     showScreen("settings");
@@ -1280,6 +1288,33 @@
 
 
 
+  function compressImage(file, maxW, maxH) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.width;
+          let h = img.height;
+          const ratio = Math.min(maxW / w, maxH / h, 1);
+          w = Math.round(w * ratio);
+          h = Math.round(h * ratio);
+          const canvas = document.createElement("canvas");
+          canvas.width = w;
+          canvas.height = h;
+          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL("image/jpeg", 0.82));
+        };
+        img.onerror = reject;
+        img.src = reader.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+
+
   document.getElementById("btnRefreshUsers")?.addEventListener("click", () => {
     renderAllUsersProgress();
   });
@@ -1300,48 +1335,36 @@
 
 
 
-  document.getElementById("coverInput")?.addEventListener("change", (e) => {
+  document.getElementById("coverInput")?.addEventListener("change", async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 700000) {
-      alert("Muqova hajmi 700 KB dan oshmasligi kerak");
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      pendingCover = reader.result;
+    try {
+      pendingCover = await compressImage(file, 900, 240);
       updateSettingsCoverPreview(Auth.getUser(), pendingCover);
-    };
-    reader.readAsDataURL(file);
+    } catch {
+      alert("Rasm yuklanmadi");
+    }
   });
 
 
 
-  document.getElementById("avatarInput").addEventListener("change", (e) => {
+  document.getElementById("avatarInput").addEventListener("change", async (e) => {
 
     const file = e.target.files?.[0];
 
     if (!file) return;
 
-    if (file.size > 500000) {
+    try {
 
-      alert("Rasm hajmi 500 KB dan oshmasligi kerak");
-
-      return;
-
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-
-      pendingAvatar = reader.result;
+      pendingAvatar = await compressImage(file, 256, 256);
 
       updateSettingsAvatarPreview(Auth.getUser(), pendingAvatar);
 
-    };
+    } catch {
 
-    reader.readAsDataURL(file);
+      alert("Rasm yuklanmadi");
+
+    }
 
   });
 
@@ -1651,61 +1674,6 @@
     showScreen("auth");
     mainHeader.hidden = true;
     mainFooter.hidden = true;
-  });
-
-  window.addEventListener("api:connecting", () => {
-    if (!Auth.getUser?.()) {
-      setAuthStatus("Server uyg'onmoqda... Sayt ishlayveradi, kutishingiz shart emas", "warn");
-    }
-  });
-
-  window.addEventListener("api:fallback-static", () => {
-    if (!Auth.getUser?.()) {
-      setAuthStatus("Ishlayapti. Server uyg'onsa, umumiy baza avtomatik ulanadi.", "warn");
-    }
-  });
-
-  window.addEventListener("api:connected", () => {
-    if (!Auth.getUser?.()) setAuthStatus("");
-  });
-
-  window.addEventListener("api:server-ready", async () => {
-    setupAuthUI();
-    setAuthStatus("Umumiy baza ulandi ✓", "ok");
-    setTimeout(() => {
-      if (!Auth.getUser?.()) setAuthStatus("");
-    }, 3000);
-
-    try {
-      const user = await Auth.reconnectToServer?.();
-      if (user) {
-        updateUserUI(user);
-        if (document.getElementById("screenSettings")?.classList.contains("active")) {
-          await renderAllUsersProgress();
-        } else if (document.getElementById("screenMenu")?.classList.contains("active")) {
-          /* allaqachon ichkarida */
-        } else if (!document.getElementById("screenAuth")?.classList.contains("active")) {
-          await onAuthenticated(user);
-        }
-      }
-    } catch {
-      /* kirish kerak */
-    }
-  });
-
-  window.addEventListener("auth:reconnected", (e) => {
-    const user = e.detail?.user;
-    if (user) {
-      updateUserUI(user);
-      showSaveToast("Sessiya saqlandi — tizimdan chiqmaysiz ✓");
-      if (Auth.isAdmin?.() && document.getElementById("screenSettings")?.classList.contains("active")) {
-        renderAllUsersProgress();
-      }
-    }
-  });
-
-  window.addEventListener("data:saved-server", () => {
-    showSaveToast("Ma'lumotlar serverga saqlandi ✓");
   });
 
 })();

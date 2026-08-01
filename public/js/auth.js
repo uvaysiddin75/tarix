@@ -123,7 +123,7 @@
       });
     }
 
-    const attempts = window.API_BASE ? 3 : 1;
+    const attempts = window.API_BASE ? 1 : 1;
     let lastError = null;
 
     for (let i = 0; i < attempts; i++) {
@@ -291,6 +291,36 @@
     return adminEmail;
   }
 
+  async function fetchServerUsersForAdmin() {
+    if (!isAdmin()) return null;
+    const creds = getRemember();
+    if (!creds?.email || !creds?.password) return null;
+
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 12000);
+      const loginRes = await fetch(`${RENDER_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({ email: creds.email, password: creds.password }),
+      });
+      if (!loginRes.ok) return null;
+      const { token } = await loginRes.json();
+
+      const res = await fetch(`${RENDER_URL}/api/users/progress`, {
+        headers: { Authorization: `Bearer ${token}` },
+        signal: controller.signal,
+      });
+      clearTimeout(timer);
+      if (!res.ok) return null;
+      const json = await res.json();
+      return json.users || null;
+    } catch {
+      return null;
+    }
+  }
+
   function exportUsersDb() {
     if (!window.StaticStore) throw new Error("Statik rejim faqat GitHub Pages da");
     return StaticStore.exportDb();
@@ -310,6 +340,7 @@
     saveProgress,
     updateProfile,
     fetchAllUsersProgress,
+    fetchServerUsersForAdmin,
     reconnectToServer,
     silentReLogin,
     getUser,
