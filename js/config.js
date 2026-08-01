@@ -9,11 +9,11 @@
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  async function probeRender(baseUrl, attempts = 6) {
+  async function probeRender(baseUrl, attempts = 8) {
     for (let i = 0; i < attempts; i++) {
       try {
         const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 25000);
+        const timer = setTimeout(() => controller.abort(), 60000);
         const res = await fetch(`${baseUrl}/api/health`, {
           signal: controller.signal,
           cache: "no-store",
@@ -23,7 +23,7 @@
       } catch {
         /* Render uyg'onmoqda */
       }
-      if (i < attempts - 1) await sleep(4000);
+      if (i < attempts - 1) await sleep(5000);
     }
     return false;
   }
@@ -40,9 +40,24 @@
     window.STATIC_MODE = false;
     if (window.StaticApi) window.StaticApi.enabled = false;
     window.dispatchEvent(new CustomEvent("api:connected"));
+  }
+
+  async function connectToRenderInBackground() {
+    window.dispatchEvent(new CustomEvent("api:connecting"));
+
+    const ok = await probeRender(RENDER_URL);
+    if (!ok) {
+      console.warn("Render javob bermadi — brauzer rejimida davom etiladi");
+      return;
+    }
+
+    useRenderServer();
+
     if (window.StaticApi?.syncFullDbToServer) {
       window.StaticApi.syncFullDbToServer();
     }
+
+    window.dispatchEvent(new CustomEvent("api:server-ready"));
   }
 
   window.initApiBase = async function initApiBase() {
@@ -61,14 +76,8 @@
     }
 
     if (host.endsWith("github.io") || host.endsWith("github.dev")) {
-      window.dispatchEvent(new CustomEvent("api:connecting"));
-      useRenderServer();
-
-      const ok = await probeRender(RENDER_URL);
-      if (ok) return;
-
-      console.warn("Render javob bermadi — statik rejimga o'tilmoqda");
       useStaticFallback();
+      connectToRenderInBackground();
       return;
     }
 

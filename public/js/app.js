@@ -258,12 +258,16 @@
     showScreen("auth");
     mainHeader.hidden = true;
     mainFooter.hidden = true;
-    setAuthStatus("Serverga ulanmoqda... Birinchi marta 30-60 soniya kutishi mumkin");
 
-    try {
-      if (window.initApiBase) await window.initApiBase();
-    } catch {
-      setAuthStatus("Server uyg'onmadi — brauzer rejimida davom etiladi", "warn");
+    setupAuthUI();
+    setAuthStatus("Sayt yuklanmoqda...");
+
+    if (window.initApiBase) {
+      try {
+        await window.initApiBase();
+      } catch {
+        /* static rejimda davom etamiz */
+      }
     }
 
     let user = null;
@@ -276,7 +280,7 @@
     setupAuthUI();
 
     if (Auth.isStaticMode?.()) {
-      setAuthStatus("Brauzer rejimi: ma'lumotlar shu qurilmada saqlanadi", "warn");
+      setAuthStatus("Ishlayapti. Server uyg'onsa, umumiy baza avtomatik ulanadi.", "warn");
     } else {
       setAuthStatus("");
     }
@@ -1582,15 +1586,38 @@
   });
 
   window.addEventListener("api:connecting", () => {
-    setAuthStatus("Server uyg'onmoqda... 30-60 soniya kuting");
+    if (!Auth.getUser?.()) {
+      setAuthStatus("Server uyg'onmoqda... Sayt ishlayveradi, kutishingiz shart emas", "warn");
+    }
   });
 
   window.addEventListener("api:fallback-static", () => {
-    setAuthStatus("Server band — brauzer rejimida ishlaydi (admin barcha userlarni ko'ra olmaydi)", "warn");
+    if (!Auth.getUser?.()) {
+      setAuthStatus("Ishlayapti. Server uyg'onsa, umumiy baza avtomatik ulanadi.", "warn");
+    }
   });
 
   window.addEventListener("api:connected", () => {
     if (!Auth.getUser?.()) setAuthStatus("");
+  });
+
+  window.addEventListener("api:server-ready", async () => {
+    setupAuthUI();
+    setAuthStatus("Umumiy baza ulandi ✓", "ok");
+    setTimeout(() => {
+      if (!Auth.getUser?.()) setAuthStatus("");
+    }, 3000);
+
+    try {
+      const user = await Auth.checkAuth();
+      if (user && !document.getElementById("screenMenu")?.classList.contains("active")) {
+        await onAuthenticated(user);
+      } else if (user) {
+        updateUserUI(user);
+      }
+    } catch {
+      /* kirish kerak */
+    }
   });
 
   window.addEventListener("data:saved-server", () => {

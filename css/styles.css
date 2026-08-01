@@ -880,6 +880,12 @@ body {
   border-color: rgba(220, 80, 80, 0.25);
 }
 
+.auth-status[data-type="ok"] {
+  background: rgba(80, 180, 120, 0.12);
+  color: #7dcea0;
+  border-color: rgba(80, 180, 120, 0.25);
+}
+
 .save-toast {
   position: fixed;
   bottom: 1.5rem;
