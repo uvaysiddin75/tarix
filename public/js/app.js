@@ -489,18 +489,59 @@
 
 
 
+  async function fetchLocalMeta() {
+    const res = await fetch("data/questions.json");
+    if (!res.ok) throw new Error("Savollar yuklanmadi");
+    const data = await res.json();
+    return {
+      categories: Object.entries(data.categories)
+        .map(([key, cat]) => ({
+          key,
+          title: cat.title,
+          icon: cat.icon,
+          singleMode: Boolean(cat.singleMode),
+          defaultDifficulty: cat.defaultDifficulty || null,
+          questionsPerQuiz: cat.questionsPerQuiz || data.questionsPerQuiz,
+          description: cat.description || null,
+        }))
+        .sort((a, b) => {
+          const na = parseInt(a.key.replace(/\D/g, ""), 10) || 0;
+          const nb = parseInt(b.key.replace(/\D/g, ""), 10) || 0;
+          return na - nb;
+        }),
+      difficulties: data.difficulties,
+      questionsPerQuiz: data.questionsPerQuiz,
+    };
+  }
+
   async function loadMeta() {
+    let meta = null;
 
-    const res = await Auth.apiFetch("/api/meta");
+    if (!Auth.isStaticMode?.()) {
+      try {
+        const res = await Auth.apiFetch("/api/meta");
+        if (res.ok) meta = await res.json();
+      } catch {
+        /* server uxlagan — lokal zaxira */
+      }
+    }
 
-    if (!res.ok) throw new Error("Ma'lumot yuklanmadi");
+    if (!meta) {
+      try {
+        if (window.StaticApi?.enabled) {
+          const res = await Auth.apiFetch("/api/meta");
+          if (res.ok) meta = await res.json();
+        }
+      } catch {
+        /* ignore */
+      }
+    }
 
-    state.meta = await res.json();
+    if (!meta) meta = await fetchLocalMeta();
 
+    state.meta = meta;
     renderCategories();
-
     populateAdminCategories();
-
   }
 
 

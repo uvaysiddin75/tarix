@@ -5,6 +5,7 @@
   const REMEMBER_KEY = "nazorat_remember";
   const RENDER_URL = "https://tarix-do6q.onrender.com";
   const SERVER_TIMEOUT = 8000;
+  const SERVER_LOGIN_TIMEOUT = 25000;
 
   let currentUser = null;
   let aiEnabled = true;
@@ -72,9 +73,13 @@
     }
   }
 
-  async function fetchServer(path, options = {}) {
+  function isGithubPages() {
+    return location.hostname.endsWith("github.io") || location.hostname.endsWith("github.dev");
+  }
+
+  async function fetchServer(path, options = {}, timeout = SERVER_TIMEOUT) {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), SERVER_TIMEOUT);
+    const timer = setTimeout(() => controller.abort(), timeout);
     try {
       const res = await fetch(`${RENDER_URL}${path}`, {
         ...options,
@@ -89,13 +94,44 @@
     }
   }
 
-  async function tryServerLogin(email, password) {
-    const res = await fetchServer("/api/auth/login", {
+  async function tryServerLogin(email, password, timeout = SERVER_LOGIN_TIMEOUT) {
+    const res = await fetchServer(
+      "/api/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      },
+      timeout
+    );
+    if (!res?.ok) return null;
+    return res.json();
+  }
+
+  async function tryStaticLogin(email, password) {
+    useStaticModeLocal();
+    const res = await apiFetch("/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
     });
-    if (!res?.ok) return null;
-    return res.json();
+    const data = await res.json();
+    if (!res.ok) {
+      return { ok: false, error: data.error || "Kirish muvaffaqiyatsiz" };
+    }
+    setToken(data.token);
+    currentUser = data.user;
+    return { ok: true, user: data.user };
+  }
+
+  function upgradeToServerInBackground(email, password) {
+    tryServerLogin(email, password, 30000)
+      .then((server) => {
+        if (!server?.token) return;
+        useServerMode();
+        setToken(server.token);
+        currentUser = server.user;
+        window.dispatchEvent(new CustomEvent("auth:server-mode"));
+      })
+      .catch(() => {});
   }
 
   async function tryServerRegister(name, email, password) {
@@ -175,6 +211,17 @@
     password = password.trim();
     saveRemember(email, password);
 
+    let staticError = null;
+
+    if (isGithubPages() || window.STATIC_MODE) {
+      const local = await tryStaticLogin(email, password);
+      if (local.ok) {
+        upgradeToServerInBackground(email, password);
+        return local.user;
+      }
+      staticError = local.error;
+    }
+
     const server = await tryServerLogin(email, password);
     if (server?.token) {
       useServerMode();
@@ -184,16 +231,16 @@
       return server.user;
     }
 
-    useStaticModeLocal();
-    const res = await apiFetch("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Kirish muvaffaqiyatsiz");
-    setToken(data.token);
-    currentUser = data.user;
-    return data.user;
+    if (!isGithubPages() && !window.STATIC_MODE) {
+      const local = await tryStaticLogin(email, password);
+      if (local.ok) return local.user;
+      staticError = local.error;
+    }
+
+    throw new Error(
+      staticError ||
+        "Email yoki parol noto'g'ri. Server uxlagan bo'lishi mumkin — 20 soniya kutib qayta urinib ko'ring."
+    );
   }
 
   async function register(name, email, password) {

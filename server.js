@@ -137,7 +137,7 @@ app.post("/api/auth/login", async (req, res) => {
     const user = await auth.login(req.body);
     const token = auth.signToken(user);
     res.cookie("token", token, auth.JWT_COOKIE_OPTIONS);
-    res.json({ user, token });
+    res.json({ user: auth.sanitizeUser(user, { brief: true }), token });
   } catch (err) {
     res.status(401).json({ error: err.message });
   }
