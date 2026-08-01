@@ -85,6 +85,8 @@
   const categoryGrid = document.getElementById("categoryGrid");
 
   let pendingAvatar = undefined;
+  let pendingCover = undefined;
+  let adminRefreshTimer = null;
 
 
 
@@ -1148,6 +1150,27 @@
 
 
 
+  function updateSettingsCoverPreview(user, previewDataUrl) {
+    const img = document.getElementById("settingsCoverImg");
+    const removeBtn = document.getElementById("btnRemoveCover");
+    const hero = document.getElementById("profileHero");
+    const src = previewDataUrl !== undefined ? previewDataUrl : user?.cover;
+
+    if (src) {
+      img.src = src;
+      img.hidden = false;
+      removeBtn.hidden = false;
+      hero?.classList.add("has-cover");
+    } else {
+      img.hidden = true;
+      img.removeAttribute("src");
+      removeBtn.hidden = true;
+      hero?.classList.remove("has-cover");
+    }
+  }
+
+
+
   function updateSettingsAvatarPreview(user, previewDataUrl) {
 
     const img = document.getElementById("settingsAvatarImg");
@@ -1195,6 +1218,7 @@
 
 
     pendingAvatar = undefined;
+    pendingCover = undefined;
 
     document.getElementById("profileName").value = user.name;
 
@@ -1211,10 +1235,20 @@
 
 
     updateSettingsAvatarPreview(user);
+    updateSettingsCoverPreview(user);
 
     renderMyProgress(user);
 
     await renderAllUsersProgress();
+
+    if (adminRefreshTimer) clearInterval(adminRefreshTimer);
+    if (user.role === "admin") {
+      adminRefreshTimer = setInterval(() => {
+        if (document.getElementById("screenSettings")?.classList.contains("active")) {
+          renderAllUsersProgress();
+        }
+      }, 30000);
+    }
 
     showScreen("settings");
 
@@ -1252,10 +1286,33 @@
 
 
 
+  document.getElementById("btnPickCover")?.addEventListener("click", () => {
+    document.getElementById("coverInput").click();
+  });
+
+
+
   document.getElementById("btnPickAvatar").addEventListener("click", () => {
 
     document.getElementById("avatarInput").click();
 
+  });
+
+
+
+  document.getElementById("coverInput")?.addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 700000) {
+      alert("Muqova hajmi 700 KB dan oshmasligi kerak");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      pendingCover = reader.result;
+      updateSettingsCoverPreview(Auth.getUser(), pendingCover);
+    };
+    reader.readAsDataURL(file);
   });
 
 
@@ -1286,6 +1343,14 @@
 
     reader.readAsDataURL(file);
 
+  });
+
+
+
+  document.getElementById("btnRemoveCover")?.addEventListener("click", () => {
+    pendingCover = null;
+    updateSettingsCoverPreview(Auth.getUser(), null);
+    document.getElementById("coverInput").value = "";
   });
 
 
@@ -1321,16 +1386,19 @@
       const payload = { name: document.getElementById("profileName").value.trim() };
 
       if (pendingAvatar !== undefined) payload.avatar = pendingAvatar;
+      if (pendingCover !== undefined) payload.cover = pendingCover;
 
 
 
       const user = await Auth.updateProfile(payload);
 
       pendingAvatar = undefined;
+      pendingCover = undefined;
 
       updateUserUI(user);
 
       updateSettingsAvatarPreview(user);
+      updateSettingsCoverPreview(user);
 
       renderMyProgress(user);
 
@@ -1609,14 +1677,30 @@
     }, 3000);
 
     try {
-      const user = await Auth.checkAuth();
-      if (user && !document.getElementById("screenMenu")?.classList.contains("active")) {
-        await onAuthenticated(user);
-      } else if (user) {
+      const user = await Auth.reconnectToServer?.();
+      if (user) {
         updateUserUI(user);
+        if (document.getElementById("screenSettings")?.classList.contains("active")) {
+          await renderAllUsersProgress();
+        } else if (document.getElementById("screenMenu")?.classList.contains("active")) {
+          /* allaqachon ichkarida */
+        } else if (!document.getElementById("screenAuth")?.classList.contains("active")) {
+          await onAuthenticated(user);
+        }
       }
     } catch {
       /* kirish kerak */
+    }
+  });
+
+  window.addEventListener("auth:reconnected", (e) => {
+    const user = e.detail?.user;
+    if (user) {
+      updateUserUI(user);
+      showSaveToast("Sessiya saqlandi — tizimdan chiqmaysiz ✓");
+      if (Auth.isAdmin?.() && document.getElementById("screenSettings")?.classList.contains("active")) {
+        renderAllUsersProgress();
+      }
     }
   });
 

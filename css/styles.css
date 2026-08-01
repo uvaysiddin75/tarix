@@ -858,6 +858,21 @@ body {
   border-top: 1px solid var(--border);
 }
 
+.remember-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.remember-row input {
+  width: auto;
+  accent-color: var(--accent);
+}
+
 .auth-status {
   margin-top: 0.75rem;
   padding: 0.75rem 1rem;
@@ -1296,6 +1311,87 @@ body {
   flex-wrap: wrap;
   gap: 1.5rem;
   align-items: flex-start;
+}
+
+.profile-card {
+  overflow: hidden;
+}
+
+.profile-hero {
+  position: relative;
+  margin: -0.5rem -0.5rem 1rem;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.profile-cover {
+  position: relative;
+  height: 140px;
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.25), rgba(90, 60, 20, 0.5));
+  overflow: hidden;
+}
+
+.profile-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: coverFadeIn 0.6s ease;
+}
+
+.profile-cover-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.12) 45%,
+    transparent 60%
+  );
+  animation: coverShimmer 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.profile-hero.has-cover .profile-cover-shimmer {
+  opacity: 0.35;
+}
+
+.profile-hero-avatar {
+  position: absolute;
+  left: 1.25rem;
+  bottom: -36px;
+  width: 96px;
+  height: 96px;
+  border: 3px solid var(--bg-card);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  animation: avatarPop 0.5s ease;
+}
+
+.profile-hero-avatar:hover {
+  transform: scale(1.06) rotate(-2deg);
+  box-shadow: 0 12px 28px rgba(212, 160, 23, 0.35);
+}
+
+.profile-media-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2.75rem 0 1.25rem;
+}
+
+@keyframes coverShimmer {
+  0%, 100% { transform: translateX(-30%); }
+  50% { transform: translateX(30%); }
+}
+
+@keyframes coverFadeIn {
+  from { opacity: 0; transform: scale(1.05); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes avatarPop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .avatar-upload-wrap {

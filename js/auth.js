@@ -2,12 +2,15 @@
   "use strict";
 
   const TOKEN_KEY = "nazorat_token";
+  const REMEMBER_KEY = "nazorat_remember";
+  const RENDER_URL = "https://tarix-do6q.onrender.com";
 
   let currentUser = null;
   let aiEnabled = true;
   let aiMode = "smart";
   let registrationEnabled = true;
   let adminEmail = null;
+  let reloginPromise = null;
 
   function getToken() {
     return localStorage.getItem(TOKEN_KEY);
@@ -16,6 +19,28 @@
   function setToken(token) {
     if (token) localStorage.setItem(TOKEN_KEY, token);
     else localStorage.removeItem(TOKEN_KEY);
+  }
+
+  function saveRemember(email, password, always = false) {
+    const remember = document.getElementById("rememberMe");
+    if (!always && remember && !remember.checked) {
+      localStorage.removeItem(REMEMBER_KEY);
+      return;
+    }
+    localStorage.setItem(
+      REMEMBER_KEY,
+      JSON.stringify({ email: email.trim().toLowerCase(), password: password.trim() })
+    );
+  }
+
+  function getRemember() {
+    try {
+      const raw = localStorage.getItem(REMEMBER_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch {
+      /* ignore */
+    }
+    return null;
   }
 
   function authHeaders() {
@@ -31,6 +56,63 @@
 
   function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function serverLoginDirect(email, password) {
+    const res = await fetch(`${RENDER_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Kirish muvaffaqiyatsiz");
+    return data;
+  }
+
+  async function silentReLogin() {
+    if (reloginPromise) return reloginPromise;
+
+    reloginPromise = (async () => {
+      const creds = getRemember();
+      if (!creds?.email || !creds?.password) return null;
+
+      try {
+        if (window.STATIC_MODE || !window.API_BASE) {
+          return await login(creds.email, creds.password);
+        }
+
+        const data = await serverLoginDirect(creds.email, creds.password);
+        setToken(data.token);
+        currentUser = data.user;
+        return data.user;
+      } catch {
+        return null;
+      } finally {
+        reloginPromise = null;
+      }
+    })();
+
+    return reloginPromise;
+  }
+
+  async function reconnectToServer() {
+    if (window.STATIC_MODE || !window.API_BASE) return null;
+
+    const creds = getRemember();
+    if (!creds?.email || !creds?.password) {
+      const user = currentUser || (getToken() ? await checkAuth().catch(() => null) : null);
+      return user;
+    }
+
+    try {
+      const data = await serverLoginDirect(creds.email, creds.password);
+      setToken(data.token);
+      currentUser = data.user;
+      window.dispatchEvent(new CustomEvent("auth:reconnected", { detail: { user: data.user } }));
+      return data.user;
+    } catch {
+      return currentUser;
+    }
   }
 
   async function apiFetch(url, options = {}) {
@@ -53,9 +135,14 @@
         });
 
         if (res.status === 401 && !url.includes("/auth/")) {
-          setToken(null);
-          currentUser = null;
-          window.dispatchEvent(new CustomEvent("auth:logout"));
+          const user = await silentReLogin();
+          if (user) {
+            return fetch(apiUrl(url), {
+              ...options,
+              headers: { ...authHeaders(), ...options.headers },
+              credentials: window.API_BASE ? "omit" : "include",
+            });
+          }
         }
 
         return res;
@@ -70,8 +157,10 @@
 
   async function checkAuth() {
     const token = getToken();
-    if (token?.startsWith("static.") && !window.STATIC_MODE) {
-      setToken(null);
+
+    if (token?.startsWith("static.") && !window.STATIC_MODE && window.API_BASE) {
+      const reconnected = await reconnectToServer();
+      if (reconnected) return reconnected;
     }
 
     let res;
@@ -84,6 +173,8 @@
         window.API_BASE = "";
         res = await apiFetch("/api/auth/status");
       } else {
+        const user = await silentReLogin();
+        if (user) return user;
         throw new Error("Server bilan bog'lanib bo'lmadi");
       }
     }
@@ -93,15 +184,24 @@
     aiMode = data.aiMode || "smart";
     registrationEnabled = Boolean(data.registrationEnabled);
     adminEmail = data.adminEmail || null;
+
     if (data.authenticated && data.user) {
       currentUser = data.user;
       return data.user;
     }
+
+    const user = await silentReLogin();
+    if (user) return user;
+
     currentUser = null;
     return null;
   }
 
   async function login(email, password) {
+    email = email.trim();
+    password = password.trim();
+    saveRemember(email, password);
+
     const res = await apiFetch("/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -114,6 +214,11 @@
   }
 
   async function register(name, email, password) {
+    name = name.trim();
+    email = email.trim();
+    password = password.trim();
+    saveRemember(email, password, true);
+
     const res = await apiFetch("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({ name, email, password }),
@@ -126,8 +231,9 @@
   }
 
   async function logout() {
-    await apiFetch("/api/auth/logout", { method: "POST" });
+    await apiFetch("/api/auth/logout", { method: "POST" }).catch(() => {});
     setToken(null);
+    localStorage.removeItem(REMEMBER_KEY);
     currentUser = null;
     window.dispatchEvent(new CustomEvent("auth:logout"));
   }
@@ -204,6 +310,8 @@
     saveProgress,
     updateProfile,
     fetchAllUsersProgress,
+    reconnectToServer,
+    silentReLogin,
     getUser,
     isAdmin,
     isAiEnabled,

@@ -58,6 +58,10 @@
     }
 
     window.dispatchEvent(new CustomEvent("api:server-ready"));
+
+    if (window.Auth?.reconnectToServer) {
+      window.Auth.reconnectToServer();
+    }
   }
 
   window.initApiBase = async function initApiBase() {

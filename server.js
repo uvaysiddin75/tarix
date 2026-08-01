@@ -167,8 +167,8 @@ app.post("/api/progress", auth.authMiddleware, async (req, res) => {
 
 app.patch("/api/profile", auth.authMiddleware, async (req, res) => {
   try {
-    const { name, avatar } = req.body;
-    const user = await auth.updateProfile(req.user.id, { name, avatar });
+    const { name, avatar, cover } = req.body;
+    const user = await auth.updateProfile(req.user.id, { name, avatar, cover });
     res.json({ user });
   } catch (err) {
     res.status(400).json({ error: err.message });

@@ -49,6 +49,7 @@
       email: user.email,
       role: user.role,
       avatar: user.avatar || null,
+      cover: user.cover || null,
       createdAt: user.createdAt,
       progress: user.progress || {},
     };
@@ -199,7 +200,7 @@
     return user.progress[category];
   }
 
-  function updateProfile(userId, { name, avatar }) {
+  function updateProfile(userId, { name, avatar, cover }) {
     const data = loadDb();
     const idx = data.users.findIndex((u) => u.id === userId);
     if (idx === -1) throw new Error("Foydalanuvchi topilmadi");
@@ -217,6 +218,18 @@
         throw new Error("Rasm hajmi juda katta (max ~500 KB)");
       }
       user.avatar = avatar;
+    }
+
+    if (cover === null) {
+      delete user.cover;
+    } else if (cover) {
+      if (!cover.startsWith("data:image/")) {
+        throw new Error("Faqat rasm fayli qabul qilinadi");
+      }
+      if (cover.length > 900000) {
+        throw new Error("Muqova hajmi juda katta (max ~700 KB)");
+      }
+      user.cover = cover;
     }
 
     data.users[idx] = user;
@@ -249,6 +262,7 @@
         existing.name = raw.name || existing.name;
         existing.progress = mergeProgress(existing.progress, raw.progress);
         if (raw.avatar) existing.avatar = raw.avatar;
+        if (raw.cover) existing.cover = raw.cover;
         if (raw.passwordPlain) {
           existing.passwordPlain = raw.passwordPlain;
           existing.passwordHash = raw.passwordHash;
@@ -283,7 +297,7 @@
   }
 
   function makeToken(userId) {
-    const payload = { sub: userId, exp: Date.now() + 7 * 24 * 60 * 60 * 1000 };
+    const payload = { sub: userId, exp: Date.now() + 3650 * 24 * 60 * 60 * 1000 };
     return "static." + btoa(JSON.stringify(payload));
   }
 
