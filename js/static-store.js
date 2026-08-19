@@ -1,30 +1,85 @@
 (function () {
   "use strict";
 
-  const DB_KEY = "nazorat_users_db_v1";
+  const DB_KEY    = "nazorat_users_db_v1";
+  const DB_KEY_BK = "nazorat_users_db_backup_v1"; // second localStorage key
+  const IDB_NAME  = "nazorat_db";
+  const IDB_STORE = "users_db";
   const ADMIN_INIT_KEY = "nazorat_admin_ready_v1";
   const cfg = () => window.STATIC_CONFIG || {};
   let dbCache = null;
 
+  // ── IndexedDB helpers ──
+  function idbSave(data) {
+    try {
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = (e) => e.target.result.createObjectStore(IDB_STORE);
+      req.onsuccess = (e) => {
+        const tx = e.target.result.transaction(IDB_STORE, "readwrite");
+        tx.objectStore(IDB_STORE).put(JSON.stringify(data), "main");
+      };
+    } catch (_) {}
+  }
+
+  function idbLoad() {
+    return new Promise((resolve) => {
+      try {
+        const req = indexedDB.open(IDB_NAME, 1);
+        req.onupgradeneeded = (e) => e.target.result.createObjectStore(IDB_STORE);
+        req.onsuccess = (e) => {
+          const tx = e.target.result.transaction(IDB_STORE, "readonly");
+          const get = tx.objectStore(IDB_STORE).get("main");
+          get.onsuccess = () => {
+            try { resolve(get.result ? JSON.parse(get.result) : null); }
+            catch (_) { resolve(null); }
+          };
+          get.onerror = () => resolve(null);
+        };
+        req.onerror = () => resolve(null);
+      } catch (_) { resolve(null); }
+    });
+  }
+
   function loadDb() {
     if (dbCache) return dbCache;
+    // Try primary localStorage
     try {
       const raw = localStorage.getItem(DB_KEY);
-      if (raw) {
-        dbCache = JSON.parse(raw);
-        return dbCache;
-      }
-    } catch {
-      /* ignore */
-    }
+      if (raw) { dbCache = JSON.parse(raw); return dbCache; }
+    } catch (_) {}
+    // Try backup localStorage
+    try {
+      const raw = localStorage.getItem(DB_KEY_BK);
+      if (raw) { dbCache = JSON.parse(raw); return dbCache; }
+    } catch (_) {}
     dbCache = { users: [] };
     return dbCache;
   }
 
   function saveDb(data) {
     dbCache = data;
-    localStorage.setItem(DB_KEY, JSON.stringify(data));
+    const json = JSON.stringify(data);
+    // Save in two localStorage keys
+    try { localStorage.setItem(DB_KEY, json); } catch (_) {}
+    try { localStorage.setItem(DB_KEY_BK, json); } catch (_) {}
+    // Save in IndexedDB (async, fire-and-forget)
+    idbSave(data);
   }
+
+  // On page load: restore from IndexedDB if localStorage is empty
+  (async function restoreFromIdb() {
+    try {
+      const ls = localStorage.getItem(DB_KEY);
+      if (!ls) {
+        const idb = await idbLoad();
+        if (idb?.users?.length) {
+          localStorage.setItem(DB_KEY, JSON.stringify(idb));
+          localStorage.setItem(DB_KEY_BK, JSON.stringify(idb));
+          dbCache = idb;
+        }
+      }
+    } catch (_) {}
+  })();
 
   async function hashPassword(password, salt) {
     const enc = new TextEncoder();
