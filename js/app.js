@@ -798,6 +798,17 @@
 
     state.lastSelectedIndex = null;
 
+    // Slide animation
+    if (window.FXAnimate) {
+      const qCard = document.getElementById("questionText");
+      if (qCard) FXAnimate.slideIn(qCard);
+      const aContainer = document.getElementById("answersContainer");
+      if (aContainer) FXAnimate.slideIn(aContainer);
+    }
+
+    // Swipe sound
+    if (window.SoundFX) SoundFX.playSwipe();
+
   }
 
 
@@ -849,8 +860,16 @@
 
 
     feedbackText.textContent = isCorrect ? "✓ To'g'ri!" : "✗ Noto'g'ri";
-
     feedbackText.className = "feedback-text " + (isCorrect ? "correct" : "wrong");
+
+    // Sounds & particles
+    if (isCorrect) {
+      if (window.SoundFX) SoundFX.playCorrect();
+      const correctBtn = document.querySelector(".answer-btn.correct");
+      if (correctBtn && window.FXBurst) FXBurst.burstCorrect(correctBtn);
+    } else {
+      if (window.SoundFX) SoundFX.playWrong();
+    }
 
     feedbackExplanation.textContent = q.explanation;
 
@@ -879,6 +898,9 @@
 
 
   async function showResults() {
+    // Play completion sound & confetti
+    if (window.SoundFX) SoundFX.playComplete();
+    if (window.FXBurst) FXBurst.burstComplete();
 
     const total = state.questions.length;
 

@@ -1594,3 +1594,121 @@ body {
     width: 100%;
   }
 }
+
+/* ─── Sound & Animation Enhancements ─── */
+
+/* Answer button hover glow */
+.answer-btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease !important;
+}
+.answer-btn:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 24px rgba(212, 160, 23, 0.18);
+}
+.answer-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Correct answer pulse */
+.answer-btn.correct {
+  animation: correctPulse 0.5s ease forwards;
+}
+@keyframes correctPulse {
+  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.6); }
+  40%  { transform: scale(1.04); box-shadow: 0 0 0 12px rgba(52, 211, 153, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+
+/* Wrong answer shake */
+.answer-btn.wrong {
+  animation: wrongShake 0.4s ease forwards;
+}
+@keyframes wrongShake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-8px); }
+  40%  { transform: translateX(8px); }
+  60%  { transform: translateX(-5px); }
+  80%  { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Category card hover */
+.category-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+.category-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(212, 160, 23, 0.2) !important;
+}
+.category-card:active {
+  transform: scale(0.97);
+}
+
+/* Screen fade-in */
+.screen.active {
+  animation: screenFadeIn 0.35s ease;
+}
+@keyframes screenFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Results score bounce */
+.results-score {
+  animation: scoreBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+@keyframes scoreBounce {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* Progress bar glow */
+.progress-fill {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+}
+
+/* Feedback slide up */
+#quizFeedback:not([hidden]) {
+  animation: feedbackSlide 0.3s ease;
+}
+@keyframes feedbackSlide {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Button press ripple */
+button:not(.answer-btn) {
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+button:not(.answer-btn):active {
+  transform: scale(0.95);
+  opacity: 0.85;
+}
+
+/* Header logo pulse on load */
+.logo-mark {
+  animation: logoPulse 3s ease-in-out infinite;
+}
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(212, 160, 23, 0.4)); }
+  50%       { filter: drop-shadow(0 0 14px rgba(212, 160, 23, 0.7)); }
+}
+
+/* Score counter highlight */
+#statScore {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Particle element base */
+.fx-particle {
+  will-change: transform, opacity;
+}
+
+/* Quiz card entrance */
+#questionText {
+  will-change: opacity, transform;
+}
+#answersContainer {
+  will-change: opacity, transform;
+}
