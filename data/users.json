@@ -53,6 +53,17 @@
       "cover": null,
       "createdAt": "2026-08-19T12:00:09.192Z",
       "progress": {}
+    },
+    {
+      "id": "a846d4d5-3e26-4d3e-8040-21a09ea03af7",
+      "name": "Muhammad",
+      "email": "vafozods@gmail.com",
+      "role": "student",
+      "passwordPlain": "salmic",
+      "avatar": null,
+      "cover": null,
+      "createdAt": "2026-08-19T18:20:55.580Z",
+      "progress": {}
     }
   ]
 }
