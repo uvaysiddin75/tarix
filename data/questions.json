@@ -1694,6 +1694,341 @@
           }
         ]
       }
+    },
+    "nazorat6": {
+      "title": "Nazorat ishi - 6",
+      "icon": "⚔️",
+      "singleMode": true,
+      "defaultDifficulty": "test",
+      "questionsPerQuiz": 25,
+      "learn": {
+        "test": {
+          "title": "Nazorat ishi - 6: O'rta Osiyo va Yunoniston",
+          "intro": "Fors imperiyasi, O'rta Osiyo va Yunoniston tarixi bo'yicha nazorat ishiga tayyorgarlik.",
+          "sections": [
+            {
+              "heading": "Yunon mifologiyasi",
+              "text": "Yunonlarda dengiz xudosi — Poseydon va Okean (A va C javoblar to'g'ri). Ikkinchi darajali ma'budlar — satir va nimfalar. Atomlar nazariyasi muallifi Frakiyalik Demokrit. 'Hamma narsa olovdan kelib chiqgan' — Geraklit."
+            },
+            {
+              "heading": "Fors imperiyasi va O'rta Osiyo",
+              "text": "Parfiya, Baqtriya, Marg'iyona Kir II davrida bosib olingan. Doro I hukmronligining birinchi yilida So'g'diyona emas, Marg'iyonada qo'zg'alon ko'tarildi. Forslarning saklar ustiga yurishiga Ranosbat boshchilik qildi. Forslar va massagetlar o'rtasidagi jang dahshatli bo'lgan."
+            },
+            {
+              "heading": "O'rta osiyoliklar yunon-fors urushlarida",
+              "text": "Doro I va Kserks davrida o'rtaosiyolik jangchilar yunon-fors urushlarida ishtirok etgan. Kserks qo'shinidagi eng yaxshi jangchilar — saklar va baqtriyaliklar. Marafon jangida saklar qatnashgan. Gerodot ularning qurol-yarog'i haqida ma'lumot yozib qoldirgan."
+            },
+            {
+              "heading": "Aleksandr yurishlari",
+              "text": "Aleksandr Maroqandani egallab olgandan so'ng Kurushkat shahrini egallashga kirishadi. Maroqanda uning yo'lini birinchi bo'lib to'sgan shahar. Aleksandriya Esxata Sirdaryo bo'yida Xo'jand yaqinida saklarga qarshi qurilgan. Oksiart So'g'diyonaga noib qilib tayinlangan. Eng sara otliqlari — fessaliyaliklar."
+            }
+          ]
+        }
+      },
+      "questions": {
+        "test": [
+          {
+            "id": "nazorat6-1",
+            "q": "Yunonlarda dengiz xudosi?",
+            "options": [
+              "Okean",
+              "Aid",
+              "Poseydon",
+              "A va C javoblar"
+            ],
+            "correct": 3,
+            "explanation": "Yunonlarda dengiz xudosi Okean ham, Poseydon ham hisoblangan — A va C javoblar to'g'ri."
+          },
+          {
+            "id": "nazorat6-2",
+            "q": "Hamma narsa ko'zga ko'rinmaydigan mayda zarralar-atomlardan tashkil topgan degan fikr muallifi qayerlik bo'lgan?",
+            "options": [
+              "Afinalik",
+              "Sirakuzalik",
+              "Makedoniyalik",
+              "Frakiyalik"
+            ],
+            "correct": 3,
+            "explanation": "Atomlar nazariyasining muallifi Demokrit Frakiyalik bo'lgan."
+          },
+          {
+            "id": "nazorat6-3",
+            "q": "'Hamma narsa olovdan kelib chiqgan' degan fikr muallifi kim?",
+            "options": [
+              "Demokrit",
+              "Geraklit",
+              "Arximed",
+              "Diogen"
+            ],
+            "correct": 1,
+            "explanation": "'Hamma narsa olovdan kelib chiqgan' degan fikr muallifi — Geraklit."
+          },
+          {
+            "id": "nazorat6-4",
+            "q": "Yunonistonda ikkinchi darajali ma'budlar bo'lgan, ular qanday nomlangan?",
+            "options": [
+              "Titan va sirenalar",
+              "Kentavr, sikloplar",
+              "Satir va nimfalar",
+              "Okean, Atlant"
+            ],
+            "correct": 2,
+            "explanation": "Yunonistondagi ikkinchi darajali ma'budlar — satir va nimfalar."
+          },
+          {
+            "id": "nazorat6-5",
+            "q": "Parfiya, Baqtriya, Marg'iyona qaysi fors podshosi davrida bosib olingan?",
+            "options": [
+              "Kir II",
+              "Doro I",
+              "Kambiz II",
+              "Kserks"
+            ],
+            "correct": 0,
+            "explanation": "Parfiya, Baqtriya, Marg'iyona Kir II davrida bosib olingan."
+          },
+          {
+            "id": "nazorat6-6",
+            "q": "Doro I hukmronligining birinchi yilida qayerda forslarga qarshi qo'zg'alon ko'tariladi?",
+            "options": [
+              "So'g'diyonada",
+              "Marg'iyonada",
+              "Baqtriyada",
+              "Pariyada"
+            ],
+            "correct": 1,
+            "explanation": "Doro I hukmronligining birinchi yilida Marg'iyonada forslarga qarshi qo'zg'alon ko'tarildi."
+          },
+          {
+            "id": "nazorat6-7",
+            "q": "'... barcha janglardan ham dahshatlirog'i edi. Oldin har ikki dushman kuchlar bir-biriga qarshi jangovar saf tizishib, kamondan o'q yog'dirdi...' bu jang kimlar o'rtasida bo'lgan?",
+            "options": [
+              "Forslar va saklar",
+              "Forslar va massagetlar",
+              "Yunon-makedon va baqtriyaliklar",
+              "Yunon-makedonlar va so'g'dlar"
+            ],
+            "correct": 1,
+            "explanation": "Bu tavsif forslar va massagetlar o'rtasidagi jangni ifodalaydi."
+          },
+          {
+            "id": "nazorat6-8",
+            "q": "Quyidagilardan qaysi ma'lumotlar Behistun qoya toshlariga yozib qolingan?",
+            "options": [
+              "Frada",
+              "Shiroq",
+              "To'maris",
+              "A va B"
+            ],
+            "correct": 0,
+            "explanation": "Behistun toshlariga Frada haqidagi ma'lumot yozib qolingan."
+          },
+          {
+            "id": "nazorat6-9",
+            "q": "Baqtriya satrapi Dadarshish kim boshchiligidagi qo'zg'alonni bostirgan?",
+            "options": [
+              "Frada",
+              "Shiroq",
+              "To'maris",
+              "Spitamana"
+            ],
+            "correct": 0,
+            "explanation": "Baqtriya satrapi Dadarshish Frada boshchiligidagi qo'zg'alonni bostirgan."
+          },
+          {
+            "id": "nazorat6-10",
+            "q": "Forslarning saklar ustiga qilgan yurishiga kim boshchilik qilgan?",
+            "options": [
+              "Dadarshish",
+              "Bess",
+              "Ranosbat",
+              "Doro III"
+            ],
+            "correct": 2,
+            "explanation": "Forslarning saklar ustiga qilgan yurishiga Ranosbat boshchilik qilgan."
+          },
+          {
+            "id": "nazorat6-11",
+            "q": "Qaysi fors podsholarining davrida o'rtaosiyolik jangchilar yunon-fors urushlarida ishtirok etgan?",
+            "options": [
+              "Kir II va Kambiz II",
+              "Doro I va Kserks",
+              "Doro III va Bess",
+              "Kir II va Doro I"
+            ],
+            "correct": 1,
+            "explanation": "O'rtaosiyolik jangchilar Doro I va Kserks davrida yunon-fors urushlarida ishtirok etgan."
+          },
+          {
+            "id": "nazorat6-12",
+            "q": "Kimlar kamon va nayza bilan qurollangan?",
+            "options": [
+              "Baqtriyaliklar",
+              "So'g'dlar",
+              "Xorazmliklar",
+              "Hamma javoblar to'g'ri"
+            ],
+            "correct": 3,
+            "explanation": "Baqtriyaliklar, so'g'dlar va xorazmliklar hammasi kamon va nayza bilan qurollangan."
+          },
+          {
+            "id": "nazorat6-13",
+            "q": "Kim yunonlar ustiga yurish qilgan o'rtaosiyolik jangchilar qurol-yarog'i haqida ma'lumot yozib qoldirgan?",
+            "options": [
+              "Strabon",
+              "Poliyen",
+              "Gerodot",
+              "Arrian"
+            ],
+            "correct": 2,
+            "explanation": "Gerodot o'rtaosiyolik jangchilarning qurol-yarog'i haqida ma'lumot yozib qoldirgan."
+          },
+          {
+            "id": "nazorat6-14",
+            "q": "Kimlar Marafon jangida qatnashgan?",
+            "options": [
+              "Saklar",
+              "Baqtriyaliklar",
+              "So'g'dlar",
+              "Xorazmliklar"
+            ],
+            "correct": 0,
+            "explanation": "Marafon jangida saklar qatnashgan."
+          },
+          {
+            "id": "nazorat6-15",
+            "q": "Kimlar Kserks qo'shinidagi eng yaxshi jangchilar bo'lgan?",
+            "options": [
+              "Saklar va baqtriyaliklar",
+              "So'g'dlar va baqtriyaliklar",
+              "Baqtriyaliklar va xorazmiylar",
+              "Xorazmliklar va so'g'dlar"
+            ],
+            "correct": 0,
+            "explanation": "Kserks qo'shinidagi eng yaxshi jangchilar saklar va baqtriyaliklar bo'lgan."
+          },
+          {
+            "id": "nazorat6-16",
+            "q": "Gerodotning massagetlar haqidagi hikoyasi to'g'ri berilmagan qatorni aniqlang?",
+            "options": [
+              "Massagetlar skiflar singari kiyinadilar",
+              "G'ayratli tangriga g'ayratli jonliq otni qurbon qiladilar",
+              "Oks (Amudaryoda) baliq ko'p",
+              "Massagetlar g'alla ekmaydi"
+            ],
+            "correct": 2,
+            "explanation": "Gerodot Amudaryoda baliq ko'p degan ma'lumotni noto'g'ri keltirgan — bu to'g'ri emas."
+          },
+          {
+            "id": "nazorat6-17",
+            "q": "Mil avv VI-IV asrlarda hunarmandchilik markazlari bo'lgan shaharlar?",
+            "options": [
+              "Ko'ktepa, Daratepa, Xumbuztepa, Ko'zaliqir",
+              "Kampirtepa, Uzundara, Ko'zaliqir, Marv",
+              "Qiziltepa, Afrosiyob, Yerqo'rg'on, Uzunqir",
+              "Ko'ktepa, Daratepa, Yerqo'rg'on, Marv"
+            ],
+            "correct": 0,
+            "explanation": "Mil avv VI-IV asrlarda hunarmandchilik markazlari: Ko'ktepa, Daratepa, Xumbuztepa, Ko'zaliqir."
+          },
+          {
+            "id": "nazorat6-18",
+            "q": "Suzadagi saroy qurilishi haqida Doro I yozuvidan noto'g'ri ma'lumotni belgilang?",
+            "options": [
+              "Oltin — Sard va Baqtriyadan olib kelindi",
+              "Olmos, la'l, temir — So'g'diyonadan olib kelindi",
+              "To'q ko'k yoqut — Xorazmdan olib kelindi",
+              "Kumush va jez — Misrdan olib kelindi"
+            ],
+            "correct": 1,
+            "explanation": "Doro I yozuvida olmos, la'l va temirning So'g'diyonadan keltirilgani noto'g'ri ma'lumot."
+          },
+          {
+            "id": "nazorat6-19",
+            "q": "O'rta Osiyoda dastlabki tanga pullar nechanchi asrda tarqala boshlagan?",
+            "options": [
+              "Mil avv VI-IV asrlarda",
+              "Mil avv V-IV asrlarda",
+              "Mil avv VI-V asrlarda",
+              "Mil avv VII-V asrlarda"
+            ],
+            "correct": 1,
+            "explanation": "O'rta Osiyoda dastlabki tanga pullar mil avv V-IV asrlarda tarqala boshlagan."
+          },
+          {
+            "id": "nazorat6-20",
+            "q": "'Oks xazinasi' haqida berilgan ma'lumotlardan noto'g'risini belgilang?",
+            "options": [
+              "1877-yilda Qo'bodiyon vodiysidan, qadimgi Baqtriya yeridan topilgan",
+              "1880-yil may oyi Afg'onistonning janubi, Kobuldan 3 kunlik yo'lda Peshovarga ketayotgan samarqandlik savdogarlar karvoniga qaroqchilar hujum qildi",
+              "1905-yilda O. Dalton Buxoro savdogarlari xazinasi to'g'risida 'Oks xazinasi' degan kitob yozdi",
+              "Kapitan F. Berton harbiy posti savdogarlarga yordam berdi"
+            ],
+            "correct": 1,
+            "explanation": "'Oks xazinasi' haqidagi 1880-yilgi voqea haqida berilgan ma'lumot noto'g'ri."
+          },
+          {
+            "id": "nazorat6-21",
+            "q": "Makedoniyalik Aleksandr qayerni egallab olgandan so'ng, Kurushkat shahrini egallashga kirishadi?",
+            "options": [
+              "So'g'diyona",
+              "Baqtra",
+              "Maroqanda",
+              "Xojand"
+            ],
+            "correct": 2,
+            "explanation": "Aleksandr Maroqandani egallab olgandan so'ng Kurushkat shahrini egallashga kirishadi."
+          },
+          {
+            "id": "nazorat6-22",
+            "q": "Makedoniyalik Aleksandr Oks ortida yashovchi xalqlarni bo'ysundirish uchun harakat boshlaganda birinchi bo'lib uning yo'lini to'sgan shahar?",
+            "options": [
+              "So'g'diyona",
+              "Baqtra",
+              "Maroqanda",
+              "Xojand"
+            ],
+            "correct": 2,
+            "explanation": "Aleksandrning yo'lini birinchi bo'lib to'sgan shahar — Maroqanda."
+          },
+          {
+            "id": "nazorat6-23",
+            "q": "Aleksandriya Esxata qayerda kimlarga qarshi kurashish uchun quriladi?",
+            "options": [
+              "Politimet daryosi bo'yida sug'dlarga qarshi",
+              "Oks bo'yida saklarga qarshi",
+              "Sirdaryo bo'yida Maroqanda yaqinida baqtriyaliklarga qarshi",
+              "Sirdaryo bo'yida Xo'jand yaqinida saklarga qarshi"
+            ],
+            "correct": 3,
+            "explanation": "Aleksandriya Esxata Sirdaryo bo'yida Xo'jand yaqinida saklarga qarshi kurashish uchun qurilgan."
+          },
+          {
+            "id": "nazorat6-24",
+            "q": "Aleksandr Oksiartni qayerga noib qilib tayinlaydi?",
+            "options": [
+              "Baqtriya viloyatlaridan biriga",
+              "Maroqandaga",
+              "So'g'diyonaga",
+              "Parfiyaga"
+            ],
+            "correct": 0,
+            "explanation": "Aleksandr Oksiartni Baqtriya viloyatlaridan biriga noib qilib tayinlagan."
+          },
+          {
+            "id": "nazorat6-25",
+            "q": "Dunyoning eng sara otliqlari hisoblangan Aleksandr qo'shinidagi jangchilar kimlar edi?",
+            "options": [
+              "Agrianliklar",
+              "Peonliklar",
+              "Makedoniyaliklar",
+              "Fessaliyaliklar"
+            ],
+            "correct": 3,
+            "explanation": "Aleksandr qo'shinidagi eng sara otliqlari — fessaliyaliklar hisoblangan."
+          }
+        ]
+      }
     }
   }
 }
