@@ -1024,6 +1024,341 @@
           }
         ]
       }
+    },
+    "nazorat4": {
+      "title": "Nazorat ishi - 4",
+      "icon": "🏯",
+      "singleMode": true,
+      "defaultDifficulty": "test",
+      "questionsPerQuiz": 25,
+      "learn": {
+        "test": {
+          "title": "Nazorat ishi - 4: Xorazm, Qang', Davan va Kushon davlati",
+          "intro": "Ushbu material nazorat ishiga tayyorgarlik uchun. Xorazm, Qang', Davan va Kushon podshоligi tarixi haqida o'rganing.",
+          "sections": [
+            {
+              "heading": "Xorazm davlati",
+              "text": "Xorazm mil avv IV asrda Ahamoniylar davlati tarkibidan ajralib chiqdi. Mil avv IV-III asrlarda shaharsozlik va me'morchilik rivojlandi. Qo'yqirilganqal'a — mil avv III asrda qurilgan, kohinlar osmon jismlarini kuzatgan ibodatxona. Tuproqqal'a — hukmdorlar qarorgohi, 115 ta loy haykal. Oqchaxon qal'asi — otlar va qahramon portretlari. Oybo'yirqal'a — xum sirtiga yozilgan yozuv topilgan. Xorazmda mahalliy taqvimdan milodiy I-VIII asrgacha foydalanilgan. Anaxita mabudining ramzi tushirilgan spool haykalchalar topilgan."
+            },
+            {
+              "heading": "Qang' davlati",
+              "text": "Qang' davlatining poytaxti Qang'diz o'rta Sirdaryo sohillarida joylashgan. Buyuk ipak yo'lining shimoliy tarmog'i Qang' davlatidan o'tgan. Xitoy va G'arb davlatlari bilan savdoda Davan muhim o'rin tutgan. Doira shakldagi ibodatxona Qang'liklarga oid, Shoshtepa da mil avv II asrda."
+            },
+            {
+              "heading": "Davan davlati",
+              "text": "Xitoy imperatori Chjan Syanni sovg'a-salomlar va oltindan yasalgan ot haykali bilan Davanga jo'natadi. Tyanshan tog'i Xitoy tilida «Samoviy tog'lar» degan ma'noni anglatadi. Qadimshunoslar Xitoyda beda va uzumning paydo bo'lishini Davan davlati bilan bog'laydilar."
+            },
+            {
+              "heading": "Kushon podshоligi",
+              "text": "Kushon podshоligi Kanishka davrida ulkan imperiyaga aylandi. Afg'oniston va Kashmir Kudzula Kadviz davrida qo'shib olindi. Vima Kadviz davrida hukmdor nomi bilan tanga zarb qilish boshlandi. Aramey yozuvi asosida kushon-baqtriya, sug'diy va xorazm yozuvlari vujudga keldi. Surxon vohasidagi katta buddaviylik ibodatxonalari Eski Termiz, Ayritom, Dalvarzintepadan topilgan. Do'mbirachi va ud chalayotgan musiqachilar tasvirlari Ayritomdan topilgan."
+            }
+          ]
+        }
+      },
+      "questions": {
+        "test": [
+          {
+            "id": "nazorat4-1",
+            "q": "Qachon Xorazm davlati Ahamoniylar davlati tarkibidan ajralib chiqadi?",
+            "options": [
+              "Mil avv V asrda",
+              "Mil avv IV asrda",
+              "Mil avv VI asrda",
+              "Mil avv III asrda"
+            ],
+            "correct": 1,
+            "explanation": "Xorazm mil avv IV asrda Ahamoniylar davlati tarkibidan ajralib chiqdi."
+          },
+          {
+            "id": "nazorat4-2",
+            "q": "Xorazm qachon shaharsozlik va me'morchilik rivojlangan muhim markazga aylangan?",
+            "options": [
+              "Mil avv V-IV asrda",
+              "Mil avv IV-III asrda",
+              "Mil avv V asrda",
+              "Mil avv III-II asrda"
+            ],
+            "correct": 1,
+            "explanation": "Xorazm mil avv IV-III asrlarda shaharsozlik va me'morchilik rivojlangan muhim markazga aylandi."
+          },
+          {
+            "id": "nazorat4-3",
+            "q": "Mil avv III asrda qurilgan, kohinlar osmon jismlarini kuzatish uchun ibodatxonasi bo'lgan bu qaysi qal'a?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Oybo'yirqal'a",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 3,
+            "explanation": "Qo'yqirilganqal'a — mil avv III asrda qurilgan, kohinlar osmon jismlarini kuzatish uchun ibodatxona."
+          },
+          {
+            "id": "nazorat4-4",
+            "q": "O'rta Osiyodagi eng qadimgi yozuv qayerdan topilgan?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Xorazm",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 2,
+            "explanation": "O'rta Osiyodagi eng qadimgi yozuv Xorazmdan topilgan."
+          },
+          {
+            "id": "nazorat4-5",
+            "q": "Otlar va otliqlar tasviri, 30 ta qahramon portreti qush shaklidagi toj kiydirilgan holda tasvirlangan, mil avv II-I asrlarga oid qal'a bu?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Oybo'yirqal'a",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 0,
+            "explanation": "Oqchaxon qal'asida otlar, otliqlar va 30 ta qahramon portreti tasvirlangan."
+          },
+          {
+            "id": "nazorat4-6",
+            "q": "Xorazm hukmdorlarining qarorgohi, supada bo'yalgan 115 ta loy haykallar bo'lgan qal'a?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Oybo'yirqal'a",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 1,
+            "explanation": "Tuproqqal'a — Xorazm hukmdorlarining qarorgohi, 115 ta loy haykal topilgan."
+          },
+          {
+            "id": "nazorat4-7",
+            "q": "Xum sirtiga yozilgan yozuv qayerdan topilgan?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Oybo'yirqal'a",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 2,
+            "explanation": "Xum sirtiga yozilgan yozuv Oybo'yirqal'adan topilgan."
+          },
+          {
+            "id": "nazorat4-8",
+            "q": "Xorazmda mahalliy taqvimdan nechanchi asrgacha foydalanilgan?",
+            "options": [
+              "Milodiy I-VIII asrgacha",
+              "Milodiy I-VII asrgacha",
+              "Milodiy II-VIII asrgacha",
+              "Mil avv I va milodiy VIII asrgacha"
+            ],
+            "correct": 0,
+            "explanation": "Xorazmda mahalliy taqvimdan milodiy I-VIII asrgacha foydalanilgan."
+          },
+          {
+            "id": "nazorat4-9",
+            "q": "Xorazmdan qaysi mabudning ramzi tushirilgan ko'plab spool haykalchalar topilgan?",
+            "options": [
+              "Mitra",
+              "Anaxita",
+              "Ahriman",
+              "Ahuramazda"
+            ],
+            "correct": 1,
+            "explanation": "Xorazmdan Anaxita mabudining ramzi tushirilgan spool haykalchalar topilgan."
+          },
+          {
+            "id": "nazorat4-10",
+            "q": "Qang' davlatining poytaxti Qang'diz qayerda joylashgan?",
+            "options": [
+              "Toshkent vohasining Oqqo'rg'on tumanida",
+              "Farg'ona vodiysida",
+              "O'rta Sirdaryo sohillarida",
+              "Zarafshon vodiysida"
+            ],
+            "correct": 2,
+            "explanation": "Qang'diz o'rta Sirdaryo sohillarida joylashgan."
+          },
+          {
+            "id": "nazorat4-11",
+            "q": "Qang' davlatidan Buyuk ipak yo'lining qaysi tarmog'i o'tgan?",
+            "options": [
+              "Sharqiy",
+              "Shimoliy",
+              "G'arbiy",
+              "Janubiy"
+            ],
+            "correct": 1,
+            "explanation": "Buyuk ipak yo'lining shimoliy tarmog'i Qang' davlatidan o'tgan."
+          },
+          {
+            "id": "nazorat4-12",
+            "q": "Xitoy va G'arb davlatlari bilan savdoda muhim o'rin tutgan davlat?",
+            "options": [
+              "Qang'",
+              "Davan",
+              "Xorazm",
+              "Kushon davlati"
+            ],
+            "correct": 1,
+            "explanation": "Davan Xitoy va G'arb davlatlari bilan savdoda muhim o'rin tutgan."
+          },
+          {
+            "id": "nazorat4-13",
+            "q": "Doira shakldagi ibodatxona qaysi davlat diniy e'tiqodi bilan bog'liq va u qayerda joylashgan?",
+            "options": [
+              "Davanliklarga oid, Ershi shahrida mil avv I asrga oid",
+              "Xorazmliklarga oid, Tuproqqal'ada Milodiy II-III asrlarga oid",
+              "Qang'liklarga oid, Shoshtepa da mil avv II asrda",
+              "Qang'liklarga oid, Sho'rabashat da mil avv II asrda"
+            ],
+            "correct": 2,
+            "explanation": "Doira shakldagi ibodatxona Qang'liklarga oid, Shoshtepa da mil avv II asrda."
+          },
+          {
+            "id": "nazorat4-14",
+            "q": "Xitoy imperatori kimni sovg'a-salomlar va oltindan yasalgan ot haykali bilan Davanga jo'natadi?",
+            "options": [
+              "Chjan Syan",
+              "Che Lin",
+              "U Di",
+              "Li Yuan"
+            ],
+            "correct": 0,
+            "explanation": "Xitoy imperatori Chjan Syanni sovg'a-salomlar va oltin ot haykali bilan Davanga jo'natdi."
+          },
+          {
+            "id": "nazorat4-15",
+            "q": "Qaysi tog' Xitoy tilida \"Samoviy tog'lar\" degan ma'noni anglatadi?",
+            "options": [
+              "Pomir",
+              "Hindiqush",
+              "Himolay",
+              "Tyanshan"
+            ],
+            "correct": 3,
+            "explanation": "Tyanshan Xitoy tilida «Samoviy tog'lar» degan ma'noni anglatadi."
+          },
+          {
+            "id": "nazorat4-16",
+            "q": "Qadimshunoslar Xitoyda qanday mevalarning paydo bo'lishini Davan davlati bilan bog'laydilar?",
+            "options": [
+              "Anor va o'rik",
+              "Beda va uzum",
+              "Behi va xurmo",
+              "Nok va shaftoli"
+            ],
+            "correct": 1,
+            "explanation": "Qadimshunoslar Xitoyda beda va uzumning paydo bo'lishini Davan davlati bilan bog'laydilar."
+          },
+          {
+            "id": "nazorat4-17",
+            "q": "Kushon podshоligi kimning davrida ulkan imperiyaga aylanadi?",
+            "options": [
+              "Kudzula Kadviz",
+              "Vima Kadviz",
+              "Kanishka",
+              "Guyshuan"
+            ],
+            "correct": 2,
+            "explanation": "Kushon podshоligi Kanishka davrida ulkan imperiyaga aylandi."
+          },
+          {
+            "id": "nazorat4-18",
+            "q": "Kimning davrida Afg'oniston va Kashmir Kushon podshоligiga qo'shib olinadi?",
+            "options": [
+              "Kudzula Kadviz",
+              "Vima Kadviz",
+              "Kanishka",
+              "Guyshuan"
+            ],
+            "correct": 0,
+            "explanation": "Afg'oniston va Kashmir Kudzula Kadviz davrida Kushon podshоligiga qo'shib olindi."
+          },
+          {
+            "id": "nazorat4-19",
+            "q": "Kushon podshоligida kimning davrida hukmdor nomi bilan tanga zarb qilish boshlangan?",
+            "options": [
+              "Kudzula Kadviz",
+              "Vima Kadviz",
+              "Kanishka",
+              "Guyshuan"
+            ],
+            "correct": 1,
+            "explanation": "Vima Kadviz davrida hukmdor nomi bilan tanga zarb qilish boshlandi."
+          },
+          {
+            "id": "nazorat4-20",
+            "q": "Aramey yozuvi asosida vujudga kelgan yozuvlar to'g'ri berilgan qatorni belgilang?",
+            "options": [
+              "Kushon-baqtriya alifbosi",
+              "Sug'diy yozuvi",
+              "Xorazm yozuvi",
+              "Hamma javoblar to'g'ri"
+            ],
+            "correct": 3,
+            "explanation": "Aramey yozuvi asosida kushon-baqtriya, sug'diy va xorazm yozuvlari vujudga keldi."
+          },
+          {
+            "id": "nazorat4-21",
+            "q": "Kushon-baqtriya yozuv namunalari qayerdan topilgan?",
+            "options": [
+              "Termizdan",
+              "Surxko'tal (Afg'onistondagi Qunduz shahri yaqinida), Kampirtepa (Termiz yaqinida)",
+              "Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida",
+              "Eski Termiz, Ayritom, Dalvarzintepa"
+            ],
+            "correct": 0,
+            "explanation": "Kushon-baqtriya yozuv namunalari Termizdan topilgan."
+          },
+          {
+            "id": "nazorat4-22",
+            "q": "Yunon alifbosidagi kushon bitiklari qayerdan topilgan?",
+            "options": [
+              "Termizdan",
+              "Surxko'tal (Afg'onistondagi Qunduz shahri yaqinida), Kampirtepa (Termiz yaqinida)",
+              "Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida",
+              "Eski Termiz, Ayritom, Dalvarzintepa"
+            ],
+            "correct": 1,
+            "explanation": "Yunon alifbosidagi kushon bitiklari Surxko'tal va Kampirtepadan topilgan."
+          },
+          {
+            "id": "nazorat4-23",
+            "q": "Xorazmiy va sug'diy yozuvlari qayerlarda keng tarqalgan?",
+            "options": [
+              "Termizdan",
+              "Surxko'tal (Afg'onistondagi Qunduz shahri yaqinida), Kampirtepa (Termiz yaqinida)",
+              "Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida",
+              "Eski Termiz, Ayritom, Dalvarzintepa"
+            ],
+            "correct": 2,
+            "explanation": "Xorazmiy va sug'diy yozuvlari Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida keng tarqalgan."
+          },
+          {
+            "id": "nazorat4-24",
+            "q": "Surxon vohasidagi katta buddaviylik ibodatxonalari qayerlardan topilgan?",
+            "options": [
+              "Termizdan",
+              "Surxko'tal (Afg'onistondagi Qunduz shahri yaqinida), Kampirtepa (Termiz yaqinida)",
+              "Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida",
+              "Eski Termiz, Ayritom, Dalvarzintepa"
+            ],
+            "correct": 3,
+            "explanation": "Surxon vohasidagi katta buddaviylik ibodatxonalari Eski Termiz, Ayritom, Dalvarzintepadan topilgan."
+          },
+          {
+            "id": "nazorat4-25",
+            "q": "Do'mbirachi va ud chalayotgan musiqachilar tasvirlari qayerlardan topilgan?",
+            "options": [
+              "Eski Termizdan",
+              "Ayritom",
+              "Surxko'tal",
+              "Dalvarzintepa"
+            ],
+            "correct": 1,
+            "explanation": "Do'mbirachi va ud chalayotgan musiqachilar tasvirlari Ayritomdan topilgan."
+          }
+        ]
+      }
     }
   }
 }
