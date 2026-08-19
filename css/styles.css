@@ -1699,7 +1699,6 @@ body {
   --cat-glow: rgba(232,176,32,0.25);
 }
 
-.card-bg-img, .card-bg-overlay { display: none; }
 
 .card-body {
   padding: 1.75rem;

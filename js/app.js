@@ -562,32 +562,14 @@
     `;
   }
 
-  // Category color + image themes
+  // Category color themes
   const CAT_THEMES = [
-    {
-      accent: "#e8b020", glow: "rgba(232,176,32,0.25)", tag: "O'rta Osiyo",
-      img: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=600&q=70&auto=format&fit=crop"
-    },
-    {
-      accent: "#2dd4bf", glow: "rgba(45,212,191,0.25)", tag: "Misr & Mesopotamiya",
-      img: "https://images.unsplash.com/photo-1539650116574-8efeb43b83c3?w=600&q=70&auto=format&fit=crop"
-    },
-    {
-      accent: "#f87171", glow: "rgba(248,113,113,0.25)", tag: "Bobil & Sharq",
-      img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70&auto=format&fit=crop"
-    },
-    {
-      accent: "#a78bfa", glow: "rgba(167,139,250,0.25)", tag: "Xorazm & Kushon",
-      img: "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=600&q=70&auto=format&fit=crop"
-    },
-    {
-      accent: "#34d399", glow: "rgba(52,211,153,0.25)", tag: "Qadimgi tarix",
-      img: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&q=70&auto=format&fit=crop"
-    },
-    {
-      accent: "#fb923c", glow: "rgba(251,146,60,0.25)", tag: "Tarix",
-      img: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&q=70&auto=format&fit=crop"
-    },
+    { accent: "#e8b020", glow: "rgba(232,176,32,0.25)",  tag: "O'rta Osiyo" },
+    { accent: "#2dd4bf", glow: "rgba(45,212,191,0.25)",  tag: "Misr & Mesopotamiya" },
+    { accent: "#f87171", glow: "rgba(248,113,113,0.25)", tag: "Bobil & Sharq" },
+    { accent: "#a78bfa", glow: "rgba(167,139,250,0.25)", tag: "Xorazm & Kushon" },
+    { accent: "#34d399", glow: "rgba(52,211,153,0.25)",  tag: "Qadimgi tarix" },
+    { accent: "#fb923c", glow: "rgba(251,146,60,0.25)",  tag: "Tarix" },
   ];
 
 
@@ -606,9 +588,7 @@
 
         return `
         <button class="category-card ${completed}" data-category="${cat.key}"
-          style="--cat-accent:${theme.accent};--cat-glow:${theme.glow};--cat-img:url('${theme.img}')">
-          <div class="card-bg-img"></div>
-          <div class="card-bg-overlay"></div>
+          style="--cat-accent:${theme.accent};--cat-glow:${theme.glow}">
           <div class="card-body">
             <div class="card-header-row">
               <span class="card-icon">${cat.icon}</span>
