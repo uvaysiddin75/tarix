@@ -547,16 +547,36 @@
 
 
   function getProgressBadge(categoryKey) {
-
     const user = Auth.getUser();
-
     const p = user?.progress?.[categoryKey];
-
-    if (!p) return "";
-
-    return `<span class="progress-badge">Eng yaxshi: ${p.bestScore}/${p.total}</span>`;
-
+    if (!p) return `<span class="progress-badge new-badge">Yangi</span>`;
+    const pct = Math.round((p.bestScore / p.total) * 100);
+    const color = pct >= 90 ? "#34d399" : pct >= 70 ? "#e8b020" : pct >= 50 ? "#2dd4bf" : "#f87171";
+    return `
+      <div class="card-progress-row">
+        <div class="card-progress-ring" style="--ring-pct:${pct};--ring-color:${color}">
+          <svg width="40" height="40" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="16" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3"/>
+            <circle cx="20" cy="20" r="16" fill="none" stroke="${color}" stroke-width="3"
+              stroke-dasharray="${Math.round(2*Math.PI*16*pct/100)} 999"
+              stroke-linecap="round" transform="rotate(-90 20 20)" style="transition:stroke-dasharray 1s ease"/>
+          </svg>
+          <span class="ring-label">${pct}%</span>
+        </div>
+        <span class="card-best">En yaxshi: ${p.bestScore}/${p.total}</span>
+      </div>
+    `;
   }
+
+  // Category color themes
+  const CAT_THEMES = [
+    { accent: "#e8b020", glow: "rgba(232,176,32,0.25)", tag: "O'rta Osiyo" },
+    { accent: "#2dd4bf", glow: "rgba(45,212,191,0.25)", tag: "Misr & Mesopotamiya" },
+    { accent: "#f87171", glow: "rgba(248,113,113,0.25)", tag: "Bobil & Sharq" },
+    { accent: "#a78bfa", glow: "rgba(167,139,250,0.25)", tag: "Xorazm & Kushon" },
+    { accent: "#34d399", glow: "rgba(52,211,153,0.25)", tag: "Qadimgi tarix" },
+    { accent: "#fb923c", glow: "rgba(251,146,60,0.25)", tag: "Tarix" },
+  ];
 
 
 
@@ -564,24 +584,28 @@
 
     categoryGrid.innerHTML = state.meta.categories
 
-      .map((cat) => {
+      .map((cat, idx) => {
 
+        const theme = CAT_THEMES[idx % CAT_THEMES.length];
         const desc = cat.description || `${cat.questionsPerQuiz} ta savol · o'qish + test`;
+        const user = Auth.getUser();
+        const prog = user?.progress?.[cat.key];
+        const completed = prog ? "completed" : "";
 
         return `
-
-        <button class="category-card" data-category="${cat.key}">
-
-          <span class="card-icon">${cat.icon}</span>
-
+        <button class="category-card ${completed}" data-category="${cat.key}"
+          style="--cat-accent:${theme.accent};--cat-glow:${theme.glow}">
+          <div class="card-header-row">
+            <span class="card-icon">${cat.icon}</span>
+            <span class="card-tag">${theme.tag}</span>
+          </div>
           <h3>${cat.title}</h3>
-
           <p>${desc}</p>
-
-          ${getProgressBadge(cat.key)}
-
+          <div class="card-footer-row">
+            <span class="card-questions-badge">📋 ${cat.questionsPerQuiz} savol</span>
+            ${getProgressBadge(cat.key)}
+          </div>
         </button>
-
       `;
 
       })
@@ -798,6 +822,9 @@
 
     state.lastSelectedIndex = null;
 
+    // Update question number dot nav
+    updateQuizDots();
+
     // Slide animation
     if (window.FXAnimate) {
       const qCard = document.getElementById("questionText");
@@ -809,6 +836,40 @@
     // Swipe sound
     if (window.SoundFX) SoundFX.playSwipe();
 
+    // Start per-question timer
+    startQuestionTimer();
+
+  }
+
+  // ── Timer ──
+  let timerInterval = null;
+  let timerSeconds = 0;
+  function startQuestionTimer() {
+    clearInterval(timerInterval);
+    timerSeconds = 0;
+    const el = document.getElementById("questionTimer");
+    if (!el) return;
+    el.textContent = "0s";
+    timerInterval = setInterval(() => {
+      timerSeconds++;
+      el.textContent = timerSeconds + "s";
+      if (timerSeconds >= 30) el.style.color = "var(--error)";
+      else if (timerSeconds >= 15) el.style.color = "var(--accent)";
+      else el.style.color = "var(--text-muted)";
+    }, 1000);
+  }
+  function stopTimer() { clearInterval(timerInterval); }
+
+  // ── Dot navigation ──
+  function updateQuizDots() {
+    const container = document.getElementById("quizDots");
+    if (!container) return;
+    const total = state.questions.length;
+    const cur = state.currentIndex;
+    container.innerHTML = Array.from({ length: total }, (_, i) => {
+      const cls = i < cur ? "dot done" : i === cur ? "dot active" : "dot";
+      return `<span class="${cls}"></span>`;
+    }).join("");
   }
 
 
@@ -862,6 +923,8 @@
     feedbackText.textContent = isCorrect ? "✓ To'g'ri!" : "✗ Noto'g'ri";
     feedbackText.className = "feedback-text " + (isCorrect ? "correct" : "wrong");
 
+    stopTimer();
+
     // Sounds & particles
     if (isCorrect) {
       if (window.SoundFX) SoundFX.playCorrect();
@@ -909,8 +972,16 @@
 
 
     document.getElementById("resultsScore").textContent = `${state.score} / ${total}`;
-
     document.getElementById("resultsPercent").textContent = `${percent}%`;
+
+    // Extra stats
+    const wrong = total - state.score;
+    const statC = document.getElementById("statCorrect");
+    const statW = document.getElementById("statWrong");
+    const statA = document.getElementById("statAccuracy");
+    if (statC) statC.textContent = state.score;
+    if (statW) statW.textContent = wrong;
+    if (statA) statA.textContent = percent + "%";
 
 
 

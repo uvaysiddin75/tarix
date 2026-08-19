@@ -8,7 +8,14 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Nazorat ishi — Tarix testlari</title>
+  <title>Tarix Nazorat — O'quv platformasi</title>
+  <meta name="description" content="Tarix nazorat ishlariga tayyorgarlik platformasi. O'rganing, test topshiring, natijalarni saqlang.">
+  <meta name="theme-color" content="#e8b020">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tarix">
+  <link rel="manifest" href="manifest.json">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -329,9 +336,14 @@
 
         <div class="quiz-header">
 
-          <span class="quiz-badge" id="quizBadge">Test</span>
+          <div class="quiz-top-row">
+            <span class="quiz-badge" id="quizBadge">Test</span>
+            <span class="question-timer" id="questionTimer">0s</span>
+          </div>
 
           <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+          <div class="quiz-dots" id="quizDots"></div>
 
         </div>
 
@@ -375,13 +387,31 @@
 
           <p class="results-message" id="resultsMessage"></p>
 
+          <div class="results-stats">
+            <div class="result-stat">
+              <span class="result-stat-icon">✅</span>
+              <span class="result-stat-val" id="statCorrect">0</span>
+              <span class="result-stat-lbl">To'g'ri</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-stat-icon">❌</span>
+              <span class="result-stat-val" id="statWrong">0</span>
+              <span class="result-stat-lbl">Noto'g'ri</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-stat-icon">⚡</span>
+              <span class="result-stat-val" id="statAccuracy">0%</span>
+              <span class="result-stat-lbl">Aniqlik</span>
+            </div>
+          </div>
+
           <div class="results-actions">
 
-            <button class="btn-primary" id="btnRetry">Yana topshirish</button>
+            <button class="btn-primary" id="btnRetry">🔄 Yana topshirish</button>
 
-            <button class="btn-secondary" id="btnBackLearn">O'quv materialiga</button>
+            <button class="btn-secondary" id="btnBackLearn">📖 O'quv materialiga</button>
 
-            <button class="btn-secondary" id="btnMainMenu">Bosh sahifa</button>
+            <button class="btn-secondary" id="btnMainMenu">🏠 Bosh sahifa</button>
 
           </div>
 
