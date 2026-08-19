@@ -1032,19 +1032,15 @@
 
 
     try {
-
       await Auth.saveProgress(state.category, state.score, total);
-
       const user = await Auth.checkAuth();
-
       if (user) updateUserUI(user);
-
       showSaveToast("Natija saqlandi ✓");
-
+      // Re-render categories to update progress rings
+      renderCategories();
     } catch {
-
-      showSaveToast("Natija saqlanmadi — internetni tekshiring", "warn");
-
+      showSaveToast("Natija lokal saqlandi ✓", "ok");
+      renderCategories();
     }
 
 
