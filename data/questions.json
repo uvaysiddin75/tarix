@@ -468,7 +468,7 @@
               "Shimoliy Misr",
               "G'arbiy Misr"
             ],
-            "correct": 0,
+            "correct": 3,
             "explanation": "Liviya Misrning g'arbiy qismida joylashgan."
           },
           {
@@ -480,7 +480,7 @@
               "Giza",
               "Baolbek"
             ],
-            "correct": 3,
+            "correct": 0,
             "explanation": "Giksoslarga qarshi kurashda Fiva shahri fir'avni atrofida birlashgan."
           },
           {
@@ -492,8 +492,8 @@
               "Yangi podsholik",
               "Qadimgi podsholik"
             ],
-            "correct": 0,
-            "explanation": "Qadimgi podsholik davrida Sinay yarim oroli, Nubiya va Liviya bosib olinadi."
+            "correct": 3,
+            "explanation": "Qadimgi podsholik davrida Sinay yarim oroli, Nubiya va Liviyaga yurishlar qilingan."
           },
           {
             "id": "nazorat2-10",
@@ -504,7 +504,7 @@
               "Mil avv 605-yilda",
               "Mil avv 605-yilda"
             ],
-            "correct": 3,
+            "correct": 0,
             "explanation": "Kambiz II mil avv 525-yilda Misrni bosib olgan."
           },
           {
@@ -516,7 +516,7 @@
               "Tutmos II",
               "Tutmos III"
             ],
-            "correct": 0,
+            "correct": 3,
             "explanation": "Old Osiyoda misrliklar hukmronligi Tutmos III davrida o'rnatilgan."
           },
           {
@@ -528,7 +528,7 @@
               "Nubiya va Liviya",
               "Falastin, Suriya"
             ],
-            "correct": 2,
+            "correct": 0,
             "explanation": "Tutmos II davrida Falastin, Finikiya va Suriya egallangan."
           },
           {
@@ -540,7 +540,7 @@
               "Xapi",
               "Osiris"
             ],
-            "correct": 1,
+            "correct": 2,
             "explanation": "Xapi — Nil daryosi va hayotning birlamchi manbai, posbon deb hisoblangan."
           },
           {
@@ -588,7 +588,7 @@
               "Hindistonda",
               "Misrda"
             ],
-            "correct": 2,
+            "correct": 3,
             "explanation": "Tabiblarni tayyorlovchi maxsus maktablar Misrda bo'lgan."
           },
           {
@@ -600,7 +600,7 @@
               "Elamiylar",
               "Kassiylar"
             ],
-            "correct": 1,
+            "correct": 0,
             "explanation": "Mil avv 4-mingyillikda Mesopotamiyada shumerlarning manzilgohlari paydo bo'la boshlagan."
           },
           {
@@ -612,7 +612,7 @@
               "Eon, Kavkazorti",
               "Suriya va Falastin"
             ],
-            "correct": 0,
+            "correct": 2,
             "explanation": "Mesopotamiyaliklar Eon va Kavkazorti bilan savdo-sotiq qilganlar."
           },
           {
@@ -624,7 +624,7 @@
               "Akkadlar",
               "Bobilliklar"
             ],
-            "correct": 2,
+            "correct": 1,
             "explanation": "Mixxat yozuvini shumerlar ixtiro qilgan."
           },
           {
@@ -648,7 +648,7 @@
               "Magadha, Koshola, Malla",
               "Shumer va Akkad"
             ],
-            "correct": 2,
+            "correct": 1,
             "explanation": "Mil avv 4-mingyillikda Uruk, Umma, Lagash, Ur kabi shahar-davlatlar vujudga kelgan."
           },
           {
@@ -660,7 +660,7 @@
               "Mesopotamiya",
               "Inklar"
             ],
-            "correct": 1,
+            "correct": 2,
             "explanation": "Dastlabki rasadxonalar Mesopotamiyada ibodatxonalar (zikkuratlar) tepasida qurilgan."
           },
           {
