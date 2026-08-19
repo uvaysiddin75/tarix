@@ -109,6 +109,14 @@
 
 
 
+    <!-- Global background layers -->
+    <div class="bg-layer" aria-hidden="true">
+      <div class="bg-img bg-img-1"></div>
+      <div class="bg-img bg-img-2"></div>
+      <div class="bg-noise"></div>
+      <div class="bg-vignette"></div>
+    </div>
+
     <main class="main">
 
       <!-- Auth: Login -->
@@ -238,14 +246,14 @@
 
       <section class="screen" id="screenMenu">
 
-        <div class="hero">
-
-          <span class="hero-tag">Tarix nazorat ishlari</span>
-
-          <h2>Nazorat ishlarini tanlang</h2>
-
-          <p>Avval o'quv materialini o'qing, keyin test topshiring. AI yordamchi savollaringizga javob beradi.</p>
-
+        <div class="hero-banner">
+          <div class="hero-banner-img" aria-hidden="true"></div>
+          <div class="hero-banner-overlay" aria-hidden="true"></div>
+          <div class="hero-banner-content">
+            <span class="hero-tag">📜 Tarix nazorat ishlari</span>
+            <h2>Nazorat ishlarini tanlang</h2>
+            <p>Avval o'quv materialini o'qing, keyin test topshiring.</p>
+          </div>
         </div>
 
         <div class="category-grid" id="categoryGrid"></div>

@@ -758,16 +758,40 @@ body {
 
 /* ——— Auth ——— */
 
+#screenAuth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#screenAuth::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1400&q=75&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
+  filter: sepia(20%) brightness(0.6);
+  pointer-events: none;
+  z-index: -1;
+}
+
 .auth-card {
   max-width: 420px;
+  width: 100%;
   margin: 2rem auto;
-  background: linear-gradient(160deg, rgba(22,32,50,0.97) 0%, rgba(9,13,21,0.97) 100%);
+  background: linear-gradient(160deg, rgba(18,26,42,0.97) 0%, rgba(7,10,18,0.98) 100%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius);
   padding: 2.5rem 2rem;
-  box-shadow: var(--shadow), 0 0 80px rgba(232,176,32,0.05);
+  box-shadow: var(--shadow), 0 0 80px rgba(232,176,32,0.06);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .auth-card::before {
@@ -776,7 +800,19 @@ body {
   top: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--accent), var(--teal), transparent);
-  opacity: 0.8;
+  opacity: 0.9;
+}
+
+/* Subtle radial glow inside card */
+.auth-card::after {
+  content: "";
+  position: absolute;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 200px;
+  background: radial-gradient(ellipse, rgba(232,176,32,0.08) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .auth-brand {
@@ -1689,17 +1725,210 @@ body {
   }
 }
 
+/* ─── Global background layers ─── */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Main atmospheric photo — ancient ruins/scrolls */
+.bg-img-1 {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0.07;
+  filter: grayscale(40%) sepia(20%);
+  animation: bgDrift 30s ease-in-out infinite alternate;
+}
+
+/* Secondary subtle texture */
+.bg-img-2 {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60%;
+  background-image: url('https://images.unsplash.com/photo-1564419320461-6870880221ad?w=1200&q=60&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.04;
+  filter: grayscale(60%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+}
+
+@keyframes bgDrift {
+  from { transform: scale(1.0) translateY(0px); }
+  to   { transform: scale(1.06) translateY(-20px); }
+}
+
+/* Noise texture overlay */
+.bg-noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.35;
+}
+
+/* Dark vignette on edges */
+.bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%,
+    transparent 30%,
+    rgba(5,7,12,0.5) 70%,
+    rgba(5,7,12,0.85) 100%);
+}
+
+/* ─── Hero Banner (Menu screen) ─── */
+.hero-banner {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  min-height: 200px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-banner-img {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center 25%;
+  filter: brightness(0.45) saturate(0.6) sepia(0.3);
+  transform: scale(1.02);
+  transition: transform 8s ease;
+}
+
+.hero-banner:hover .hero-banner-img {
+  transform: scale(1.06);
+}
+
+.hero-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(7,9,15,0.1) 0%,
+    rgba(7,9,15,0.3) 40%,
+    rgba(7,9,15,0.85) 100%
+  );
+}
+
+/* Gold shimmer line on top */
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--teal), transparent);
+  opacity: 0.8;
+}
+
+.hero-banner-content {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  text-align: left;
+  width: 100%;
+}
+
+.hero-banner-content .hero-tag {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  border-color: rgba(232,176,32,0.35);
+}
+
+.hero-banner-content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0.5rem 0 0.4rem;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.hero-banner-content p {
+  color: rgba(240,237,232,0.75);
+  font-size: 0.92rem;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+
 /* ─── Category card theming ─── */
 .category-card {
   --cat-accent: #e8b020;
   --cat-glow: rgba(232,176,32,0.25);
+  --cat-img: none;
+  padding: 0;
+  min-height: 190px;
 }
+
+/* Fon rasm */
+.card-bg-img {
+  position: absolute;
+  inset: 0;
+  background-image: var(--cat-img);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  filter: grayscale(30%) sepia(10%);
+  transition: opacity 0.4s ease, transform 0.5s ease;
+  transform: scale(1.02);
+}
+
+/* Dark overlay */
+.card-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(7,9,15,0.7) 0%,
+    rgba(7,9,15,0.4) 50%,
+    rgba(7,9,15,0.75) 100%
+  );
+  transition: background 0.3s;
+}
+
+/* Card content above bg */
+.card-body {
+  position: relative;
+  z-index: 1;
+  padding: 1.75rem;
+  width: 100%;
+}
+
 .category-card:hover {
   border-color: var(--cat-accent) !important;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px var(--cat-glow) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 35px var(--cat-glow) !important;
 }
+
+.category-card:hover .card-bg-img {
+  opacity: 0.32;
+  transform: scale(1.07);
+}
+
+.category-card:hover .card-bg-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(7,9,15,0.5) 0%,
+    rgba(7,9,15,0.2) 50%,
+    rgba(7,9,15,0.6) 100%
+  );
+}
+
 .category-card:hover .card-icon {
-  filter: drop-shadow(0 0 10px var(--cat-accent));
+  filter: drop-shadow(0 0 12px var(--cat-accent));
+  transform: scale(1.1);
+}
+
+.card-icon {
+  display: inline-block;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 .card-header-row {
   display: flex;
