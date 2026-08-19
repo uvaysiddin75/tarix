@@ -368,32 +368,27 @@
     e.preventDefault();
 
     const errEl = document.getElementById("loginError");
-
     errEl.hidden = true;
 
+    const btn = e.target.querySelector('button[type="submit"]');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-spinner"></span> Kirilmoqda...';
+    }
+
     try {
-
-      const btn = e.target.querySelector('button[type="submit"]');
-      if (btn) { btn.disabled = true; btn.textContent = "Kutilmoqda..."; }
-
       const user = await Auth.login(
-
         document.getElementById("loginEmail").value.trim(),
-
         document.getElementById("loginPassword").value.trim()
-
       );
-
       await onAuthenticated(user);
-
     } catch (err) {
-
       errEl.textContent = err.message;
-
       errEl.hidden = false;
-
+      // Shake animation on error
+      const card = document.querySelector(".auth-card");
+      if (card) { card.classList.add("shake"); setTimeout(() => card.classList.remove("shake"), 500); }
     } finally {
-      const btn = document.querySelector("#formLogin button[type='submit']");
       if (btn) { btn.disabled = false; btn.textContent = "Kirish"; }
     }
 
@@ -406,29 +401,28 @@
     e.preventDefault();
 
     const errEl = document.getElementById("registerError");
-
     errEl.hidden = true;
 
+    const btn = e.target.querySelector('button[type="submit"]');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-spinner"></span> Ro\'yxatdan o\'tilmoqda...';
+    }
+
     try {
-
       const user = await Auth.register(
-
         document.getElementById("regName").value.trim(),
-
         document.getElementById("regEmail").value.trim(),
-
         document.getElementById("regPassword").value.trim()
-
       );
-
       await onAuthenticated(user);
-
     } catch (err) {
-
       errEl.textContent = err.message;
-
       errEl.hidden = false;
-
+      const card = document.querySelector(".auth-card");
+      if (card) { card.classList.add("shake"); setTimeout(() => card.classList.remove("shake"), 500); }
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = "Ro'yxatdan o'tish"; }
     }
 
   });

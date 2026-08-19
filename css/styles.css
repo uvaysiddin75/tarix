@@ -1949,6 +1949,40 @@ body {
 
 /* ─── Sound & Animation Enhancements ─── */
 
+/* Button spinner */
+.btn-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Auth card shake on wrong password */
+.auth-card.shake {
+  animation: authShake 0.45s ease;
+}
+@keyframes authShake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-10px); }
+  40%     { transform: translateX(10px); }
+  60%     { transform: translateX(-6px); }
+  80%     { transform: translateX(6px); }
+}
+
+/* Input focus glow */
+.form-group input:focus {
+  border-color: rgba(232,176,32,0.6) !important;
+  box-shadow: 0 0 0 3px rgba(232,176,32,0.1);
+}
+
 /* Auth card entrance */
 .auth-card {
   animation: authCardIn 0.7s cubic-bezier(0.34,1.4,0.64,1) 2.2s both;
