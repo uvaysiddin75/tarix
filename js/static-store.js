@@ -135,6 +135,14 @@
     return data.users.find((u) => u.id === id) || null;
   }
 
+  function isAdminEmail(email) {
+    const c = cfg();
+    const mainAdmin = (c.adminEmail || "").trim().toLowerCase();
+    if (email === mainAdmin) return true;
+    const extras = c.extraAdmins || [];
+    return extras.some((a) => (a.email || "").trim().toLowerCase() === email);
+  }
+
   async function ensureDefaultAdmin() {
     if (sessionStorage.getItem(ADMIN_INIT_KEY) === "1") return;
 
@@ -146,7 +154,7 @@
     const registrationEnabled = c.registrationEnabled !== false;
 
     if (!registrationEnabled) {
-      data.users = data.users.filter((u) => u.email.toLowerCase() === adminEmail);
+      data.users = data.users.filter((u) => isAdminEmail(u.email.toLowerCase()));
     }
 
     let admin = data.users.find((u) => u.email.toLowerCase() === adminEmail);
@@ -182,6 +190,20 @@
       changed = true;
     }
 
+    // Ensure extra admins also have admin role
+    const extras = c.extraAdmins || [];
+    for (const extra of extras) {
+      const extraEmail = (extra.email || "").trim().toLowerCase();
+      if (!extraEmail) continue;
+      let extraUser = data.users.find((u) => u.email.toLowerCase() === extraEmail);
+      if (extraUser) {
+        if (extraUser.role !== "admin") {
+          extraUser.role = "admin";
+          changed = true;
+        }
+      }
+    }
+
     if (changed) saveDb(data);
     sessionStorage.setItem(ADMIN_INIT_KEY, "1");
   }
@@ -208,7 +230,7 @@
     if (findUserByEmail(email)) {
       throw new Error("Bu email allaqachon ro'yxatdan o'tgan");
     }
-    if (email === (c.adminEmail || "").trim().toLowerCase()) {
+    if (isAdminEmail(email)) {
       throw new Error("Bu email administrator uchun. Kirish bo'limidan kiring.");
     }
 
@@ -244,6 +266,13 @@
 
     if (c.registrationEnabled === false && user.role !== "admin") {
       throw new Error("Faqat administrator kirishi mumkin");
+    }
+
+    // Ensure extra admins always have admin role on login
+    if (isAdminEmail(email) && user.role !== "admin") {
+      const data = loadDb();
+      const u = data.users.find((x) => x.email.toLowerCase() === email);
+      if (u) { u.role = "admin"; saveDb(data); user.role = "admin"; }
     }
 
     return sanitizeUser(user);
