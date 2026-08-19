@@ -31,6 +31,28 @@
           "lastAttempt": "2026-08-01T09:09:10.346Z"
         }
       }
+    },
+    {
+      "id": "ce59be21-7801-4051-b5fe-776d28d61938",
+      "name": "Uvaysiddin Vafoev",
+      "email": "uvaysiddin10@gmail.com",
+      "role": "student",
+      "passwordPlain": "ыфдьшс1023",
+      "avatar": null,
+      "cover": null,
+      "createdAt": "2026-08-19T11:59:32.194Z",
+      "progress": {}
+    },
+    {
+      "id": "16164bab-fb4d-4332-98bf-87ec25d11140",
+      "name": "SALMON",
+      "email": "abdullaevsalmon7@gmail.com",
+      "role": "student",
+      "passwordPlain": "Samon0701",
+      "avatar": null,
+      "cover": null,
+      "createdAt": "2026-08-19T12:00:09.192Z",
+      "progress": {}
     }
   ]
 }
