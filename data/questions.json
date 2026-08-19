@@ -1359,6 +1359,341 @@
           }
         ]
       }
+    },
+    "nazorat5": {
+      "title": "Nazorat ishi - 5",
+      "icon": "🏛️",
+      "singleMode": true,
+      "defaultDifficulty": "test",
+      "questionsPerQuiz": 25,
+      "learn": {
+        "test": {
+          "title": "Nazorat ishi - 5: Qadimgi Yunoniston",
+          "intro": "Qadimgi Yunoniston tarixi bo'yicha nazorat ishiga tayyorgarlik materiali.",
+          "sections": [
+            {
+              "heading": "Yunoniston hududi va sivilizatsiyasi",
+              "text": "Qadimgi Yunoniston Bolqon yarimoroli va O'rta Yer dengizi orollarini o'z ichiga olgan. Miken sivilizatsiyasi Janubiy Yunonistonda joylashgan. Attika yarimoroli O'rta Yunonistonning janubiy-sharqida joylashgan."
+            },
+            {
+              "heading": "Afina va Sparta",
+              "text": "Afinada savdo-sotiq, sud va harbiy masalalar Xalq majlisida ko'rib chiqilgan. Xalq majlisida 20 yoshdan boshlab ishtirok etish mumkin bo'lgan. Perikl davrida katta qurilishlar amalga oshirilgan, kambag'al oilalar uchun bepul teatrlar tashkil qilingan. Spartada to'la-to'kis huquqqa ega bo'lmaganlar — ilotlar."
+            },
+            {
+              "heading": "Yunon-fors urushlari",
+              "text": "Marafon jangi mil avv 490-yilda bo'lgan. Fermopil va Salamin jangi mil avv 480-yilda bo'lgan. Plateya jangi mil avv 479-yilda bo'lgan — hal qiluvchi dengiz jangi Salamin edi (mil avv 480). Yunon-makedon urushlari Xeroneya yaqinidagi Beoteyada bo'lgan."
+            },
+            {
+              "heading": "Madaniyat va an'analar",
+              "text": "Olimpiya o'yinlari milodiy 394-yildan boshlab o'tkazilmay qoldi. Asoschisi — Gerakl. Akropoldagi Parfenon ibodatxonasi qurilishiga Perikl boshchilik qilgan. Troya homiysi Afina Pallada. 'Illiada' dostoni 9-yilni emas, 10-yilning bir qismini yoritadi. Troya oti Odissey maslahati bilan tayyorlangan."
+            }
+          ]
+        }
+      },
+      "questions": {
+        "test": [
+          {
+            "id": "nazorat5-1",
+            "q": "Qadimgi Yunoniston hududi to'g'ri berilgan javobni belgilang?",
+            "options": [
+              "Bolqon yarimoroli va O'rta Yer dengizi orollarini o'z ichiga oladi",
+              "Appenin yarimoroli va O'rta Yer dengizi orollarini o'z ichiga oladi",
+              "Kichik Osiyo yarimoroli va O'rta Yer dengizi orollarini o'z ichiga oladi",
+              "Bolqon yarimoroli va Qora dengizi orollarini o'z ichiga oladi"
+            ],
+            "correct": 0,
+            "explanation": "Qadimgi Yunoniston Bolqon yarimoroli va O'rta Yer dengizi orollarini o'z ichiga oladi."
+          },
+          {
+            "id": "nazorat5-2",
+            "q": "Miken sivilizatsiyasi qayerda joylashgan?",
+            "options": [
+              "Shimoliy Yunonistonda",
+              "Sharqiy Yunonistonda",
+              "G'arbiy Yunonistonda",
+              "Janubiy Yunonistonda"
+            ],
+            "correct": 3,
+            "explanation": "Miken sivilizatsiyasi Janubiy Yunonistonda joylashgan."
+          },
+          {
+            "id": "nazorat5-3",
+            "q": "Attika yarimoroli qayerda joylashgan?",
+            "options": [
+              "Janubiy Yunonistonning sharqida",
+              "G'arbiy Yunonistonning sharqida",
+              "O'rta Yunonistonning shimoliy-sharqida",
+              "O'rta Yunonistonning janubiy-sharqida"
+            ],
+            "correct": 3,
+            "explanation": "Attika yarimoroli O'rta Yunonistonning janubiy-sharqida joylashgan."
+          },
+          {
+            "id": "nazorat5-4",
+            "q": "Afinada oliy ma'lumot beruvchi maktablarda qanday fanlar o'rgatilgan?",
+            "options": [
+              "Matematika, astronomiya, geografiya, tarix",
+              "Matematika, astronomiya, tibbiyot, tarix",
+              "Geometriya, astronomiya, geografiya, tarix",
+              "Matematika, gimnastika, geografiya, tarix"
+            ],
+            "correct": 2,
+            "explanation": "Afinada oliy ma'lumot beruvchi maktablarda geometriya, astronomiya, geografiya, tarix o'rgatilgan."
+          },
+          {
+            "id": "nazorat5-5",
+            "q": "Yunon koloniyalari qayerlarda vujudga kelgan?",
+            "options": [
+              "Appenin yarimoroli janubi va Sitsiliya orolida",
+              "Afrika shimoli va Sardiniya oroli",
+              "O'rta Yer va Qora dengiz bo'ylarida",
+              "A va B javoblar to'g'ri"
+            ],
+            "correct": 3,
+            "explanation": "Yunon koloniyalari ham Appenin yarimoroli janubi va Sitsiliyada, ham Afrika shimoli va boshqa joylarda vujudga kelgan — A va B javoblar to'g'ri."
+          },
+          {
+            "id": "nazorat5-6",
+            "q": "Spartada to'la-to'kis huquqqa ega bo'lmaganlar...?",
+            "options": [
+              "Ilotlar",
+              "Periyeklar",
+              "Meteklar",
+              "Varvarlar"
+            ],
+            "correct": 0,
+            "explanation": "Spartada to'la-to'kis huquqqa ega bo'lmaganlar — ilotlar (qullar)."
+          },
+          {
+            "id": "nazorat5-7",
+            "q": "'Buyuk Yunon koloniyalashtirishi' nechanchi asrlarni o'z ichiga oladi?",
+            "options": [
+              "Mil avv VIII-VI asrlar",
+              "Mil avv VIII-V asrlar",
+              "Mil avv VII-V asrlar",
+              "Mil avv IX-VIII asrlar"
+            ],
+            "correct": 0,
+            "explanation": "'Buyuk Yunon koloniyalashtirishi' mil avv VIII-VI asrlarni o'z ichiga oladi."
+          },
+          {
+            "id": "nazorat5-8",
+            "q": "Afinada savdo-sotiq, sud va harbiy masalalar qayerda ko'rib chiqilgan?",
+            "options": [
+              "Oqsoqollar kengashida",
+              "Beshyuzlar kengashida",
+              "Xalq majlisida",
+              "Xalq sudida"
+            ],
+            "correct": 2,
+            "explanation": "Afinada savdo-sotiq, sud va harbiy masalalar Xalq majlisida ko'rib chiqilgan."
+          },
+          {
+            "id": "nazorat5-9",
+            "q": "Kimning davrida Afinada katta qurilishlar amalga oshirilgan, kam ta'minlangan oilalar uchun bepul teatrlar tashkil qilingan?",
+            "options": [
+              "Perikl",
+              "Solon",
+              "Drakont",
+              "Leonid"
+            ],
+            "correct": 0,
+            "explanation": "Perikl davrida Afinada katta qurilishlar amalga oshirilgan va kambag'al oilalar uchun bepul teatrlar tashkil qilingan."
+          },
+          {
+            "id": "nazorat5-10",
+            "q": "Yunon-fors urushlarida hal qiluvchi dengiz jangi qachon bo'lgan?",
+            "options": [
+              "Mil avv 490-yilda",
+              "Mil avv 479-yilda",
+              "Mil avv 480-yilda",
+              "Mil avv 449-yilda"
+            ],
+            "correct": 2,
+            "explanation": "Yunon-fors urushlarida hal qiluvchi dengiz jangi (Salamin) mil avv 480-yilda bo'lgan."
+          },
+          {
+            "id": "nazorat5-11",
+            "q": "Yunon-makedon urushlari qayerda bo'lgan?",
+            "options": [
+              "Marafon tekisligida",
+              "Xeroneya yaqinidagi Beoteyada",
+              "Korinfda",
+              "Plateya shahri yaqinida"
+            ],
+            "correct": 1,
+            "explanation": "Yunon-makedon urushlari Xeroneya yaqinidagi Beoteyada bo'lgan."
+          },
+          {
+            "id": "nazorat5-12",
+            "q": "Filipp II yunonlar bilan ittifoq tuzishdan maqsadi nima edi?",
+            "options": [
+              "Yunonlarni itoatda tutish uchun",
+              "Rimni bosib olish",
+              "Forslarga qarshi birgalikda kurashish uchun",
+              "To'g'ri javob yo'q"
+            ],
+            "correct": 2,
+            "explanation": "Filipp II yunonlar bilan ittifoq tuzishdan maqsadi forslarga qarshi birgalikda kurashish edi."
+          },
+          {
+            "id": "nazorat5-13",
+            "q": "Harbiy xizmatning 2-yilida xizmatni qayerlarda o'taganlar?",
+            "options": [
+              "Afina chegaralarida va Pirey bandargohida",
+              "Yunoniston shimolida va Egey dengizi bo'ylarida",
+              "Attika chegaralarida va Pirey bandargohida",
+              "Dengiz bo'ylarida"
+            ],
+            "correct": 2,
+            "explanation": "Harbiy xizmatning 2-yilida xizmatni Attika chegaralarida va Pirey bandargohida o'taganlar."
+          },
+          {
+            "id": "nazorat5-14",
+            "q": "Olimpiya o'yinlari qachondan boshlab o'tkazilmay qoldi?",
+            "options": [
+              "Mil avv 776-yil",
+              "Mil avv 594-yil",
+              "Mil avv 394-yil",
+              "Milodiy 394-yil"
+            ],
+            "correct": 3,
+            "explanation": "Olimpiya o'yinlari milodiy 394-yildan boshlab o'tkazilmay qoldi."
+          },
+          {
+            "id": "nazorat5-15",
+            "q": "Yunonlar qachon Troyaga hujum qiladilar?",
+            "options": [
+              "Mil avv 1200-yil",
+              "Mil avv 1300-yil",
+              "Mil avv 3000-yilda",
+              "Mil avv 1800-yilda"
+            ],
+            "correct": 0,
+            "explanation": "Yunonlar mil avv 1200-yilda Troyaga hujum qilganlar."
+          },
+          {
+            "id": "nazorat5-16",
+            "q": "Yunoniston teatrlarida qo'yilgan mashhur 'Shoh Edip' va 'Antigona' tragediyalari muallifi?",
+            "options": [
+              "Gerodot",
+              "Aristofan",
+              "Sofokl",
+              "Solon"
+            ],
+            "correct": 2,
+            "explanation": "'Shoh Edip' va 'Antigona' tragediyalarining muallifi — Sofokl."
+          },
+          {
+            "id": "nazorat5-17",
+            "q": "Xususiy gimnastika-palestrada qaysi fanlar o'rgatilgan?",
+            "options": [
+              "Adabiyot, she'r yozish, musiqa",
+              "Yozuv, hisob, sheriyat",
+              "Adabiyot, matematika, astronomiya",
+              "Sheriyat va musiqa, hisob"
+            ],
+            "correct": 0,
+            "explanation": "Xususiy gimnastika-palestrada adabiyot, she'r yozish, musiqa o'rgatilgan."
+          },
+          {
+            "id": "nazorat5-18",
+            "q": "Xalq majlisida necha yoshdan boshlab ishtirok etish mumkin bo'lgan?",
+            "options": [
+              "20 yosh",
+              "30 yosh",
+              "25 yosh",
+              "18 yosh"
+            ],
+            "correct": 0,
+            "explanation": "Xalq majlisida 20 yoshdan boshlab ishtirok etish mumkin bo'lgan."
+          },
+          {
+            "id": "nazorat5-19",
+            "q": "Yunon-fors urushlaridan qaysi biri mil avv 479-yilda bo'lib o'tgan?",
+            "options": [
+              "Marafon",
+              "Fermopil",
+              "Salamin",
+              "Plateya"
+            ],
+            "correct": 3,
+            "explanation": "Mil avv 479-yilda Plateya jangi bo'lib o'tgan."
+          },
+          {
+            "id": "nazorat5-20",
+            "q": "Yunon shaharlari qayerda Filipp II bilan ittifoq tuzadilar va bu ittifoqqa qaysi davlat qo'shilmaydi?",
+            "options": [
+              "Skopyeda, Sparta qatnashmaydi",
+              "Korinfda, Afina qatnashmaydi",
+              "Korinfda, Sparta qatnashmaydi",
+              "Afinada, Fessaliya qatnashmaydi"
+            ],
+            "correct": 2,
+            "explanation": "Yunon shaharlari Korinfda Filipp II bilan ittifoq tuzganlar, bu ittifoqqa Sparta qatnashmagan."
+          },
+          {
+            "id": "nazorat5-21",
+            "q": "Olimpiya o'yinlarining asoschisi?",
+            "options": [
+              "Axilles",
+              "Gerakl",
+              "Zevs",
+              "Odissey"
+            ],
+            "correct": 1,
+            "explanation": "Olimpiya o'yinlarining asoschisi — Gerakl."
+          },
+          {
+            "id": "nazorat5-22",
+            "q": "Akropoldagi Parfenon ibodatxonasi qurilishiga kim boshchilik qilgan?",
+            "options": [
+              "Dedal",
+              "Fidiy",
+              "Perikl",
+              "Miron"
+            ],
+            "correct": 2,
+            "explanation": "Akropoldagi Parfenon ibodatxonasi qurilishiga Perikl boshchilik qilgan."
+          },
+          {
+            "id": "nazorat5-23",
+            "q": "Troya homiysi qaysi ma'bud bo'lgan?",
+            "options": [
+              "Afina Pallada",
+              "Zevs",
+              "Aid",
+              "Poseydon"
+            ],
+            "correct": 0,
+            "explanation": "Troyaning homiysi Afina Pallada bo'lgan."
+          },
+          {
+            "id": "nazorat5-24",
+            "q": "'Illiada' dostoni Troyani bosib olish uchun harakatlarning nechanchi yilini yoritadi?",
+            "options": [
+              "9-yili",
+              "11-yili",
+              "10-yili",
+              "7-yili"
+            ],
+            "correct": 2,
+            "explanation": "'Illiada' dostoni Troyani bosib olish uchun harakatlarning 10-yilini yoritadi."
+          },
+          {
+            "id": "nazorat5-25",
+            "q": "Troya oti kimning maslahati bilan tayyorlanadi?",
+            "options": [
+              "Odissey",
+              "Axilles",
+              "Gerakl",
+              "Agamemnon"
+            ],
+            "correct": 0,
+            "explanation": "Troya oti Odissey maslahati bilan tayyorlangan."
+          }
+        ]
+      }
     }
   }
 }
