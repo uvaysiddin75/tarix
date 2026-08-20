@@ -17,6 +17,16 @@
 
   window.initApiBase = async function initApiBase() {
     const host = location.hostname;
+    // GitHub Pages / file: — always local (Render sleeps and freezes login)
+    if (
+      host.endsWith("github.io") ||
+      host.endsWith("github.dev") ||
+      location.protocol === "file:"
+    ) {
+      useStatic();
+      return;
+    }
+
     const isLocal = host === "localhost" || host === "127.0.0.1";
     const isSameHost =
       isLocal ||
@@ -30,12 +40,7 @@
       return;
     }
 
-    if (host.endsWith("github.io") || host.endsWith("github.dev")) {
-      useStatic();
-      return;
-    }
-
-    useServer();
+    useStatic();
   };
 
   window.ApiMode = { useStatic, useServer, RENDER_URL };
