@@ -197,10 +197,10 @@
     document.getElementById("btnAdminPanel").hidden = user.role !== "admin";
 
     const progressTab = document.getElementById("navProgressTab");
-    if (progressTab) progressTab.hidden = user.role !== "admin";
+    if (progressTab) progressTab.hidden = false;
 
     const btnOpenProgress = document.getElementById("btnOpenProgress");
-    if (btnOpenProgress) btnOpenProgress.hidden = user.role !== "admin";
+    if (btnOpenProgress) btnOpenProgress.hidden = false;
 
     document.getElementById("mainNav").hidden = false;
 
@@ -1447,6 +1447,11 @@
         </div>`;
     }).join("");
 
+    const isAdminViewer = Auth.getUser()?.role === "admin";
+    const passRow = isAdminViewer
+      ? `<span>Parol: ${renderPasswordCell(u.password)}</span>`
+      : "";
+
     return `
       <article class="stu-card ${open ? "open" : ""} ${changed ? "is-new" : ""}" data-user-id="${escapeAttr(u.id)}">
         <button type="button" class="stu-head" data-toggle-user="${escapeAttr(u.id)}">
@@ -1470,7 +1475,7 @@
           <div class="stu-foot">
             <span>Ro'yxat: <strong>${formatDateTime(u.createdAt)}</strong></span>
             <span>Oxirgi faollik: <strong>${formatDateTime(s.last)}</strong> (${formatRelative(s.last)})</span>
-            <span>Parol: ${renderPasswordCell(u.password)}</span>
+            ${passRow}
           </div>
         </div>
       </article>`;
@@ -1494,7 +1499,7 @@
 
   async function loadProgressDashboard({ silent = false } = {}) {
     const user = Auth.getUser();
-    if (user?.role !== "admin") return;
+    if (!user) return;
 
     if (!silent) setProgressLiveState("updating");
 
@@ -1533,7 +1538,7 @@
 
   async function openProgressDashboard() {
     const user = Auth.getUser();
-    if (!user || user.role !== "admin") return;
+    if (!user) return;
     showScreen("progress");
     startProgressLive();
     await loadProgressDashboard();
