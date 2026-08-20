@@ -4,11 +4,11 @@
   const TOKEN_KEY = "nazorat_token";
   const REMEMBER_KEY = "nazorat_remember";
   const RENDER_URL = "https://tarix-do6q.onrender.com";
-  const SERVER_TIMEOUT = 3000;
+  const SERVER_TIMEOUT = 8000;
 
   let currentUser = null;
-  let aiEnabled = false;
-  let aiMode = "off";
+  let aiEnabled = true;
+  let aiMode = "smart";
   let registrationEnabled = true;
   let adminEmail = null;
 
@@ -55,15 +55,11 @@
   }
 
   function isGithubPages() {
-    return (
-      location.hostname.endsWith("github.io") ||
-      location.hostname.endsWith("github.dev") ||
-      location.protocol === "file:"
-    );
+    return location.hostname.endsWith("github.io") || location.hostname.endsWith("github.dev");
   }
 
   function useServerMode() {
-    // On GitHub Pages never leave static mode — Render sleeps and breaks the app
+    // On Pages keep static — Render sleep used to freeze the whole app
     if (isGithubPages()) {
       useStaticModeLocal();
       return;
@@ -118,7 +114,6 @@
   }
 
   async function apiFetch(url, options = {}) {
-    // Always prefer static on Pages
     if (isGithubPages() || window.StaticApi?.enabled || window.STATIC_MODE) {
       useStaticModeLocal();
       return window.StaticApi.handle(url, {
@@ -127,20 +122,13 @@
       });
     }
 
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), SERVER_TIMEOUT);
     try {
-      const res = await fetch(apiUrl(url), {
+      return await fetch(apiUrl(url), {
         ...options,
-        signal: controller.signal,
         headers: { ...authHeaders(), ...options.headers },
         credentials: "omit",
       });
-      clearTimeout(timer);
-      return res;
     } catch (err) {
-      clearTimeout(timer);
-      // Fallback to static if remote is down
       useStaticModeLocal();
       if (window.StaticApi) {
         return window.StaticApi.handle(url, {
@@ -153,24 +141,26 @@
   }
 
   async function checkAuth() {
-    useStaticModeLocal();
-
-    // Old Render tokens break the site when server sleeps — ignore them on Pages
-    const token = getToken();
-    if (token && !token.startsWith("static.") && isGithubPages()) {
-      setToken(null);
+    // Pages: always local; drop old Render tokens that break login
+    if (isGithubPages()) {
+      useStaticModeLocal();
+      const token = getToken();
+      if (token && !token.startsWith("static.")) setToken(null);
     }
 
-    try {
-      const res = await apiFetch("/api/auth/status");
-      const data = await res.json();
-      applyAuthMeta(data);
-      if (data.authenticated && data.user) {
-        currentUser = data.user;
-        return data.user;
+    if (window.StaticApi?.enabled || window.STATIC_MODE || isGithubPages()) {
+      useStaticModeLocal();
+      try {
+        const res = await apiFetch("/api/auth/status");
+        const data = await res.json();
+        applyAuthMeta(data);
+        if (data.authenticated && data.user) {
+          currentUser = data.user;
+          return data.user;
+        }
+      } catch {
+        /* ignore */
       }
-    } catch {
-      /* ignore */
     }
 
     currentUser = null;
@@ -178,38 +168,27 @@
   }
 
   function applyAuthMeta(data) {
-    aiEnabled = data.aiEnabled === true;
-    aiMode = data.aiMode || "off";
+    aiEnabled = data.aiEnabled !== false;
+    aiMode = data.aiMode || "smart";
     registrationEnabled = data.registrationEnabled !== false;
-    adminEmail = data.adminEmail || (window.STATIC_CONFIG && window.STATIC_CONFIG.adminEmail) || null;
+    adminEmail = data.adminEmail || window.STATIC_CONFIG?.adminEmail || null;
   }
 
   async function login(email, password) {
     email = email.trim();
     password = password.trim();
-    if (!email || !password) {
-      throw new Error("Email va parolni kiriting");
-    }
 
-    useStaticModeLocal();
+    // Same as before: local login first (instant on GitHub Pages)
     const local = await tryStaticLogin(email, password);
     if (local.ok) {
       saveRemember(email, password);
-      // Optional background sync — never switches away from static on Pages
-      if (!isGithubPages()) {
-        fetchServer(
-          "/api/auth/login",
-          { method: "POST", body: JSON.stringify({ email, password }) },
-          5000
-        ).catch(() => {});
-      }
       return local.user;
     }
 
     throw new Error(
       local.error && local.error !== "Email yoki parol noto'g'ri"
         ? local.error
-        : "Email yoki parol noto'g'ri. Yangi qurilmada — «Ro'yxatdan o'tish» ni bosing."
+        : "Email yoki parol noto'g'ri. Yangi qurilmada — «Ro'yxatdan o'tish» orqali yarating."
     );
   }
 
@@ -276,15 +255,15 @@
   }
 
   function isStaticMode() {
-    return true;
+    return Boolean(window.STATIC_MODE) || isGithubPages();
   }
 
   function isAiEnabled() {
-    return false;
+    return aiEnabled && !isStaticMode();
   }
 
   function getAiMode() {
-    return "off";
+    return aiMode;
   }
 
   function isRegistrationEnabled() {
