@@ -1703,12 +1703,8 @@ body {
 .bg-img-main {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=70&auto=format&fit=crop');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.06;
-  filter: grayscale(30%) sepia(15%);
-  animation: bgDrift 40s ease-in-out infinite alternate;
+  background: none;
+  opacity: 0;
 }
 @keyframes bgDrift {
   from { transform: scale(1.0); }
