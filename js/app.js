@@ -180,11 +180,6 @@
       stopProgressLive();
     }
 
-    const topHero = document.getElementById("siteTopHero");
-    if (topHero) {
-      topHero.hidden = !(name === "auth" || name === "menu");
-    }
-
     window.scrollTo({ top: 0, behavior: "smooth" });
 
   }
