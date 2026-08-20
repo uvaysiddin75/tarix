@@ -324,7 +324,8 @@
     } else {
       if (registerTab) registerTab.hidden = false;
       if (authHint) {
-        authHint.textContent = "Ro'yxatdan o'ting yoki mavjud hisobingiz bilan kiring";
+        authHint.textContent =
+          "Tez kirish: admin email + parol, yoki yangi hisob uchun «Ro'yxatdan o'tish»";
       }
     }
   }
