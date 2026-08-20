@@ -582,12 +582,12 @@
 
   // Category color + image themes
   const CAT_THEMES = [
-    { accent: "#e8b020", glow: "rgba(232,176,32,0.25)",  tag: "O'rta Osiyo",        img: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=600&q=70&auto=format&fit=crop" },
-    { accent: "#2dd4bf", glow: "rgba(45,212,191,0.25)",  tag: "Misr & Mesopotamiya", img: "https://images.unsplash.com/photo-1539650116574-8efeb43b83c3?w=600&q=70&auto=format&fit=crop" },
-    { accent: "#f87171", glow: "rgba(248,113,113,0.25)", tag: "Bobil & Sharq",       img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=70&auto=format&fit=crop" },
-    { accent: "#a78bfa", glow: "rgba(167,139,250,0.25)", tag: "Xorazm & Kushon",     img: "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=600&q=70&auto=format&fit=crop" },
-    { accent: "#34d399", glow: "rgba(52,211,153,0.25)",  tag: "Qadimgi tarix",       img: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&q=70&auto=format&fit=crop" },
-    { accent: "#fb923c", glow: "rgba(251,146,60,0.25)",  tag: "Tarix",               img: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&q=70&auto=format&fit=crop" },
+    { accent: "#c9a227", glow: "rgba(201,162,39,0.28)",  tag: "O'rta Osiyo",        img: "https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=700&q=75&auto=format&fit=crop" },
+    { accent: "#3d9b8f", glow: "rgba(61,155,143,0.28)",  tag: "Misr & Mesopotamiya", img: "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=700&q=75&auto=format&fit=crop" },
+    { accent: "#d97757", glow: "rgba(217,119,87,0.28)",  tag: "Bobil & Sharq",       img: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=700&q=75&auto=format&fit=crop" },
+    { accent: "#c9a227", glow: "rgba(201,162,39,0.28)",  tag: "Xorazm & Kushon",     img: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=700&q=75&auto=format&fit=crop" },
+    { accent: "#3d9b8f", glow: "rgba(61,155,143,0.28)",  tag: "Qadimgi tarix",       img: "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=700&q=75&auto=format&fit=crop" },
+    { accent: "#e4c56a", glow: "rgba(228,197,106,0.28)", tag: "Tarix",               img: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=700&q=75&auto=format&fit=crop" },
   ];
 
 
