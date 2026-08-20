@@ -1,7 +1,7 @@
 {
-  "name": "Tarix Nazorat — O'quv platformasi",
-  "short_name": "Tarix",
-  "description": "Tarix nazorat ishlariga tayyorgarlik platformasi",
+  "name": "Oʻzbekiston tarixi",
+  "short_name": "Oʻzbekiston tarixi",
+  "description": "Oʻzbekiston tarixi — nazorat ishlariga tayyorgarlik platformasi",
   "start_url": "/tarix/",
   "display": "standalone",
   "background_color": "#07090f",
