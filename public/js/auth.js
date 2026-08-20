@@ -209,33 +209,37 @@
   async function login(email, password) {
     email = email.trim();
     password = password.trim();
-    saveRemember(email, password);
 
     // Always try local first — instant login
     const local = await tryStaticLogin(email, password);
     if (local.ok) {
+      saveRemember(email, password);
       upgradeToServerInBackground(email, password);
       return local.user;
     }
 
-    // If local failed, try server (in case user registered on server only)
-    const server = await tryServerLogin(email, password);
+    // If local failed, try server briefly (may be asleep on Render)
+    const server = await tryServerLogin(email, password, 4000);
     if (server?.token) {
       useServerMode();
       setToken(server.token);
       currentUser = server.user;
+      saveRemember(email, password);
       window.dispatchEvent(new CustomEvent("auth:server-mode"));
       return server.user;
     }
 
-    throw new Error(local.error || "Email yoki parol noto'g'ri");
+    const hint =
+      local.error && local.error !== "Email yoki parol noto'g'ri"
+        ? local.error
+        : "Email yoki parol noto'g'ri. Yangi qurilmada bo'lsangiz — «Ro'yxatdan o'tish» orqali qayta yarating.";
+    throw new Error(hint);
   }
 
   async function register(name, email, password) {
     name = name.trim();
     email = email.trim();
     password = password.trim();
-    saveRemember(email, password, true);
 
     // Always register locally first — guaranteed to work
     useStaticModeLocal();
@@ -247,6 +251,7 @@
     if (!res.ok) throw new Error(data.error || "Ro'yxatdan o'tish muvaffaqiyatsiz");
     setToken(data.token);
     currentUser = data.user;
+    saveRemember(email, password, true);
 
     // Also register on server in background
     tryServerRegister(name, email, password)
