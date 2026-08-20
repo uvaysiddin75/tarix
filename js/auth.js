@@ -4,12 +4,11 @@
   const TOKEN_KEY = "nazorat_token";
   const REMEMBER_KEY = "nazorat_remember";
   const RENDER_URL = "https://tarix-do6q.onrender.com";
-  const SERVER_TIMEOUT = 8000;
-  const SERVER_LOGIN_TIMEOUT = 25000;
+  const SERVER_TIMEOUT = 3000;
 
   let currentUser = null;
-  let aiEnabled = true;
-  let aiMode = "smart";
+  let aiEnabled = false;
+  let aiMode = "off";
   let registrationEnabled = true;
   let adminEmail = null;
 
@@ -55,7 +54,20 @@
     return (window.API_BASE || "") + path;
   }
 
+  function isGithubPages() {
+    return (
+      location.hostname.endsWith("github.io") ||
+      location.hostname.endsWith("github.dev") ||
+      location.protocol === "file:"
+    );
+  }
+
   function useServerMode() {
+    // On GitHub Pages never leave static mode — Render sleeps and breaks the app
+    if (isGithubPages()) {
+      useStaticModeLocal();
+      return;
+    }
     if (window.ApiMode) window.ApiMode.useServer();
     else {
       window.API_BASE = RENDER_URL;
@@ -71,10 +83,6 @@
       window.STATIC_MODE = true;
       if (window.StaticApi) window.StaticApi.enabled = true;
     }
-  }
-
-  function isGithubPages() {
-    return location.hostname.endsWith("github.io") || location.hostname.endsWith("github.dev");
   }
 
   async function fetchServer(path, options = {}, timeout = SERVER_TIMEOUT) {
@@ -94,19 +102,6 @@
     }
   }
 
-  async function tryServerLogin(email, password, timeout = SERVER_LOGIN_TIMEOUT) {
-    const res = await fetchServer(
-      "/api/auth/login",
-      {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-      },
-      timeout
-    );
-    if (!res?.ok) return null;
-    return res.json();
-  }
-
   async function tryStaticLogin(email, password) {
     useStaticModeLocal();
     const res = await apiFetch("/api/auth/login", {
@@ -122,77 +117,60 @@
     return { ok: true, user: data.user };
   }
 
-  function upgradeToServerInBackground(email, password) {
-    tryServerLogin(email, password, 30000)
-      .then((server) => {
-        if (!server?.token) return;
-        useServerMode();
-        setToken(server.token);
-        currentUser = server.user;
-        window.dispatchEvent(new CustomEvent("auth:server-mode"));
-      })
-      .catch(() => {});
-  }
-
-  async function tryServerRegister(name, email, password) {
-    const res = await fetchServer("/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify({ name, email, password }),
-    });
-    if (!res?.ok) return null;
-    return res.json();
-  }
-
   async function apiFetch(url, options = {}) {
-    if (window.StaticApi?.enabled) {
+    // Always prefer static on Pages
+    if (isGithubPages() || window.StaticApi?.enabled || window.STATIC_MODE) {
+      useStaticModeLocal();
       return window.StaticApi.handle(url, {
         ...options,
         headers: { ...authHeaders(), ...options.headers },
       });
     }
 
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), SERVER_TIMEOUT);
     try {
-      return await fetch(apiUrl(url), {
+      const res = await fetch(apiUrl(url), {
         ...options,
+        signal: controller.signal,
         headers: { ...authHeaders(), ...options.headers },
         credentials: "omit",
       });
+      clearTimeout(timer);
+      return res;
     } catch (err) {
+      clearTimeout(timer);
+      // Fallback to static if remote is down
+      useStaticModeLocal();
+      if (window.StaticApi) {
+        return window.StaticApi.handle(url, {
+          ...options,
+          headers: { ...authHeaders(), ...options.headers },
+        });
+      }
       throw err || new Error("Server bilan bog'lanib bo'lmadi");
     }
   }
 
   async function checkAuth() {
-    const token = getToken();
+    useStaticModeLocal();
 
-    if (token && !token.startsWith("static.")) {
-      useServerMode();
-      try {
-        const res = await apiFetch("/api/auth/status");
-        const data = await res.json();
-        applyAuthMeta(data);
-        if (data.authenticated && data.user) {
-          currentUser = data.user;
-          return data.user;
-        }
-      } catch {
-        useStaticModeLocal();
-      }
+    // Old Render tokens break the site when server sleeps — ignore them on Pages
+    const token = getToken();
+    if (token && !token.startsWith("static.") && isGithubPages()) {
+      setToken(null);
     }
 
-    if (window.StaticApi?.enabled || window.STATIC_MODE) {
-      useStaticModeLocal();
-      try {
-        const res = await apiFetch("/api/auth/status");
-        const data = await res.json();
-        applyAuthMeta(data);
-        if (data.authenticated && data.user) {
-          currentUser = data.user;
-          return data.user;
-        }
-      } catch {
-        /* ignore */
+    try {
+      const res = await apiFetch("/api/auth/status");
+      const data = await res.json();
+      applyAuthMeta(data);
+      if (data.authenticated && data.user) {
+        currentUser = data.user;
+        return data.user;
       }
+    } catch {
+      /* ignore */
     }
 
     currentUser = null;
@@ -200,40 +178,39 @@
   }
 
   function applyAuthMeta(data) {
-    aiEnabled = data.aiEnabled !== false;
-    aiMode = data.aiMode || "smart";
-    registrationEnabled = Boolean(data.registrationEnabled);
-    adminEmail = data.adminEmail || null;
+    aiEnabled = data.aiEnabled === true;
+    aiMode = data.aiMode || "off";
+    registrationEnabled = data.registrationEnabled !== false;
+    adminEmail = data.adminEmail || (window.STATIC_CONFIG && window.STATIC_CONFIG.adminEmail) || null;
   }
 
   async function login(email, password) {
     email = email.trim();
     password = password.trim();
+    if (!email || !password) {
+      throw new Error("Email va parolni kiriting");
+    }
 
-    // Always try local first — instant login
+    useStaticModeLocal();
     const local = await tryStaticLogin(email, password);
     if (local.ok) {
       saveRemember(email, password);
-      upgradeToServerInBackground(email, password);
+      // Optional background sync — never switches away from static on Pages
+      if (!isGithubPages()) {
+        fetchServer(
+          "/api/auth/login",
+          { method: "POST", body: JSON.stringify({ email, password }) },
+          5000
+        ).catch(() => {});
+      }
       return local.user;
     }
 
-    // If local failed, try server briefly (may be asleep on Render)
-    const server = await tryServerLogin(email, password, 4000);
-    if (server?.token) {
-      useServerMode();
-      setToken(server.token);
-      currentUser = server.user;
-      saveRemember(email, password);
-      window.dispatchEvent(new CustomEvent("auth:server-mode"));
-      return server.user;
-    }
-
-    const hint =
+    throw new Error(
       local.error && local.error !== "Email yoki parol noto'g'ri"
         ? local.error
-        : "Email yoki parol noto'g'ri. Yangi qurilmada bo'lsangiz — «Ro'yxatdan o'tish» orqali qayta yarating.";
-    throw new Error(hint);
+        : "Email yoki parol noto'g'ri. Yangi qurilmada — «Ro'yxatdan o'tish» ni bosing."
+    );
   }
 
   async function register(name, email, password) {
@@ -241,7 +218,6 @@
     email = email.trim();
     password = password.trim();
 
-    // Always register locally first — guaranteed to work
     useStaticModeLocal();
     const res = await apiFetch("/api/auth/register", {
       method: "POST",
@@ -252,19 +228,6 @@
     setToken(data.token);
     currentUser = data.user;
     saveRemember(email, password, true);
-
-    // Also register on server in background
-    tryServerRegister(name, email, password)
-      .then((server) => {
-        if (server?.token) {
-          useServerMode();
-          setToken(server.token);
-          currentUser = server.user;
-          window.dispatchEvent(new CustomEvent("auth:server-mode"));
-        }
-      })
-      .catch(() => {});
-
     return data.user;
   }
 
@@ -278,17 +241,6 @@
   }
 
   async function saveProgress(category, score, total) {
-    if (!window.STATIC_MODE) {
-      try {
-        await apiFetch("/api/progress", {
-          method: "POST",
-          body: JSON.stringify({ category, score, total }),
-        });
-        return;
-      } catch {
-        /* static zaxira */
-      }
-    }
     useStaticModeLocal();
     await apiFetch("/api/progress", {
       method: "POST",
@@ -308,24 +260,7 @@
   }
 
   async function fetchAllUsersProgress() {
-    if (isAdmin() && getRemember()) {
-      const creds = getRemember();
-      const loginRes = await fetchServer("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify({ email: creds.email, password: creds.password }),
-      });
-      if (loginRes?.ok) {
-        const { token } = await loginRes.json();
-        const res = await fetchServer("/api/users/progress", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (res?.ok) {
-          const json = await res.json();
-          if (json.users?.length) return json.users;
-        }
-      }
-    }
-
+    useStaticModeLocal();
     const res = await apiFetch("/api/users/progress");
     const json = await res.json();
     if (!res.ok) throw new Error(json.error || "Ma'lumot yuklanmadi");
@@ -341,15 +276,15 @@
   }
 
   function isStaticMode() {
-    return Boolean(window.STATIC_MODE);
+    return true;
   }
 
   function isAiEnabled() {
-    return aiEnabled && !isStaticMode();
+    return false;
   }
 
   function getAiMode() {
-    return aiMode;
+    return "off";
   }
 
   function isRegistrationEnabled() {
@@ -357,7 +292,7 @@
   }
 
   function getAdminEmail() {
-    return adminEmail;
+    return adminEmail || window.STATIC_CONFIG?.adminEmail || null;
   }
 
   function exportUsersDb() {
