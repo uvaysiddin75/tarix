@@ -143,10 +143,16 @@
     }
 
     if (path === "/api/users/progress" && method === "GET") {
-      if (user.role !== "admin") {
-        return jsonResponse({ error: "Faqat administrator uchun" }, 403);
+      const users = StaticStore.getAllUsersProgress();
+      if (user.role === "admin") {
+        return jsonResponse({ users });
       }
-      return jsonResponse({ users: StaticStore.getAllUsersProgress() });
+      return jsonResponse({
+        users: users.map((u) => {
+          const { password, ...rest } = u;
+          return rest;
+        }),
+      });
     }
 
     const data = questionsData;
