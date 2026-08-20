@@ -211,17 +211,14 @@
     password = password.trim();
     saveRemember(email, password);
 
-    let staticError = null;
-
-    if (isGithubPages() || window.STATIC_MODE) {
-      const local = await tryStaticLogin(email, password);
-      if (local.ok) {
-        upgradeToServerInBackground(email, password);
-        return local.user;
-      }
-      staticError = local.error;
+    // Always try local first — instant login
+    const local = await tryStaticLogin(email, password);
+    if (local.ok) {
+      upgradeToServerInBackground(email, password);
+      return local.user;
     }
 
+    // If local failed, try server (in case user registered on server only)
     const server = await tryServerLogin(email, password);
     if (server?.token) {
       useServerMode();
@@ -231,16 +228,7 @@
       return server.user;
     }
 
-    if (!isGithubPages() && !window.STATIC_MODE) {
-      const local = await tryStaticLogin(email, password);
-      if (local.ok) return local.user;
-      staticError = local.error;
-    }
-
-    throw new Error(
-      staticError ||
-        "Email yoki parol noto'g'ri. Server uxlagan bo'lishi mumkin — 20 soniya kutib qayta urinib ko'ring."
-    );
+    throw new Error(local.error || "Email yoki parol noto'g'ri");
   }
 
   async function register(name, email, password) {
@@ -249,15 +237,7 @@
     password = password.trim();
     saveRemember(email, password, true);
 
-    const server = await tryServerRegister(name, email, password);
-    if (server?.token) {
-      useServerMode();
-      setToken(server.token);
-      currentUser = server.user;
-      window.dispatchEvent(new CustomEvent("auth:server-mode"));
-      return server.user;
-    }
-
+    // Always register locally first — guaranteed to work
     useStaticModeLocal();
     const res = await apiFetch("/api/auth/register", {
       method: "POST",
@@ -267,6 +247,19 @@
     if (!res.ok) throw new Error(data.error || "Ro'yxatdan o'tish muvaffaqiyatsiz");
     setToken(data.token);
     currentUser = data.user;
+
+    // Also register on server in background
+    tryServerRegister(name, email, password)
+      .then((server) => {
+        if (server?.token) {
+          useServerMode();
+          setToken(server.token);
+          currentUser = server.user;
+          window.dispatchEvent(new CustomEvent("auth:server-mode"));
+        }
+      })
+      .catch(() => {});
+
     return data.user;
   }
 
