@@ -66,6 +66,8 @@
 
     settings: document.getElementById("screenSettings"),
 
+    progress: document.getElementById("screenProgress"),
+
   };
 
 
@@ -87,6 +89,12 @@
   let pendingAvatar = undefined;
   let pendingCover = undefined;
   let adminRefreshTimer = null;
+  let progressClockTimer = null;
+  let progressPollTimer = null;
+  let progressCache = [];
+  let progressOpenIds = new Set();
+  let progressLastFingerprint = "";
+  const PROGRESS_POLL_MS = 12000;
 
 
 
@@ -162,10 +170,14 @@
 
     aiFab.hidden = name === "auth" || !Auth.isAiEnabled?.();
 
-    if (name === "menu" || name === "settings") {
+    if (name === "menu" || name === "settings" || name === "progress") {
 
       setNavActive(name);
 
+    }
+
+    if (name !== "progress") {
+      stopProgressLive();
     }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -183,6 +195,12 @@
     renderAvatarEl(document.getElementById("userAvatar"), user);
 
     document.getElementById("btnAdminPanel").hidden = user.role !== "admin";
+
+    const progressTab = document.getElementById("navProgressTab");
+    if (progressTab) progressTab.hidden = user.role !== "admin";
+
+    const btnOpenProgress = document.getElementById("btnOpenProgress");
+    if (btnOpenProgress) btnOpenProgress.hidden = user.role !== "admin";
 
     document.getElementById("mainNav").hidden = false;
 
@@ -1070,6 +1088,8 @@
   function formatProgressItem(cat, prog) {
 
     const percent = prog.bestPercent || Math.round((prog.bestScore / prog.total) * 100);
+    const lastRel = prog.lastAttempt ? formatRelative(prog.lastAttempt) : "—";
+    const lastAbs = prog.lastAttempt ? formatDateTime(prog.lastAttempt) : "";
 
     return `
 
@@ -1089,7 +1109,7 @@
 
         </div>
 
-        <p class="progress-item-meta">${prog.attempts} urinish · oxirgi: ${prog.lastScore}/${prog.total}</p>
+        <p class="progress-item-meta">${prog.attempts} urinish · oxirgi: ${prog.lastScore}/${prog.total} · ${lastRel}${lastAbs ? " (" + lastAbs + ")" : ""}</p>
 
       </div>
 
@@ -1216,6 +1236,309 @@
     }
   }
 
+  // ——— Live Progress Dashboard ———
+
+  function pad2(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  function formatClock(date = new Date()) {
+    return `${pad2(date.getHours())}:${pad2(date.getMinutes())}:${pad2(date.getSeconds())}`;
+  }
+
+  function formatDateTime(iso) {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "—";
+    return `${pad2(d.getDate())}.${pad2(d.getMonth() + 1)}.${d.getFullYear()} ${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+  }
+
+  function formatRelative(iso) {
+    if (!iso) return "hali yo'q";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "—";
+    const diff = Date.now() - d.getTime();
+    const sec = Math.floor(diff / 1000);
+    if (sec < 20) return "hozir";
+    if (sec < 60) return `${sec} soniya oldin`;
+    const min = Math.floor(sec / 60);
+    if (min < 60) return `${min} daqiqa oldin`;
+    const hr = Math.floor(min / 60);
+    if (hr < 24) return `${hr} soat oldin`;
+    const day = Math.floor(hr / 24);
+    if (day < 7) return `${day} kun oldin`;
+    return formatDateTime(iso);
+  }
+
+  function isSameDay(a, b) {
+    return a.getFullYear() === b.getFullYear()
+      && a.getMonth() === b.getMonth()
+      && a.getDate() === b.getDate();
+  }
+
+  function getUserLastActivity(u) {
+    let latest = u.createdAt || null;
+    for (const p of Object.values(u.progress || {})) {
+      if (p?.lastAttempt && (!latest || p.lastAttempt > latest)) latest = p.lastAttempt;
+    }
+    return latest;
+  }
+
+  function getUserStats(u, cats) {
+    const progs = cats.map((c) => u.progress?.[c.key]).filter(Boolean);
+    const attempts = Object.values(u.progress || {}).reduce((s, p) => s + (p.attempts || 0), 0);
+    const percents = progs.map((p) => p.bestPercent ?? Math.round((p.bestScore / (p.total || 1)) * 100));
+    const avg = percents.length
+      ? Math.round(percents.reduce((a, b) => a + b, 0) / percents.length)
+      : null;
+    const last = getUserLastActivity(u);
+    const activeToday = last ? isSameDay(new Date(last), new Date()) : false;
+    return { attempts, avg, done: progs.length, last, activeToday };
+  }
+
+  function progressFingerprint(users) {
+    return users.map((u) => {
+      const parts = Object.entries(u.progress || {})
+        .map(([k, p]) => `${k}:${p.bestScore}:${p.attempts}:${p.lastAttempt || ""}`)
+        .join("|");
+      return `${u.id}:${u.name}:${parts}`;
+    }).join(";;");
+  }
+
+  function stopProgressLive() {
+    if (progressClockTimer) {
+      clearInterval(progressClockTimer);
+      progressClockTimer = null;
+    }
+    if (progressPollTimer) {
+      clearInterval(progressPollTimer);
+      progressPollTimer = null;
+    }
+  }
+
+  function startProgressLive() {
+    stopProgressLive();
+    const clockEl = document.getElementById("progressLiveClock");
+    const tick = () => {
+      if (clockEl) clockEl.textContent = formatClock();
+    };
+    tick();
+    progressClockTimer = setInterval(tick, 1000);
+    progressPollTimer = setInterval(() => {
+      if (document.hidden) return;
+      if (!document.getElementById("screenProgress")?.classList.contains("active")) return;
+      loadProgressDashboard({ silent: true });
+    }, PROGRESS_POLL_MS);
+  }
+
+  function setProgressLiveState(mode) {
+    const dot = document.getElementById("progressLiveDot");
+    const label = document.getElementById("progressLiveLabel");
+    if (!dot || !label) return;
+    dot.classList.remove("offline", "updating");
+    if (mode === "updating") {
+      dot.classList.add("updating");
+      label.textContent = "Yangilanmoqda";
+      label.style.color = "var(--accent)";
+    } else if (mode === "offline") {
+      dot.classList.add("offline");
+      label.textContent = "Offline";
+      label.style.color = "var(--text-muted)";
+    } else {
+      label.textContent = "Jonli";
+      label.style.color = "var(--success)";
+    }
+  }
+
+  function updateProgressStats(users, cats) {
+    const students = users.filter((u) => u.role !== "admin");
+    let active = 0;
+    let attempts = 0;
+    let avgSum = 0;
+    let avgCount = 0;
+
+    for (const u of students) {
+      const s = getUserStats(u, cats);
+      if (s.activeToday) active += 1;
+      attempts += s.attempts;
+      if (s.avg != null) {
+        avgSum += s.avg;
+        avgCount += 1;
+      }
+    }
+
+    document.getElementById("pstatStudents").textContent = String(students.length);
+    document.getElementById("pstatActive").textContent = String(active);
+    document.getElementById("pstatAvg").textContent = avgCount ? `${Math.round(avgSum / avgCount)}%` : "—";
+    document.getElementById("pstatAttempts").textContent = String(attempts);
+  }
+
+  function getFilteredSortedUsers(users, cats) {
+    const q = (document.getElementById("progressSearch")?.value || "").trim().toLowerCase();
+    const filter = document.getElementById("progressFilter")?.value || "all";
+    const sort = document.getElementById("progressSort")?.value || "recent";
+
+    let list = users.filter((u) => u.role !== "admin");
+
+    if (q) {
+      list = list.filter((u) =>
+        (u.name || "").toLowerCase().includes(q) || (u.email || "").toLowerCase().includes(q)
+      );
+    }
+
+    list = list.filter((u) => {
+      const s = getUserStats(u, cats);
+      if (filter === "active") return s.activeToday;
+      if (filter === "done") return s.done > 0;
+      if (filter === "empty") return s.done === 0;
+      if (filter === "low") return s.avg != null && s.avg < 50;
+      if (filter === "good") return s.avg != null && s.avg >= 70;
+      return true;
+    });
+
+    list.sort((a, b) => {
+      const sa = getUserStats(a, cats);
+      const sb = getUserStats(b, cats);
+      if (sort === "name") return (a.name || "").localeCompare(b.name || "", "uz");
+      if (sort === "avg-desc") return (sb.avg ?? -1) - (sa.avg ?? -1);
+      if (sort === "avg-asc") return (sa.avg ?? 999) - (sb.avg ?? 999);
+      if (sort === "attempts") return sb.attempts - sa.attempts;
+      return String(sb.last || "").localeCompare(String(sa.last || ""));
+    });
+
+    return list;
+  }
+
+  function renderStudentCard(u, cats, changed) {
+    const s = getUserStats(u, cats);
+    const avgClass = s.avg == null ? "empty" : scoreClass(s.avg);
+    const open = progressOpenIds.has(u.id);
+    const letter = (u.name || "?").charAt(0).toUpperCase();
+    const avatar = u.avatar
+      ? `<img src="${escapeAttr(u.avatar)}" alt="">`
+      : letter;
+    const badge = s.activeToday
+      ? `<span class="stu-badge">Bugun faol</span>`
+      : `<span class="stu-badge idle">Kutish</span>`;
+
+    const catCards = cats.map((cat) => {
+      const p = u.progress?.[cat.key];
+      if (!p) {
+        return `
+          <div class="stu-cat">
+            <div class="stu-cat-top">
+              <span class="stu-cat-title">${cat.icon} ${cat.title.replace("Nazorat ishi - ", "N")}</span>
+              <span class="stu-cat-score" style="color:var(--text-muted)">—</span>
+            </div>
+            <div class="stu-cat-bar"><div class="stu-cat-fill" style="width:0%"></div></div>
+            <p class="stu-cat-meta">Hali topshirilmagan</p>
+          </div>`;
+      }
+      const pct = p.bestPercent ?? Math.round((p.bestScore / (p.total || 1)) * 100);
+      const cls = scoreClass(pct);
+      return `
+        <div class="stu-cat">
+          <div class="stu-cat-top">
+            <span class="stu-cat-title">${cat.icon} ${cat.title.replace("Nazorat ishi - ", "N")}</span>
+            <span class="stu-cat-score ${cls}">${p.bestScore}/${p.total} · ${pct}%</span>
+          </div>
+          <div class="stu-cat-bar"><div class="stu-cat-fill ${cls}" style="width:${pct}%"></div></div>
+          <p class="stu-cat-meta">${p.attempts || 0} urinish · oxirgi: ${formatRelative(p.lastAttempt)} · ${formatDateTime(p.lastAttempt)}</p>
+        </div>`;
+    }).join("");
+
+    return `
+      <article class="stu-card ${open ? "open" : ""} ${changed ? "is-new" : ""}" data-user-id="${escapeAttr(u.id)}">
+        <button type="button" class="stu-head" data-toggle-user="${escapeAttr(u.id)}">
+          <div class="stu-avatar">${avatar}</div>
+          <div class="stu-meta">
+            <div class="stu-name-row">
+              <span class="stu-name">${escapeAttr(u.name)}</span>
+              ${badge}
+            </div>
+            <div class="stu-email">${escapeAttr(u.email)}</div>
+          </div>
+          <div class="stu-side">
+            <span class="stu-avg ${avgClass}">${s.avg == null ? "—" : s.avg + "%"}</span>
+            <span class="stu-side-meta">${s.done}/${cats.length} test · ${s.attempts} urinish</span>
+            <span class="stu-side-meta">${formatRelative(s.last)}</span>
+          </div>
+          <span class="stu-chevron">▾</span>
+        </button>
+        <div class="stu-body">
+          <div class="stu-cats">${catCards}</div>
+          <div class="stu-foot">
+            <span>Ro'yxat: <strong>${formatDateTime(u.createdAt)}</strong></span>
+            <span>Oxirgi faollik: <strong>${formatDateTime(s.last)}</strong> (${formatRelative(s.last)})</span>
+            <span>Parol: ${renderPasswordCell(u.password)}</span>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  function paintProgressList(changedIds = new Set()) {
+    const listEl = document.getElementById("progressStudentsList");
+    if (!listEl) return;
+    const cats = state.meta?.categories || [];
+    const list = getFilteredSortedUsers(progressCache, cats);
+
+    if (!list.length) {
+      listEl.innerHTML = '<p class="empty-hint">Mos o\'quvchi topilmadi</p>';
+      return;
+    }
+
+    listEl.innerHTML = list
+      .map((u) => renderStudentCard(u, cats, changedIds.has(u.id)))
+      .join("");
+  }
+
+  async function loadProgressDashboard({ silent = false } = {}) {
+    const user = Auth.getUser();
+    if (user?.role !== "admin") return;
+
+    if (!silent) setProgressLiveState("updating");
+
+    try {
+      const users = await Auth.fetchAllUsersProgress();
+      const cats = state.meta?.categories || [];
+      const fp = progressFingerprint(users);
+      const changedIds = new Set();
+
+      if (progressLastFingerprint && fp !== progressLastFingerprint) {
+        const prevMap = new Map(progressCache.map((u) => [u.id, progressFingerprint([u])]));
+        for (const u of users) {
+          const cur = progressFingerprint([u]);
+          if (prevMap.get(u.id) !== cur) changedIds.add(u.id);
+        }
+      }
+
+      progressCache = users;
+      progressLastFingerprint = fp;
+      updateProgressStats(users, cats);
+      paintProgressList(changedIds);
+
+      const updated = document.getElementById("progressUpdatedAt");
+      if (updated) {
+        updated.textContent = `Oxirgi yangilanish: ${formatClock()} · avto har ${PROGRESS_POLL_MS / 1000}s`;
+      }
+      setProgressLiveState("live");
+    } catch {
+      setProgressLiveState("offline");
+      const listEl = document.getElementById("progressStudentsList");
+      if (listEl && !silent) {
+        listEl.innerHTML = '<p class="empty-hint">Ma\'lumot yuklanmadi. Yangilash tugmasini bosing.</p>';
+      }
+    }
+  }
+
+  async function openProgressDashboard() {
+    const user = Auth.getUser();
+    if (!user || user.role !== "admin") return;
+    showScreen("progress");
+    startProgressLive();
+    await loadProgressDashboard();
+  }
+
 
 
   function updateSettingsCoverPreview(user, previewDataUrl) {
@@ -1316,7 +1639,7 @@
         if (document.getElementById("screenSettings")?.classList.contains("active")) {
           renderAllUsersProgress();
         }
-      }, 90000);
+      }, 30000);
     }
 
     showScreen("settings");
@@ -1333,6 +1656,8 @@
 
       else if (tab.dataset.nav === "settings") openSettings();
 
+      else if (tab.dataset.nav === "progress") openProgressDashboard();
+
     });
 
   });
@@ -1345,6 +1670,47 @@
 
     openSettings();
 
+  });
+
+  document.getElementById("btnOpenProgress")?.addEventListener("click", () => {
+    document.getElementById("userDropdown").hidden = true;
+    openProgressDashboard();
+  });
+
+  document.getElementById("btnProgressRefresh")?.addEventListener("click", () => {
+    loadProgressDashboard();
+  });
+
+  document.getElementById("progressSearch")?.addEventListener("input", () => {
+    paintProgressList();
+  });
+
+  document.getElementById("progressFilter")?.addEventListener("change", () => {
+    paintProgressList();
+  });
+
+  document.getElementById("progressSort")?.addEventListener("change", () => {
+    paintProgressList();
+  });
+
+  document.getElementById("progressStudentsList")?.addEventListener("click", (e) => {
+    const toggleBtn = e.target.closest("[data-toggle-user]");
+    if (toggleBtn) {
+      const id = toggleBtn.getAttribute("data-toggle-user");
+      if (progressOpenIds.has(id)) progressOpenIds.delete(id);
+      else progressOpenIds.add(id);
+      paintProgressList();
+      return;
+    }
+    const passBtn = e.target.closest(".password-toggle");
+    if (passBtn) {
+      const wrap = passBtn.closest(".password-reveal");
+      const text = wrap?.querySelector(".user-password-text");
+      if (!text) return;
+      const shown = passBtn.classList.toggle("is-shown");
+      text.textContent = shown ? passBtn.getAttribute("data-password") : "••••••";
+      passBtn.setAttribute("aria-label", shown ? "Parolni yashirish" : "Parolni ko'rsatish");
+    }
   });
 
 
