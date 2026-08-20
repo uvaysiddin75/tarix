@@ -66,6 +66,7 @@
 
           <nav class="main-nav" id="mainNav" hidden>
             <button type="button" class="nav-tab active" data-nav="menu">Testlar</button>
+            <button type="button" class="nav-tab" data-nav="progress" id="navProgressTab" hidden>Progress</button>
             <button type="button" class="nav-tab" data-nav="settings">Sozlamalar</button>
           </nav>
 
@@ -92,6 +93,8 @@
               <p class="dropdown-email" id="userEmail"></p>
 
               <button type="button" id="btnSettings" class="dropdown-item">Sozlamalar</button>
+
+              <button type="button" id="btnOpenProgress" class="dropdown-item" hidden>O'quvchilar progressi</button>
 
               <button type="button" id="btnAdminPanel" class="dropdown-item" hidden>AI — savol qo'shish</button>
 
@@ -564,7 +567,7 @@
               <div class="settings-card-header-row">
                 <div>
                   <h3>Barcha foydalanuvchilar — progress</h3>
-                  <p class="settings-desc">Barcha qurilmalardan ro'yxatdan o'tganlar (umumiy baza)</p>
+                  <p class="settings-desc">Tezkor jadval. To'liq real-vaqt panel: yuqoridagi <strong>Progress</strong> tab</p>
                 </div>
                 <button type="button" class="btn-secondary btn-sm" id="btnRefreshUsers">Yangilash</button>
               </div>
@@ -590,6 +593,72 @@
       </section>
 
 
+
+      <!-- Admin: Live student progress -->
+      <section class="screen" id="screenProgress">
+        <div class="progress-dash">
+          <div class="progress-dash-top">
+            <div>
+              <h2 class="progress-dash-title">O'quvchilar progressi</h2>
+              <p class="progress-dash-sub">Barcha natijalar · real vaqt</p>
+            </div>
+            <div class="progress-live-box">
+              <span class="live-dot" id="progressLiveDot"></span>
+              <div class="progress-live-texts">
+                <span class="live-label" id="progressLiveLabel">Jonli</span>
+                <span class="live-clock" id="progressLiveClock">--:--:--</span>
+              </div>
+              <button type="button" class="btn-secondary btn-sm" id="btnProgressRefresh">Yangilash</button>
+            </div>
+          </div>
+
+          <div class="progress-stat-grid" id="progressStatGrid">
+            <div class="pstat-card">
+              <span class="pstat-value" id="pstatStudents">0</span>
+              <span class="pstat-label">O'quvchi</span>
+            </div>
+            <div class="pstat-card">
+              <span class="pstat-value" id="pstatActive">0</span>
+              <span class="pstat-label">Bugun faol</span>
+            </div>
+            <div class="pstat-card">
+              <span class="pstat-value" id="pstatAvg">0%</span>
+              <span class="pstat-label">O'rtacha ball</span>
+            </div>
+            <div class="pstat-card">
+              <span class="pstat-value" id="pstatAttempts">0</span>
+              <span class="pstat-label">Jami urinish</span>
+            </div>
+          </div>
+
+          <div class="progress-toolbar">
+            <div class="progress-search-wrap">
+              <input type="search" id="progressSearch" placeholder="Ism yoki email qidirish..." autocomplete="off">
+            </div>
+            <select id="progressFilter" class="progress-select">
+              <option value="all">Barchasi</option>
+              <option value="active">Bugun faol</option>
+              <option value="done">Kamida 1 test</option>
+              <option value="empty">Hali boshlamagan</option>
+              <option value="low">Past natija (&lt;50%)</option>
+              <option value="good">Yaxshi (≥70%)</option>
+            </select>
+            <select id="progressSort" class="progress-select">
+              <option value="recent">Oxirgi faollik</option>
+              <option value="name">Ism A–Z</option>
+              <option value="avg-desc">Ball ↓</option>
+              <option value="avg-asc">Ball ↑</option>
+              <option value="attempts">Urinishlar ↓</option>
+            </select>
+          </div>
+
+          <p class="progress-updated" id="progressUpdatedAt">Yangilanmagan</p>
+
+          <div class="progress-students" id="progressStudentsList">
+            <p class="empty-hint">Yuklanmoqda...</p>
+          </div>
+        </div>
+      </section>
 
       <!-- Admin: AI import questions -->
 
