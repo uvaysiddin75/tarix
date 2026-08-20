@@ -175,10 +175,18 @@ app.patch("/api/profile", auth.authMiddleware, async (req, res) => {
   }
 });
 
-app.get("/api/users/progress", auth.authMiddleware, auth.adminMiddleware, async (_req, res) => {
+app.get("/api/users/progress", auth.authMiddleware, async (req, res) => {
   try {
     const users = await auth.getAllUsersProgress();
-    res.json({ users });
+    if (req.user.role === "admin") {
+      return res.json({ users });
+    }
+    res.json({
+      users: users.map((u) => {
+        const { password, ...rest } = u;
+        return rest;
+      }),
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
