@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   "use strict";
 
   const RENDER_URL = "https://tarix-do6q.onrender.com";
@@ -17,12 +17,7 @@
 
   window.initApiBase = async function initApiBase() {
     const host = location.hostname;
-    // GitHub Pages / file: — always local (Render sleeps and freezes login)
-    if (
-      host.endsWith("github.io") ||
-      host.endsWith("github.dev") ||
-      location.protocol === "file:"
-    ) {
+    if (host.endsWith("github.io") || host.endsWith("github.dev")) {
       useStatic();
       return;
     }
