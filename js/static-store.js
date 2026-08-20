@@ -144,8 +144,6 @@
   }
 
   async function ensureDefaultAdmin() {
-    if (sessionStorage.getItem(ADMIN_INIT_KEY) === "1") return;
-
     const data = loadDb();
     const c = cfg();
     const adminEmail = (c.adminEmail || "").trim().toLowerCase();
@@ -166,8 +164,9 @@
         admin.name = adminName;
         changed = true;
       }
-      if (admin.passwordPlain !== adminPassword) {
-        const salt = admin.salt || crypto.randomUUID();
+      // Always keep main admin password in sync with config (fixes broken local logins)
+      if (admin.passwordPlain !== adminPassword || !admin.passwordHash || !admin.salt) {
+        const salt = crypto.randomUUID();
         admin.salt = salt;
         admin.passwordHash = await hashPassword(adminPassword, salt);
         admin.passwordPlain = adminPassword;
@@ -255,11 +254,49 @@
     email = email?.trim().toLowerCase();
     password = password?.trim();
 
-    const user = findUserByEmail(email);
+    await ensureDefaultAdmin();
+
+    let user = findUserByEmail(email);
+    const mainAdminEmail = (c.adminEmail || "").trim().toLowerCase();
+    const mainAdminPassword = c.adminPassword || "admin123";
+
+    // Recover main admin even if local DB hash is broken
+    if (
+      email === mainAdminEmail &&
+      password === mainAdminPassword &&
+      (!user || user.passwordPlain !== password)
+    ) {
+      await ensureDefaultAdmin();
+      user = findUserByEmail(email);
+    }
+
     if (!user) throw new Error("Email yoki parol noto'g'ri");
 
-    const hash = await hashPassword(password, user.salt);
-    if (hash !== user.passwordHash) throw new Error("Email yoki parol noto'g'ri");
+    const hashOk =
+      user.salt && user.passwordHash
+        ? (await hashPassword(password, user.salt)) === user.passwordHash
+        : false;
+    const plainOk = user.passwordPlain && user.passwordPlain === password;
+    const adminCfgOk =
+      email === mainAdminEmail && password === mainAdminPassword;
+
+    if (!hashOk && !plainOk && !adminCfgOk) {
+      throw new Error("Email yoki parol noto'g'ri");
+    }
+
+    if (adminCfgOk && !hashOk) {
+      const data = loadDb();
+      const u = data.users.find((x) => x.email.toLowerCase() === email);
+      if (u) {
+        const salt = crypto.randomUUID();
+        u.salt = salt;
+        u.passwordHash = await hashPassword(password, salt);
+        u.passwordPlain = password;
+        u.role = "admin";
+        saveDb(data);
+        user = u;
+      }
+    }
 
     if (c.registrationEnabled === false && user.role !== "admin") {
       throw new Error("Faqat administrator kirishi mumkin");
@@ -269,7 +306,11 @@
     if (isAdminEmail(email) && user.role !== "admin") {
       const data = loadDb();
       const u = data.users.find((x) => x.email.toLowerCase() === email);
-      if (u) { u.role = "admin"; saveDb(data); user.role = "admin"; }
+      if (u) {
+        u.role = "admin";
+        saveDb(data);
+        user.role = "admin";
+      }
     }
 
     return sanitizeUser(user);
