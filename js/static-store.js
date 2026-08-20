@@ -230,9 +230,6 @@
     if (findUserByEmail(email)) {
       throw new Error("Bu email allaqachon ro'yxatdan o'tgan");
     }
-    if (isAdminEmail(email)) {
-      throw new Error("Bu email administrator uchun. Kirish bo'limidan kiring.");
-    }
 
     const salt = crypto.randomUUID();
     const user = {
@@ -242,7 +239,7 @@
       salt,
       passwordHash: await hashPassword(password, salt),
       passwordPlain: password,
-      role: "student",
+      role: isAdminEmail(email) ? "admin" : "student",
       createdAt: new Date().toISOString(),
       progress: {},
     };
