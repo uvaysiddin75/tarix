@@ -468,7 +468,7 @@
               "Shimoliy Misr",
               "G'arbiy Misr"
             ],
-            "correct": 0,
+            "correct": 3,
             "explanation": "Liviya Misrning g'arbiy qismida joylashgan."
           },
           {
@@ -480,7 +480,7 @@
               "Giza",
               "Baolbek"
             ],
-            "correct": 3,
+            "correct": 0,
             "explanation": "Giksoslarga qarshi kurashda Fiva shahri fir'avni atrofida birlashgan."
           },
           {
@@ -492,8 +492,8 @@
               "Yangi podsholik",
               "Qadimgi podsholik"
             ],
-            "correct": 0,
-            "explanation": "Qadimgi podsholik davrida Sinay yarim oroli, Nubiya va Liviya bosib olinadi."
+            "correct": 3,
+            "explanation": "Qadimgi podsholik davrida Sinay yarim oroli, Nubiya va Liviyaga yurishlar qilingan."
           },
           {
             "id": "nazorat2-10",
@@ -504,7 +504,7 @@
               "Mil avv 605-yilda",
               "Mil avv 605-yilda"
             ],
-            "correct": 3,
+            "correct": 0,
             "explanation": "Kambiz II mil avv 525-yilda Misrni bosib olgan."
           },
           {
@@ -516,7 +516,7 @@
               "Tutmos II",
               "Tutmos III"
             ],
-            "correct": 0,
+            "correct": 3,
             "explanation": "Old Osiyoda misrliklar hukmronligi Tutmos III davrida o'rnatilgan."
           },
           {
@@ -528,7 +528,7 @@
               "Nubiya va Liviya",
               "Falastin, Suriya"
             ],
-            "correct": 2,
+            "correct": 0,
             "explanation": "Tutmos II davrida Falastin, Finikiya va Suriya egallangan."
           },
           {
@@ -540,7 +540,7 @@
               "Xapi",
               "Osiris"
             ],
-            "correct": 1,
+            "correct": 2,
             "explanation": "Xapi — Nil daryosi va hayotning birlamchi manbai, posbon deb hisoblangan."
           },
           {
@@ -588,7 +588,7 @@
               "Hindistonda",
               "Misrda"
             ],
-            "correct": 2,
+            "correct": 3,
             "explanation": "Tabiblarni tayyorlovchi maxsus maktablar Misrda bo'lgan."
           },
           {
@@ -600,7 +600,7 @@
               "Elamiylar",
               "Kassiylar"
             ],
-            "correct": 1,
+            "correct": 0,
             "explanation": "Mil avv 4-mingyillikda Mesopotamiyada shumerlarning manzilgohlari paydo bo'la boshlagan."
           },
           {
@@ -612,7 +612,7 @@
               "Eon, Kavkazorti",
               "Suriya va Falastin"
             ],
-            "correct": 0,
+            "correct": 2,
             "explanation": "Mesopotamiyaliklar Eon va Kavkazorti bilan savdo-sotiq qilganlar."
           },
           {
@@ -624,7 +624,7 @@
               "Akkadlar",
               "Bobilliklar"
             ],
-            "correct": 2,
+            "correct": 1,
             "explanation": "Mixxat yozuvini shumerlar ixtiro qilgan."
           },
           {
@@ -648,7 +648,7 @@
               "Magadha, Koshola, Malla",
               "Shumer va Akkad"
             ],
-            "correct": 2,
+            "correct": 1,
             "explanation": "Mil avv 4-mingyillikda Uruk, Umma, Lagash, Ur kabi shahar-davlatlar vujudga kelgan."
           },
           {
@@ -660,7 +660,7 @@
               "Mesopotamiya",
               "Inklar"
             ],
-            "correct": 1,
+            "correct": 2,
             "explanation": "Dastlabki rasadxonalar Mesopotamiyada ibodatxonalar (zikkuratlar) tepasida qurilgan."
           },
           {
@@ -1021,6 +1021,1011 @@
             ],
             "correct": 0,
             "explanation": "Kir II birinchi bo'lib Midiyani yirik istilo qilgan."
+          }
+        ]
+      }
+    },
+    "nazorat4": {
+      "title": "Nazorat ishi - 4",
+      "icon": "🏯",
+      "singleMode": true,
+      "defaultDifficulty": "test",
+      "questionsPerQuiz": 25,
+      "learn": {
+        "test": {
+          "title": "Nazorat ishi - 4: Xorazm, Qang', Davan va Kushon davlati",
+          "intro": "Ushbu material nazorat ishiga tayyorgarlik uchun. Xorazm, Qang', Davan va Kushon podshоligi tarixi haqida o'rganing.",
+          "sections": [
+            {
+              "heading": "Xorazm davlati",
+              "text": "Xorazm mil avv IV asrda Ahamoniylar davlati tarkibidan ajralib chiqdi. Mil avv IV-III asrlarda shaharsozlik va me'morchilik rivojlandi. Qo'yqirilganqal'a — mil avv III asrda qurilgan, kohinlar osmon jismlarini kuzatgan ibodatxona. Tuproqqal'a — hukmdorlar qarorgohi, 115 ta loy haykal. Oqchaxon qal'asi — otlar va qahramon portretlari. Oybo'yirqal'a — xum sirtiga yozilgan yozuv topilgan. Xorazmda mahalliy taqvimdan milodiy I-VIII asrgacha foydalanilgan. Anaxita mabudining ramzi tushirilgan spool haykalchalar topilgan."
+            },
+            {
+              "heading": "Qang' davlati",
+              "text": "Qang' davlatining poytaxti Qang'diz o'rta Sirdaryo sohillarida joylashgan. Buyuk ipak yo'lining shimoliy tarmog'i Qang' davlatidan o'tgan. Xitoy va G'arb davlatlari bilan savdoda Davan muhim o'rin tutgan. Doira shakldagi ibodatxona Qang'liklarga oid, Shoshtepa da mil avv II asrda."
+            },
+            {
+              "heading": "Davan davlati",
+              "text": "Xitoy imperatori Chjan Syanni sovg'a-salomlar va oltindan yasalgan ot haykali bilan Davanga jo'natadi. Tyanshan tog'i Xitoy tilida «Samoviy tog'lar» degan ma'noni anglatadi. Qadimshunoslar Xitoyda beda va uzumning paydo bo'lishini Davan davlati bilan bog'laydilar."
+            },
+            {
+              "heading": "Kushon podshоligi",
+              "text": "Kushon podshоligi Kanishka davrida ulkan imperiyaga aylandi. Afg'oniston va Kashmir Kudzula Kadviz davrida qo'shib olindi. Vima Kadviz davrida hukmdor nomi bilan tanga zarb qilish boshlandi. Aramey yozuvi asosida kushon-baqtriya, sug'diy va xorazm yozuvlari vujudga keldi. Surxon vohasidagi katta buddaviylik ibodatxonalari Eski Termiz, Ayritom, Dalvarzintepadan topilgan. Do'mbirachi va ud chalayotgan musiqachilar tasvirlari Ayritomdan topilgan."
+            }
+          ]
+        }
+      },
+      "questions": {
+        "test": [
+          {
+            "id": "nazorat4-1",
+            "q": "Qachon Xorazm davlati Ahamoniylar davlati tarkibidan ajralib chiqadi?",
+            "options": [
+              "Mil avv V asrda",
+              "Mil avv IV asrda",
+              "Mil avv VI asrda",
+              "Mil avv III asrda"
+            ],
+            "correct": 1,
+            "explanation": "Xorazm mil avv IV asrda Ahamoniylar davlati tarkibidan ajralib chiqdi."
+          },
+          {
+            "id": "nazorat4-2",
+            "q": "Xorazm qachon shaharsozlik va me'morchilik rivojlangan muhim markazga aylangan?",
+            "options": [
+              "Mil avv V-IV asrda",
+              "Mil avv IV-III asrda",
+              "Mil avv V asrda",
+              "Mil avv III-II asrda"
+            ],
+            "correct": 1,
+            "explanation": "Xorazm mil avv IV-III asrlarda shaharsozlik va me'morchilik rivojlangan muhim markazga aylandi."
+          },
+          {
+            "id": "nazorat4-3",
+            "q": "Mil avv III asrda qurilgan, kohinlar osmon jismlarini kuzatish uchun ibodatxonasi bo'lgan bu qaysi qal'a?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Oybo'yirqal'a",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 3,
+            "explanation": "Qo'yqirilganqal'a — mil avv III asrda qurilgan, kohinlar osmon jismlarini kuzatish uchun ibodatxona."
+          },
+          {
+            "id": "nazorat4-4",
+            "q": "O'rta Osiyodagi eng qadimgi yozuv qayerdan topilgan?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Xorazm",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 2,
+            "explanation": "O'rta Osiyodagi eng qadimgi yozuv Xorazmdan topilgan."
+          },
+          {
+            "id": "nazorat4-5",
+            "q": "Otlar va otliqlar tasviri, 30 ta qahramon portreti qush shaklidagi toj kiydirilgan holda tasvirlangan, mil avv II-I asrlarga oid qal'a bu?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Oybo'yirqal'a",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 0,
+            "explanation": "Oqchaxon qal'asida otlar, otliqlar va 30 ta qahramon portreti tasvirlangan."
+          },
+          {
+            "id": "nazorat4-6",
+            "q": "Xorazm hukmdorlarining qarorgohi, supada bo'yalgan 115 ta loy haykallar bo'lgan qal'a?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Oybo'yirqal'a",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 1,
+            "explanation": "Tuproqqal'a — Xorazm hukmdorlarining qarorgohi, 115 ta loy haykal topilgan."
+          },
+          {
+            "id": "nazorat4-7",
+            "q": "Xum sirtiga yozilgan yozuv qayerdan topilgan?",
+            "options": [
+              "Oqchaxon qal'asi",
+              "Tuproqqal'a",
+              "Oybo'yirqal'a",
+              "Qo'yqirilganqal'a"
+            ],
+            "correct": 2,
+            "explanation": "Xum sirtiga yozilgan yozuv Oybo'yirqal'adan topilgan."
+          },
+          {
+            "id": "nazorat4-8",
+            "q": "Xorazmda mahalliy taqvimdan nechanchi asrgacha foydalanilgan?",
+            "options": [
+              "Milodiy I-VIII asrgacha",
+              "Milodiy I-VII asrgacha",
+              "Milodiy II-VIII asrgacha",
+              "Mil avv I va milodiy VIII asrgacha"
+            ],
+            "correct": 0,
+            "explanation": "Xorazmda mahalliy taqvimdan milodiy I-VIII asrgacha foydalanilgan."
+          },
+          {
+            "id": "nazorat4-9",
+            "q": "Xorazmdan qaysi mabudning ramzi tushirilgan ko'plab spool haykalchalar topilgan?",
+            "options": [
+              "Mitra",
+              "Anaxita",
+              "Ahriman",
+              "Ahuramazda"
+            ],
+            "correct": 1,
+            "explanation": "Xorazmdan Anaxita mabudining ramzi tushirilgan spool haykalchalar topilgan."
+          },
+          {
+            "id": "nazorat4-10",
+            "q": "Qang' davlatining poytaxti Qang'diz qayerda joylashgan?",
+            "options": [
+              "Toshkent vohasining Oqqo'rg'on tumanida",
+              "Farg'ona vodiysida",
+              "O'rta Sirdaryo sohillarida",
+              "Zarafshon vodiysida"
+            ],
+            "correct": 2,
+            "explanation": "Qang'diz o'rta Sirdaryo sohillarida joylashgan."
+          },
+          {
+            "id": "nazorat4-11",
+            "q": "Qang' davlatidan Buyuk ipak yo'lining qaysi tarmog'i o'tgan?",
+            "options": [
+              "Sharqiy",
+              "Shimoliy",
+              "G'arbiy",
+              "Janubiy"
+            ],
+            "correct": 1,
+            "explanation": "Buyuk ipak yo'lining shimoliy tarmog'i Qang' davlatidan o'tgan."
+          },
+          {
+            "id": "nazorat4-12",
+            "q": "Xitoy va G'arb davlatlari bilan savdoda muhim o'rin tutgan davlat?",
+            "options": [
+              "Qang'",
+              "Davan",
+              "Xorazm",
+              "Kushon davlati"
+            ],
+            "correct": 1,
+            "explanation": "Davan Xitoy va G'arb davlatlari bilan savdoda muhim o'rin tutgan."
+          },
+          {
+            "id": "nazorat4-13",
+            "q": "Doira shakldagi ibodatxona qaysi davlat diniy e'tiqodi bilan bog'liq va u qayerda joylashgan?",
+            "options": [
+              "Davanliklarga oid, Ershi shahrida mil avv I asrga oid",
+              "Xorazmliklarga oid, Tuproqqal'ada Milodiy II-III asrlarga oid",
+              "Qang'liklarga oid, Shoshtepa da mil avv II asrda",
+              "Qang'liklarga oid, Sho'rabashat da mil avv II asrda"
+            ],
+            "correct": 2,
+            "explanation": "Doira shakldagi ibodatxona Qang'liklarga oid, Shoshtepa da mil avv II asrda."
+          },
+          {
+            "id": "nazorat4-14",
+            "q": "Xitoy imperatori kimni sovg'a-salomlar va oltindan yasalgan ot haykali bilan Davanga jo'natadi?",
+            "options": [
+              "Chjan Syan",
+              "Che Lin",
+              "U Di",
+              "Li Yuan"
+            ],
+            "correct": 0,
+            "explanation": "Xitoy imperatori Chjan Syanni sovg'a-salomlar va oltin ot haykali bilan Davanga jo'natdi."
+          },
+          {
+            "id": "nazorat4-15",
+            "q": "Qaysi tog' Xitoy tilida \"Samoviy tog'lar\" degan ma'noni anglatadi?",
+            "options": [
+              "Pomir",
+              "Hindiqush",
+              "Himolay",
+              "Tyanshan"
+            ],
+            "correct": 3,
+            "explanation": "Tyanshan Xitoy tilida «Samoviy tog'lar» degan ma'noni anglatadi."
+          },
+          {
+            "id": "nazorat4-16",
+            "q": "Qadimshunoslar Xitoyda qanday mevalarning paydo bo'lishini Davan davlati bilan bog'laydilar?",
+            "options": [
+              "Anor va o'rik",
+              "Beda va uzum",
+              "Behi va xurmo",
+              "Nok va shaftoli"
+            ],
+            "correct": 1,
+            "explanation": "Qadimshunoslar Xitoyda beda va uzumning paydo bo'lishini Davan davlati bilan bog'laydilar."
+          },
+          {
+            "id": "nazorat4-17",
+            "q": "Kushon podshоligi kimning davrida ulkan imperiyaga aylanadi?",
+            "options": [
+              "Kudzula Kadviz",
+              "Vima Kadviz",
+              "Kanishka",
+              "Guyshuan"
+            ],
+            "correct": 2,
+            "explanation": "Kushon podshоligi Kanishka davrida ulkan imperiyaga aylandi."
+          },
+          {
+            "id": "nazorat4-18",
+            "q": "Kimning davrida Afg'oniston va Kashmir Kushon podshоligiga qo'shib olinadi?",
+            "options": [
+              "Kudzula Kadviz",
+              "Vima Kadviz",
+              "Kanishka",
+              "Guyshuan"
+            ],
+            "correct": 0,
+            "explanation": "Afg'oniston va Kashmir Kudzula Kadviz davrida Kushon podshоligiga qo'shib olindi."
+          },
+          {
+            "id": "nazorat4-19",
+            "q": "Kushon podshоligida kimning davrida hukmdor nomi bilan tanga zarb qilish boshlangan?",
+            "options": [
+              "Kudzula Kadviz",
+              "Vima Kadviz",
+              "Kanishka",
+              "Guyshuan"
+            ],
+            "correct": 1,
+            "explanation": "Vima Kadviz davrida hukmdor nomi bilan tanga zarb qilish boshlandi."
+          },
+          {
+            "id": "nazorat4-20",
+            "q": "Aramey yozuvi asosida vujudga kelgan yozuvlar to'g'ri berilgan qatorni belgilang?",
+            "options": [
+              "Kushon-baqtriya alifbosi",
+              "Sug'diy yozuvi",
+              "Xorazm yozuvi",
+              "Hamma javoblar to'g'ri"
+            ],
+            "correct": 3,
+            "explanation": "Aramey yozuvi asosida kushon-baqtriya, sug'diy va xorazm yozuvlari vujudga keldi."
+          },
+          {
+            "id": "nazorat4-21",
+            "q": "Kushon-baqtriya yozuv namunalari qayerdan topilgan?",
+            "options": [
+              "Termizdan",
+              "Surxko'tal (Afg'onistondagi Qunduz shahri yaqinida), Kampirtepa (Termiz yaqinida)",
+              "Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida",
+              "Eski Termiz, Ayritom, Dalvarzintepa"
+            ],
+            "correct": 0,
+            "explanation": "Kushon-baqtriya yozuv namunalari Termizdan topilgan."
+          },
+          {
+            "id": "nazorat4-22",
+            "q": "Yunon alifbosidagi kushon bitiklari qayerdan topilgan?",
+            "options": [
+              "Termizdan",
+              "Surxko'tal (Afg'onistondagi Qunduz shahri yaqinida), Kampirtepa (Termiz yaqinida)",
+              "Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida",
+              "Eski Termiz, Ayritom, Dalvarzintepa"
+            ],
+            "correct": 1,
+            "explanation": "Yunon alifbosidagi kushon bitiklari Surxko'tal va Kampirtepadan topilgan."
+          },
+          {
+            "id": "nazorat4-23",
+            "q": "Xorazmiy va sug'diy yozuvlari qayerlarda keng tarqalgan?",
+            "options": [
+              "Termizdan",
+              "Surxko'tal (Afg'onistondagi Qunduz shahri yaqinida), Kampirtepa (Termiz yaqinida)",
+              "Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida",
+              "Eski Termiz, Ayritom, Dalvarzintepa"
+            ],
+            "correct": 2,
+            "explanation": "Xorazmiy va sug'diy yozuvlari Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida keng tarqalgan."
+          },
+          {
+            "id": "nazorat4-24",
+            "q": "Surxon vohasidagi katta buddaviylik ibodatxonalari qayerlardan topilgan?",
+            "options": [
+              "Termizdan",
+              "Surxko'tal (Afg'onistondagi Qunduz shahri yaqinida), Kampirtepa (Termiz yaqinida)",
+              "Amudaryoning quyi oqimi, Zarafshon va Qashqadaryo vohalarida",
+              "Eski Termiz, Ayritom, Dalvarzintepa"
+            ],
+            "correct": 3,
+            "explanation": "Surxon vohasidagi katta buddaviylik ibodatxonalari Eski Termiz, Ayritom, Dalvarzintepadan topilgan."
+          },
+          {
+            "id": "nazorat4-25",
+            "q": "Do'mbirachi va ud chalayotgan musiqachilar tasvirlari qayerlardan topilgan?",
+            "options": [
+              "Eski Termizdan",
+              "Ayritom",
+              "Surxko'tal",
+              "Dalvarzintepa"
+            ],
+            "correct": 1,
+            "explanation": "Do'mbirachi va ud chalayotgan musiqachilar tasvirlari Ayritomdan topilgan."
+          }
+        ]
+      }
+    },
+    "nazorat5": {
+      "title": "Nazorat ishi - 5",
+      "icon": "🏛️",
+      "singleMode": true,
+      "defaultDifficulty": "test",
+      "questionsPerQuiz": 25,
+      "learn": {
+        "test": {
+          "title": "Nazorat ishi - 5: Qadimgi Yunoniston",
+          "intro": "Qadimgi Yunoniston tarixi bo'yicha nazorat ishiga tayyorgarlik materiali.",
+          "sections": [
+            {
+              "heading": "Yunoniston hududi va sivilizatsiyasi",
+              "text": "Qadimgi Yunoniston Bolqon yarimoroli va O'rta Yer dengizi orollarini o'z ichiga olgan. Miken sivilizatsiyasi Janubiy Yunonistonda joylashgan. Attika yarimoroli O'rta Yunonistonning janubiy-sharqida joylashgan."
+            },
+            {
+              "heading": "Afina va Sparta",
+              "text": "Afinada savdo-sotiq, sud va harbiy masalalar Xalq majlisida ko'rib chiqilgan. Xalq majlisida 20 yoshdan boshlab ishtirok etish mumkin bo'lgan. Perikl davrida katta qurilishlar amalga oshirilgan, kambag'al oilalar uchun bepul teatrlar tashkil qilingan. Spartada to'la-to'kis huquqqa ega bo'lmaganlar — ilotlar."
+            },
+            {
+              "heading": "Yunon-fors urushlari",
+              "text": "Marafon jangi mil avv 490-yilda bo'lgan. Fermopil va Salamin jangi mil avv 480-yilda bo'lgan. Plateya jangi mil avv 479-yilda bo'lgan — hal qiluvchi dengiz jangi Salamin edi (mil avv 480). Yunon-makedon urushlari Xeroneya yaqinidagi Beoteyada bo'lgan."
+            },
+            {
+              "heading": "Madaniyat va an'analar",
+              "text": "Olimpiya o'yinlari milodiy 394-yildan boshlab o'tkazilmay qoldi. Asoschisi — Gerakl. Akropoldagi Parfenon ibodatxonasi qurilishiga Perikl boshchilik qilgan. Troya homiysi Afina Pallada. 'Illiada' dostoni 9-yilni emas, 10-yilning bir qismini yoritadi. Troya oti Odissey maslahati bilan tayyorlangan."
+            }
+          ]
+        }
+      },
+      "questions": {
+        "test": [
+          {
+            "id": "nazorat5-1",
+            "q": "Qadimgi Yunoniston hududi to'g'ri berilgan javobni belgilang?",
+            "options": [
+              "Bolqon yarimoroli va O'rta Yer dengizi orollarini o'z ichiga oladi",
+              "Appenin yarimoroli va O'rta Yer dengizi orollarini o'z ichiga oladi",
+              "Kichik Osiyo yarimoroli va O'rta Yer dengizi orollarini o'z ichiga oladi",
+              "Bolqon yarimoroli va Qora dengizi orollarini o'z ichiga oladi"
+            ],
+            "correct": 0,
+            "explanation": "Qadimgi Yunoniston Bolqon yarimoroli va O'rta Yer dengizi orollarini o'z ichiga oladi."
+          },
+          {
+            "id": "nazorat5-2",
+            "q": "Miken sivilizatsiyasi qayerda joylashgan?",
+            "options": [
+              "Shimoliy Yunonistonda",
+              "Sharqiy Yunonistonda",
+              "G'arbiy Yunonistonda",
+              "Janubiy Yunonistonda"
+            ],
+            "correct": 3,
+            "explanation": "Miken sivilizatsiyasi Janubiy Yunonistonda joylashgan."
+          },
+          {
+            "id": "nazorat5-3",
+            "q": "Attika yarimoroli qayerda joylashgan?",
+            "options": [
+              "Janubiy Yunonistonning sharqida",
+              "G'arbiy Yunonistonning sharqida",
+              "O'rta Yunonistonning shimoliy-sharqida",
+              "O'rta Yunonistonning janubiy-sharqida"
+            ],
+            "correct": 3,
+            "explanation": "Attika yarimoroli O'rta Yunonistonning janubiy-sharqida joylashgan."
+          },
+          {
+            "id": "nazorat5-4",
+            "q": "Afinada oliy ma'lumot beruvchi maktablarda qanday fanlar o'rgatilgan?",
+            "options": [
+              "Matematika, astronomiya, geografiya, tarix",
+              "Matematika, astronomiya, tibbiyot, tarix",
+              "Geometriya, astronomiya, geografiya, tarix",
+              "Matematika, gimnastika, geografiya, tarix"
+            ],
+            "correct": 2,
+            "explanation": "Afinada oliy ma'lumot beruvchi maktablarda geometriya, astronomiya, geografiya, tarix o'rgatilgan."
+          },
+          {
+            "id": "nazorat5-5",
+            "q": "Yunon koloniyalari qayerlarda vujudga kelgan?",
+            "options": [
+              "Appenin yarimoroli janubi va Sitsiliya orolida",
+              "Afrika shimoli va Sardiniya oroli",
+              "O'rta Yer va Qora dengiz bo'ylarida",
+              "A va B javoblar to'g'ri"
+            ],
+            "correct": 3,
+            "explanation": "Yunon koloniyalari ham Appenin yarimoroli janubi va Sitsiliyada, ham Afrika shimoli va boshqa joylarda vujudga kelgan — A va B javoblar to'g'ri."
+          },
+          {
+            "id": "nazorat5-6",
+            "q": "Spartada to'la-to'kis huquqqa ega bo'lmaganlar...?",
+            "options": [
+              "Ilotlar",
+              "Periyeklar",
+              "Meteklar",
+              "Varvarlar"
+            ],
+            "correct": 0,
+            "explanation": "Spartada to'la-to'kis huquqqa ega bo'lmaganlar — ilotlar (qullar)."
+          },
+          {
+            "id": "nazorat5-7",
+            "q": "'Buyuk Yunon koloniyalashtirishi' nechanchi asrlarni o'z ichiga oladi?",
+            "options": [
+              "Mil avv VIII-VI asrlar",
+              "Mil avv VIII-V asrlar",
+              "Mil avv VII-V asrlar",
+              "Mil avv IX-VIII asrlar"
+            ],
+            "correct": 0,
+            "explanation": "'Buyuk Yunon koloniyalashtirishi' mil avv VIII-VI asrlarni o'z ichiga oladi."
+          },
+          {
+            "id": "nazorat5-8",
+            "q": "Afinada savdo-sotiq, sud va harbiy masalalar qayerda ko'rib chiqilgan?",
+            "options": [
+              "Oqsoqollar kengashida",
+              "Beshyuzlar kengashida",
+              "Xalq majlisida",
+              "Xalq sudida"
+            ],
+            "correct": 2,
+            "explanation": "Afinada savdo-sotiq, sud va harbiy masalalar Xalq majlisida ko'rib chiqilgan."
+          },
+          {
+            "id": "nazorat5-9",
+            "q": "Kimning davrida Afinada katta qurilishlar amalga oshirilgan, kam ta'minlangan oilalar uchun bepul teatrlar tashkil qilingan?",
+            "options": [
+              "Perikl",
+              "Solon",
+              "Drakont",
+              "Leonid"
+            ],
+            "correct": 0,
+            "explanation": "Perikl davrida Afinada katta qurilishlar amalga oshirilgan va kambag'al oilalar uchun bepul teatrlar tashkil qilingan."
+          },
+          {
+            "id": "nazorat5-10",
+            "q": "Yunon-fors urushlarida hal qiluvchi dengiz jangi qachon bo'lgan?",
+            "options": [
+              "Mil avv 490-yilda",
+              "Mil avv 479-yilda",
+              "Mil avv 480-yilda",
+              "Mil avv 449-yilda"
+            ],
+            "correct": 2,
+            "explanation": "Yunon-fors urushlarida hal qiluvchi dengiz jangi (Salamin) mil avv 480-yilda bo'lgan."
+          },
+          {
+            "id": "nazorat5-11",
+            "q": "Yunon-makedon urushlari qayerda bo'lgan?",
+            "options": [
+              "Marafon tekisligida",
+              "Xeroneya yaqinidagi Beoteyada",
+              "Korinfda",
+              "Plateya shahri yaqinida"
+            ],
+            "correct": 1,
+            "explanation": "Yunon-makedon urushlari Xeroneya yaqinidagi Beoteyada bo'lgan."
+          },
+          {
+            "id": "nazorat5-12",
+            "q": "Filipp II yunonlar bilan ittifoq tuzishdan maqsadi nima edi?",
+            "options": [
+              "Yunonlarni itoatda tutish uchun",
+              "Rimni bosib olish",
+              "Forslarga qarshi birgalikda kurashish uchun",
+              "To'g'ri javob yo'q"
+            ],
+            "correct": 2,
+            "explanation": "Filipp II yunonlar bilan ittifoq tuzishdan maqsadi forslarga qarshi birgalikda kurashish edi."
+          },
+          {
+            "id": "nazorat5-13",
+            "q": "Harbiy xizmatning 2-yilida xizmatni qayerlarda o'taganlar?",
+            "options": [
+              "Afina chegaralarida va Pirey bandargohida",
+              "Yunoniston shimolida va Egey dengizi bo'ylarida",
+              "Attika chegaralarida va Pirey bandargohida",
+              "Dengiz bo'ylarida"
+            ],
+            "correct": 2,
+            "explanation": "Harbiy xizmatning 2-yilida xizmatni Attika chegaralarida va Pirey bandargohida o'taganlar."
+          },
+          {
+            "id": "nazorat5-14",
+            "q": "Olimpiya o'yinlari qachondan boshlab o'tkazilmay qoldi?",
+            "options": [
+              "Mil avv 776-yil",
+              "Mil avv 594-yil",
+              "Mil avv 394-yil",
+              "Milodiy 394-yil"
+            ],
+            "correct": 3,
+            "explanation": "Olimpiya o'yinlari milodiy 394-yildan boshlab o'tkazilmay qoldi."
+          },
+          {
+            "id": "nazorat5-15",
+            "q": "Yunonlar qachon Troyaga hujum qiladilar?",
+            "options": [
+              "Mil avv 1200-yil",
+              "Mil avv 1300-yil",
+              "Mil avv 3000-yilda",
+              "Mil avv 1800-yilda"
+            ],
+            "correct": 0,
+            "explanation": "Yunonlar mil avv 1200-yilda Troyaga hujum qilganlar."
+          },
+          {
+            "id": "nazorat5-16",
+            "q": "Yunoniston teatrlarida qo'yilgan mashhur 'Shoh Edip' va 'Antigona' tragediyalari muallifi?",
+            "options": [
+              "Gerodot",
+              "Aristofan",
+              "Sofokl",
+              "Solon"
+            ],
+            "correct": 2,
+            "explanation": "'Shoh Edip' va 'Antigona' tragediyalarining muallifi — Sofokl."
+          },
+          {
+            "id": "nazorat5-17",
+            "q": "Xususiy gimnastika-palestrada qaysi fanlar o'rgatilgan?",
+            "options": [
+              "Adabiyot, she'r yozish, musiqa",
+              "Yozuv, hisob, sheriyat",
+              "Adabiyot, matematika, astronomiya",
+              "Sheriyat va musiqa, hisob"
+            ],
+            "correct": 0,
+            "explanation": "Xususiy gimnastika-palestrada adabiyot, she'r yozish, musiqa o'rgatilgan."
+          },
+          {
+            "id": "nazorat5-18",
+            "q": "Xalq majlisida necha yoshdan boshlab ishtirok etish mumkin bo'lgan?",
+            "options": [
+              "20 yosh",
+              "30 yosh",
+              "25 yosh",
+              "18 yosh"
+            ],
+            "correct": 0,
+            "explanation": "Xalq majlisida 20 yoshdan boshlab ishtirok etish mumkin bo'lgan."
+          },
+          {
+            "id": "nazorat5-19",
+            "q": "Yunon-fors urushlaridan qaysi biri mil avv 479-yilda bo'lib o'tgan?",
+            "options": [
+              "Marafon",
+              "Fermopil",
+              "Salamin",
+              "Plateya"
+            ],
+            "correct": 3,
+            "explanation": "Mil avv 479-yilda Plateya jangi bo'lib o'tgan."
+          },
+          {
+            "id": "nazorat5-20",
+            "q": "Yunon shaharlari qayerda Filipp II bilan ittifoq tuzadilar va bu ittifoqqa qaysi davlat qo'shilmaydi?",
+            "options": [
+              "Skopyeda, Sparta qatnashmaydi",
+              "Korinfda, Afina qatnashmaydi",
+              "Korinfda, Sparta qatnashmaydi",
+              "Afinada, Fessaliya qatnashmaydi"
+            ],
+            "correct": 2,
+            "explanation": "Yunon shaharlari Korinfda Filipp II bilan ittifoq tuzganlar, bu ittifoqqa Sparta qatnashmagan."
+          },
+          {
+            "id": "nazorat5-21",
+            "q": "Olimpiya o'yinlarining asoschisi?",
+            "options": [
+              "Axilles",
+              "Gerakl",
+              "Zevs",
+              "Odissey"
+            ],
+            "correct": 1,
+            "explanation": "Olimpiya o'yinlarining asoschisi — Gerakl."
+          },
+          {
+            "id": "nazorat5-22",
+            "q": "Akropoldagi Parfenon ibodatxonasi qurilishiga kim boshchilik qilgan?",
+            "options": [
+              "Dedal",
+              "Fidiy",
+              "Perikl",
+              "Miron"
+            ],
+            "correct": 2,
+            "explanation": "Akropoldagi Parfenon ibodatxonasi qurilishiga Perikl boshchilik qilgan."
+          },
+          {
+            "id": "nazorat5-23",
+            "q": "Troya homiysi qaysi ma'bud bo'lgan?",
+            "options": [
+              "Afina Pallada",
+              "Zevs",
+              "Aid",
+              "Poseydon"
+            ],
+            "correct": 0,
+            "explanation": "Troyaning homiysi Afina Pallada bo'lgan."
+          },
+          {
+            "id": "nazorat5-24",
+            "q": "'Illiada' dostoni Troyani bosib olish uchun harakatlarning nechanchi yilini yoritadi?",
+            "options": [
+              "9-yili",
+              "11-yili",
+              "10-yili",
+              "7-yili"
+            ],
+            "correct": 2,
+            "explanation": "'Illiada' dostoni Troyani bosib olish uchun harakatlarning 10-yilini yoritadi."
+          },
+          {
+            "id": "nazorat5-25",
+            "q": "Troya oti kimning maslahati bilan tayyorlanadi?",
+            "options": [
+              "Odissey",
+              "Axilles",
+              "Gerakl",
+              "Agamemnon"
+            ],
+            "correct": 0,
+            "explanation": "Troya oti Odissey maslahati bilan tayyorlangan."
+          }
+        ]
+      }
+    },
+    "nazorat6": {
+      "title": "Nazorat ishi - 6",
+      "icon": "⚔️",
+      "singleMode": true,
+      "defaultDifficulty": "test",
+      "questionsPerQuiz": 25,
+      "learn": {
+        "test": {
+          "title": "Nazorat ishi - 6: O'rta Osiyo va Yunoniston",
+          "intro": "Fors imperiyasi, O'rta Osiyo va Yunoniston tarixi bo'yicha nazorat ishiga tayyorgarlik.",
+          "sections": [
+            {
+              "heading": "Yunon mifologiyasi",
+              "text": "Yunonlarda dengiz xudosi — Poseydon va Okean (A va C javoblar to'g'ri). Ikkinchi darajali ma'budlar — satir va nimfalar. Atomlar nazariyasi muallifi Frakiyalik Demokrit. 'Hamma narsa olovdan kelib chiqgan' — Geraklit."
+            },
+            {
+              "heading": "Fors imperiyasi va O'rta Osiyo",
+              "text": "Parfiya, Baqtriya, Marg'iyona Kir II davrida bosib olingan. Doro I hukmronligining birinchi yilida So'g'diyona emas, Marg'iyonada qo'zg'alon ko'tarildi. Forslarning saklar ustiga yurishiga Ranosbat boshchilik qildi. Forslar va massagetlar o'rtasidagi jang dahshatli bo'lgan."
+            },
+            {
+              "heading": "O'rta osiyoliklar yunon-fors urushlarida",
+              "text": "Doro I va Kserks davrida o'rtaosiyolik jangchilar yunon-fors urushlarida ishtirok etgan. Kserks qo'shinidagi eng yaxshi jangchilar — saklar va baqtriyaliklar. Marafon jangida saklar qatnashgan. Gerodot ularning qurol-yarog'i haqida ma'lumot yozib qoldirgan."
+            },
+            {
+              "heading": "Aleksandr yurishlari",
+              "text": "Aleksandr Maroqandani egallab olgandan so'ng Kurushkat shahrini egallashga kirishadi. Maroqanda uning yo'lini birinchi bo'lib to'sgan shahar. Aleksandriya Esxata Sirdaryo bo'yida Xo'jand yaqinida saklarga qarshi qurilgan. Oksiart So'g'diyonaga noib qilib tayinlangan. Eng sara otliqlari — fessaliyaliklar."
+            }
+          ]
+        }
+      },
+      "questions": {
+        "test": [
+          {
+            "id": "nazorat6-1",
+            "q": "Yunonlarda dengiz xudosi?",
+            "options": [
+              "Okean",
+              "Aid",
+              "Poseydon",
+              "A va C javoblar"
+            ],
+            "correct": 3,
+            "explanation": "Yunonlarda dengiz xudosi Okean ham, Poseydon ham hisoblangan — A va C javoblar to'g'ri."
+          },
+          {
+            "id": "nazorat6-2",
+            "q": "Hamma narsa ko'zga ko'rinmaydigan mayda zarralar-atomlardan tashkil topgan degan fikr muallifi qayerlik bo'lgan?",
+            "options": [
+              "Afinalik",
+              "Sirakuzalik",
+              "Makedoniyalik",
+              "Frakiyalik"
+            ],
+            "correct": 3,
+            "explanation": "Atomlar nazariyasining muallifi Demokrit Frakiyalik bo'lgan."
+          },
+          {
+            "id": "nazorat6-3",
+            "q": "'Hamma narsa olovdan kelib chiqgan' degan fikr muallifi kim?",
+            "options": [
+              "Demokrit",
+              "Geraklit",
+              "Arximed",
+              "Diogen"
+            ],
+            "correct": 1,
+            "explanation": "'Hamma narsa olovdan kelib chiqgan' degan fikr muallifi — Geraklit."
+          },
+          {
+            "id": "nazorat6-4",
+            "q": "Yunonistonda ikkinchi darajali ma'budlar bo'lgan, ular qanday nomlangan?",
+            "options": [
+              "Titan va sirenalar",
+              "Kentavr, sikloplar",
+              "Satir va nimfalar",
+              "Okean, Atlant"
+            ],
+            "correct": 2,
+            "explanation": "Yunonistondagi ikkinchi darajali ma'budlar — satir va nimfalar."
+          },
+          {
+            "id": "nazorat6-5",
+            "q": "Parfiya, Baqtriya, Marg'iyona qaysi fors podshosi davrida bosib olingan?",
+            "options": [
+              "Kir II",
+              "Doro I",
+              "Kambiz II",
+              "Kserks"
+            ],
+            "correct": 0,
+            "explanation": "Parfiya, Baqtriya, Marg'iyona Kir II davrida bosib olingan."
+          },
+          {
+            "id": "nazorat6-6",
+            "q": "Doro I hukmronligining birinchi yilida qayerda forslarga qarshi qo'zg'alon ko'tariladi?",
+            "options": [
+              "So'g'diyonada",
+              "Marg'iyonada",
+              "Baqtriyada",
+              "Pariyada"
+            ],
+            "correct": 1,
+            "explanation": "Doro I hukmronligining birinchi yilida Marg'iyonada forslarga qarshi qo'zg'alon ko'tarildi."
+          },
+          {
+            "id": "nazorat6-7",
+            "q": "'... barcha janglardan ham dahshatlirog'i edi. Oldin har ikki dushman kuchlar bir-biriga qarshi jangovar saf tizishib, kamondan o'q yog'dirdi...' bu jang kimlar o'rtasida bo'lgan?",
+            "options": [
+              "Forslar va saklar",
+              "Forslar va massagetlar",
+              "Yunon-makedon va baqtriyaliklar",
+              "Yunon-makedonlar va so'g'dlar"
+            ],
+            "correct": 1,
+            "explanation": "Bu tavsif forslar va massagetlar o'rtasidagi jangni ifodalaydi."
+          },
+          {
+            "id": "nazorat6-8",
+            "q": "Quyidagilardan qaysi ma'lumotlar Behistun qoya toshlariga yozib qolingan?",
+            "options": [
+              "Frada",
+              "Shiroq",
+              "To'maris",
+              "A va B"
+            ],
+            "correct": 0,
+            "explanation": "Behistun toshlariga Frada haqidagi ma'lumot yozib qolingan."
+          },
+          {
+            "id": "nazorat6-9",
+            "q": "Baqtriya satrapi Dadarshish kim boshchiligidagi qo'zg'alonni bostirgan?",
+            "options": [
+              "Frada",
+              "Shiroq",
+              "To'maris",
+              "Spitamana"
+            ],
+            "correct": 0,
+            "explanation": "Baqtriya satrapi Dadarshish Frada boshchiligidagi qo'zg'alonni bostirgan."
+          },
+          {
+            "id": "nazorat6-10",
+            "q": "Forslarning saklar ustiga qilgan yurishiga kim boshchilik qilgan?",
+            "options": [
+              "Dadarshish",
+              "Bess",
+              "Ranosbat",
+              "Doro III"
+            ],
+            "correct": 2,
+            "explanation": "Forslarning saklar ustiga qilgan yurishiga Ranosbat boshchilik qilgan."
+          },
+          {
+            "id": "nazorat6-11",
+            "q": "Qaysi fors podsholarining davrida o'rtaosiyolik jangchilar yunon-fors urushlarida ishtirok etgan?",
+            "options": [
+              "Kir II va Kambiz II",
+              "Doro I va Kserks",
+              "Doro III va Bess",
+              "Kir II va Doro I"
+            ],
+            "correct": 1,
+            "explanation": "O'rtaosiyolik jangchilar Doro I va Kserks davrida yunon-fors urushlarida ishtirok etgan."
+          },
+          {
+            "id": "nazorat6-12",
+            "q": "Kimlar kamon va nayza bilan qurollangan?",
+            "options": [
+              "Baqtriyaliklar",
+              "So'g'dlar",
+              "Xorazmliklar",
+              "Hamma javoblar to'g'ri"
+            ],
+            "correct": 3,
+            "explanation": "Baqtriyaliklar, so'g'dlar va xorazmliklar hammasi kamon va nayza bilan qurollangan."
+          },
+          {
+            "id": "nazorat6-13",
+            "q": "Kim yunonlar ustiga yurish qilgan o'rtaosiyolik jangchilar qurol-yarog'i haqida ma'lumot yozib qoldirgan?",
+            "options": [
+              "Strabon",
+              "Poliyen",
+              "Gerodot",
+              "Arrian"
+            ],
+            "correct": 2,
+            "explanation": "Gerodot o'rtaosiyolik jangchilarning qurol-yarog'i haqida ma'lumot yozib qoldirgan."
+          },
+          {
+            "id": "nazorat6-14",
+            "q": "Kimlar Marafon jangida qatnashgan?",
+            "options": [
+              "Saklar",
+              "Baqtriyaliklar",
+              "So'g'dlar",
+              "Xorazmliklar"
+            ],
+            "correct": 0,
+            "explanation": "Marafon jangida saklar qatnashgan."
+          },
+          {
+            "id": "nazorat6-15",
+            "q": "Kimlar Kserks qo'shinidagi eng yaxshi jangchilar bo'lgan?",
+            "options": [
+              "Saklar va baqtriyaliklar",
+              "So'g'dlar va baqtriyaliklar",
+              "Baqtriyaliklar va xorazmiylar",
+              "Xorazmliklar va so'g'dlar"
+            ],
+            "correct": 0,
+            "explanation": "Kserks qo'shinidagi eng yaxshi jangchilar saklar va baqtriyaliklar bo'lgan."
+          },
+          {
+            "id": "nazorat6-16",
+            "q": "Gerodotning massagetlar haqidagi hikoyasi to'g'ri berilmagan qatorni aniqlang?",
+            "options": [
+              "Massagetlar skiflar singari kiyinadilar",
+              "G'ayratli tangriga g'ayratli jonliq otni qurbon qiladilar",
+              "Oks (Amudaryoda) baliq ko'p",
+              "Massagetlar g'alla ekmaydi"
+            ],
+            "correct": 2,
+            "explanation": "Gerodot Amudaryoda baliq ko'p degan ma'lumotni noto'g'ri keltirgan — bu to'g'ri emas."
+          },
+          {
+            "id": "nazorat6-17",
+            "q": "Mil avv VI-IV asrlarda hunarmandchilik markazlari bo'lgan shaharlar?",
+            "options": [
+              "Ko'ktepa, Daratepa, Xumbuztepa, Ko'zaliqir",
+              "Kampirtepa, Uzundara, Ko'zaliqir, Marv",
+              "Qiziltepa, Afrosiyob, Yerqo'rg'on, Uzunqir",
+              "Ko'ktepa, Daratepa, Yerqo'rg'on, Marv"
+            ],
+            "correct": 0,
+            "explanation": "Mil avv VI-IV asrlarda hunarmandchilik markazlari: Ko'ktepa, Daratepa, Xumbuztepa, Ko'zaliqir."
+          },
+          {
+            "id": "nazorat6-18",
+            "q": "Suzadagi saroy qurilishi haqida Doro I yozuvidan noto'g'ri ma'lumotni belgilang?",
+            "options": [
+              "Oltin — Sard va Baqtriyadan olib kelindi",
+              "Olmos, la'l, temir — So'g'diyonadan olib kelindi",
+              "To'q ko'k yoqut — Xorazmdan olib kelindi",
+              "Kumush va jez — Misrdan olib kelindi"
+            ],
+            "correct": 1,
+            "explanation": "Doro I yozuvida olmos, la'l va temirning So'g'diyonadan keltirilgani noto'g'ri ma'lumot."
+          },
+          {
+            "id": "nazorat6-19",
+            "q": "O'rta Osiyoda dastlabki tanga pullar nechanchi asrda tarqala boshlagan?",
+            "options": [
+              "Mil avv VI-IV asrlarda",
+              "Mil avv V-IV asrlarda",
+              "Mil avv VI-V asrlarda",
+              "Mil avv VII-V asrlarda"
+            ],
+            "correct": 1,
+            "explanation": "O'rta Osiyoda dastlabki tanga pullar mil avv V-IV asrlarda tarqala boshlagan."
+          },
+          {
+            "id": "nazorat6-20",
+            "q": "'Oks xazinasi' haqida berilgan ma'lumotlardan noto'g'risini belgilang?",
+            "options": [
+              "1877-yilda Qo'bodiyon vodiysidan, qadimgi Baqtriya yeridan topilgan",
+              "1880-yil may oyi Afg'onistonning janubi, Kobuldan 3 kunlik yo'lda Peshovarga ketayotgan samarqandlik savdogarlar karvoniga qaroqchilar hujum qildi",
+              "1905-yilda O. Dalton Buxoro savdogarlari xazinasi to'g'risida 'Oks xazinasi' degan kitob yozdi",
+              "Kapitan F. Berton harbiy posti savdogarlarga yordam berdi"
+            ],
+            "correct": 1,
+            "explanation": "'Oks xazinasi' haqidagi 1880-yilgi voqea haqida berilgan ma'lumot noto'g'ri."
+          },
+          {
+            "id": "nazorat6-21",
+            "q": "Makedoniyalik Aleksandr qayerni egallab olgandan so'ng, Kurushkat shahrini egallashga kirishadi?",
+            "options": [
+              "So'g'diyona",
+              "Baqtra",
+              "Maroqanda",
+              "Xojand"
+            ],
+            "correct": 2,
+            "explanation": "Aleksandr Maroqandani egallab olgandan so'ng Kurushkat shahrini egallashga kirishadi."
+          },
+          {
+            "id": "nazorat6-22",
+            "q": "Makedoniyalik Aleksandr Oks ortida yashovchi xalqlarni bo'ysundirish uchun harakat boshlaganda birinchi bo'lib uning yo'lini to'sgan shahar?",
+            "options": [
+              "So'g'diyona",
+              "Baqtra",
+              "Maroqanda",
+              "Xojand"
+            ],
+            "correct": 2,
+            "explanation": "Aleksandrning yo'lini birinchi bo'lib to'sgan shahar — Maroqanda."
+          },
+          {
+            "id": "nazorat6-23",
+            "q": "Aleksandriya Esxata qayerda kimlarga qarshi kurashish uchun quriladi?",
+            "options": [
+              "Politimet daryosi bo'yida sug'dlarga qarshi",
+              "Oks bo'yida saklarga qarshi",
+              "Sirdaryo bo'yida Maroqanda yaqinida baqtriyaliklarga qarshi",
+              "Sirdaryo bo'yida Xo'jand yaqinida saklarga qarshi"
+            ],
+            "correct": 3,
+            "explanation": "Aleksandriya Esxata Sirdaryo bo'yida Xo'jand yaqinida saklarga qarshi kurashish uchun qurilgan."
+          },
+          {
+            "id": "nazorat6-24",
+            "q": "Aleksandr Oksiartni qayerga noib qilib tayinlaydi?",
+            "options": [
+              "Baqtriya viloyatlaridan biriga",
+              "Maroqandaga",
+              "So'g'diyonaga",
+              "Parfiyaga"
+            ],
+            "correct": 0,
+            "explanation": "Aleksandr Oksiartni Baqtriya viloyatlaridan biriga noib qilib tayinlagan."
+          },
+          {
+            "id": "nazorat6-25",
+            "q": "Dunyoning eng sara otliqlari hisoblangan Aleksandr qo'shinidagi jangchilar kimlar edi?",
+            "options": [
+              "Agrianliklar",
+              "Peonliklar",
+              "Makedoniyaliklar",
+              "Fessaliyaliklar"
+            ],
+            "correct": 3,
+            "explanation": "Aleksandr qo'shinidagi eng sara otliqlari — fessaliyaliklar hisoblangan."
           }
         ]
       }
