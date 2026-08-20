@@ -3039,3 +3039,113 @@ body {
     padding: 1.75rem 1.25rem;
   }
 }
+
+/* ─── History photos layer (visual only) ─── */
+.bg-img-main {
+  opacity: 0.22;
+  background-image:
+    linear-gradient(180deg, rgba(8, 12, 18, 0.55), rgba(8, 12, 18, 0.88)),
+    url("https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=1400&q=70&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center 35%;
+  filter: saturate(0.85) contrast(1.05);
+  animation: bgDrift 28s ease-in-out infinite alternate;
+}
+
+.hero-banner {
+  min-height: 230px;
+  background: #101820;
+  overflow: hidden;
+}
+
+.hero-banner-img {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("images/hero-ozbekiston-tarixi.png"),
+    url("https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=1200&q=75&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.04);
+  animation: heroPhotoDrift 22s ease-in-out infinite alternate;
+}
+
+@keyframes heroPhotoDrift {
+  from { transform: scale(1.04) translateY(0); }
+  to { transform: scale(1.1) translateY(-10px); }
+}
+
+.hero-banner-overlay {
+  background:
+    linear-gradient(115deg, rgba(8, 12, 18, 0.82) 0%, rgba(8, 12, 18, 0.35) 48%, rgba(8, 12, 18, 0.7) 100%),
+    linear-gradient(to top, rgba(8, 12, 18, 0.85), transparent 55%);
+}
+
+.card-bg-img {
+  opacity: 0.42;
+  filter: grayscale(10%) saturate(1.05) contrast(1.05);
+}
+
+.card-bg-overlay {
+  background: linear-gradient(
+    145deg,
+    rgba(8, 12, 18, 0.78) 0%,
+    rgba(8, 12, 18, 0.42) 45%,
+    rgba(8, 12, 18, 0.82) 100%
+  );
+}
+
+.category-card:hover .card-bg-img {
+  opacity: 0.58;
+  transform: scale(1.08);
+}
+
+.category-card:hover .card-bg-overlay {
+  background: linear-gradient(
+    145deg,
+    rgba(8, 12, 18, 0.62) 0%,
+    rgba(8, 12, 18, 0.28) 50%,
+    rgba(8, 12, 18, 0.7) 100%
+  );
+}
+
+.auth-card {
+  background-image:
+    linear-gradient(165deg, rgba(28, 22, 14, 0.94) 0%, rgba(12, 16, 24, 0.97) 55%, rgba(8, 12, 18, 0.98) 100%),
+    url("https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&q=65&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+}
+
+.quiz-card {
+  background-image:
+    linear-gradient(168deg, rgba(55, 38, 18, 0.88) 0%, rgba(22, 18, 12, 0.94) 42%, rgba(12, 16, 22, 0.97) 100%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(201, 162, 39, 0.04) 28px,
+      rgba(201, 162, 39, 0.04) 29px
+    ),
+    url("https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=900&q=60&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+}
+
+.progress-dash {
+  background-image:
+    linear-gradient(160deg, rgba(28, 22, 14, 0.88), rgba(12, 16, 22, 0.95)),
+    url("https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=1000&q=60&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center top;
+}
+
+@media (max-width: 600px) {
+  .hero-banner {
+    min-height: 190px;
+  }
+  .bg-img-main {
+    opacity: 0.14;
+  }
+}
