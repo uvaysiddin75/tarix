@@ -11,6 +11,7 @@
   let aiMode = "smart";
   let registrationEnabled = true;
   let adminEmail = null;
+  let serverOnline = false;
 
   function getToken() {
     return localStorage.getItem(TOKEN_KEY);
@@ -59,17 +60,13 @@
   }
 
   function useServerMode() {
-    // On Pages keep static — Render sleep used to freeze the whole app
-    if (isGithubPages()) {
-      useStaticModeLocal();
-      return;
-    }
     if (window.ApiMode) window.ApiMode.useServer();
     else {
       window.API_BASE = RENDER_URL;
       window.STATIC_MODE = false;
       if (window.StaticApi) window.StaticApi.enabled = false;
     }
+    serverOnline = true;
   }
 
   function useStaticModeLocal() {
@@ -100,21 +97,34 @@
 
   async function tryStaticLogin(email, password) {
     useStaticModeLocal();
-    const res = await apiFetch("/api/auth/login", {
+    const res = await window.StaticApi.handle("/api/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
     });
     const data = await res.json();
-    if (!res.ok) {
-      return { ok: false, error: data.error || "Kirish muvaffaqiyatsiz" };
-    }
+    if (!res.ok) return { ok: false, error: data.error || "Kirish muvaffaqiyatsiz" };
     setToken(data.token);
     currentUser = data.user;
     return { ok: true, user: data.user };
   }
 
+  async function tryServerLogin(email, password, timeout = SERVER_TIMEOUT) {
+    const res = await fetchServer(
+      "/api/auth/login",
+      { method: "POST", body: JSON.stringify({ email, password }) },
+      timeout
+    );
+    if (!res?.ok) return null;
+    const data = await res.json();
+    if (!data?.token) return null;
+    useServerMode();
+    setToken(data.token);
+    currentUser = data.user;
+    return data;
+  }
+
   async function apiFetch(url, options = {}) {
-    if (isGithubPages() || window.StaticApi?.enabled || window.STATIC_MODE) {
+    if (window.StaticApi?.enabled || window.STATIC_MODE) {
       useStaticModeLocal();
       return window.StaticApi.handle(url, {
         ...options,
@@ -123,12 +133,17 @@
     }
 
     try {
-      return await fetch(apiUrl(url), {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), SERVER_TIMEOUT);
+      const res = await fetch(apiUrl(url), {
         ...options,
+        signal: controller.signal,
         headers: { ...authHeaders(), ...options.headers },
         credentials: "omit",
       });
-    } catch (err) {
+      clearTimeout(timer);
+      return res;
+    } catch {
       useStaticModeLocal();
       if (window.StaticApi) {
         return window.StaticApi.handle(url, {
@@ -136,20 +151,24 @@
           headers: { ...authHeaders(), ...options.headers },
         });
       }
-      throw err || new Error("Server bilan bog'lanib bo'lmadi");
+      throw new Error("Server bilan bog'lanib bo'lmadi");
     }
   }
 
   async function checkAuth() {
-    // Pages: always local; drop old Render tokens that break login
-    if (isGithubPages()) {
-      useStaticModeLocal();
-      const token = getToken();
-      if (token && !token.startsWith("static.")) setToken(null);
+    if (window.initApiBase) {
+      try {
+        await window.initApiBase();
+      } catch {
+        /* ignore */
+      }
     }
 
-    if (window.StaticApi?.enabled || window.STATIC_MODE || isGithubPages()) {
-      useStaticModeLocal();
+    const token = getToken();
+
+    // Server token — check Render session
+    if (token && !token.startsWith("static.") && !window.STATIC_MODE) {
+      useServerMode();
       try {
         const res = await apiFetch("/api/auth/status");
         const data = await res.json();
@@ -159,8 +178,22 @@
           return data.user;
         }
       } catch {
-        /* ignore */
+        /* fall through to static */
       }
+    }
+
+    // Static token or server unavailable
+    useStaticModeLocal();
+    try {
+      const res = await apiFetch("/api/auth/status");
+      const data = await res.json();
+      applyAuthMeta(data);
+      if (data.authenticated && data.user) {
+        currentUser = data.user;
+        return data.user;
+      }
+    } catch {
+      /* ignore */
     }
 
     currentUser = null;
@@ -178,7 +211,14 @@
     email = email.trim();
     password = password.trim();
 
-    // Same as before: local login first (instant on GitHub Pages)
+    // 1) Try Render server (shared progress between devices)
+    const server = await tryServerLogin(email, password, 6000);
+    if (server?.user) {
+      saveRemember(email, password);
+      return server.user;
+    }
+
+    // 2) Fallback: local login (works even when Render sleeps)
     const local = await tryStaticLogin(email, password);
     if (local.ok) {
       saveRemember(email, password);
@@ -188,7 +228,7 @@
     throw new Error(
       local.error && local.error !== "Email yoki parol noto'g'ri"
         ? local.error
-        : "Email yoki parol noto'g'ri. Yangi qurilmada — «Ro'yxatdan o'tish» orqali yarating."
+        : "Email yoki parol noto'g'ri. Yangi qurilmada — «Ro'yxatdan o'tish»."
     );
   }
 
@@ -197,13 +237,28 @@
     email = email.trim();
     password = password.trim();
 
-    useStaticModeLocal();
-    const res = await apiFetch("/api/auth/register", {
+    // Try server first
+    const res = await fetchServer("/api/auth/register", {
       method: "POST",
       body: JSON.stringify({ name, email, password }),
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Ro'yxatdan o'tish muvaffaqiyatsiz");
+    if (res?.ok) {
+      const data = await res.json();
+      useServerMode();
+      setToken(data.token);
+      currentUser = data.user;
+      saveRemember(email, password, true);
+      return data.user;
+    }
+
+    // Fallback local
+    useStaticModeLocal();
+    const localRes = await apiFetch("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password }),
+    });
+    const data = await localRes.json();
+    if (!localRes.ok) throw new Error(data.error || "Ro'yxatdan o'tish muvaffaqiyatsiz");
     setToken(data.token);
     currentUser = data.user;
     saveRemember(email, password, true);
@@ -220,6 +275,17 @@
   }
 
   async function saveProgress(category, score, total) {
+    if (!window.STATIC_MODE && serverOnline) {
+      try {
+        await apiFetch("/api/progress", {
+          method: "POST",
+          body: JSON.stringify({ category, score, total }),
+        });
+        return;
+      } catch {
+        /* static backup */
+      }
+    }
     useStaticModeLocal();
     await apiFetch("/api/progress", {
       method: "POST",
@@ -239,7 +305,6 @@
   }
 
   async function fetchAllUsersProgress() {
-    useStaticModeLocal();
     const res = await apiFetch("/api/users/progress");
     const json = await res.json();
     if (!res.ok) throw new Error(json.error || "Ma'lumot yuklanmadi");
@@ -255,7 +320,7 @@
   }
 
   function isStaticMode() {
-    return Boolean(window.STATIC_MODE) || isGithubPages();
+    return Boolean(window.STATIC_MODE);
   }
 
   function isAiEnabled() {
